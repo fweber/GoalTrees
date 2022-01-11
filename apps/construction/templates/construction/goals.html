@@ -1,0 +1,17 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    <body>
+    {% if goal_list %}
+        <ul>
+            {% for goal in goal_list %}
+                <li><a href="{% url 'explore_goal' goal.id %}">{{ goal }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No goals available.</p>
+    {% endif %}
+
+{% endblock %}
+

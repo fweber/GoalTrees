@@ -1,0 +1,13 @@
+{% extends "construction/base_visu.html" %}
+
+
+{% block content %}
+    <h1>Circlepacking</h1>
+
+    <svg></svg>
+    <script src="http://d3js.org/d3.v2.js"></script>
+    <script>
+        var nodeData = JSON.parse('{{ tree | escapejs }}');
+        draw_circlepacking(nodeData)
+    </script>
+{% endblock %}

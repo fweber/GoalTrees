@@ -1,0 +1,12 @@
+{% extends "construction/base_visu.html" %}
+
+
+{% block content %}
+    <h1>Dendrogram</h1>
+    {#    Dendrogram following the tutorial at https://www.d3-graph-gallery.com/graph/dendrogram_basic.html#}
+    <svg></svg>
+    <script>
+        var nodeData = JSON.parse('{{ tree | escapejs }}');
+        draw_dendrogram(nodeData)
+    </script>
+{% endblock %}

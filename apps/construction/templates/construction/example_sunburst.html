@@ -1,0 +1,98 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+    <style>
+
+        .node {
+            cursor: pointer;
+        }
+
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 3px;
+        }
+
+        .node text {
+            font: 12px sans-serif;
+        }
+
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 2px;
+        }
+
+        button {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+        }
+
+        button:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .previous {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+        .next {
+            background-color: steelblue;
+            color: white;
+        }
+
+        .round {
+            border-radius: 50%;
+        }
+    </style>
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+{#        <div id="hansi" class="jumbotron my-4">#}
+          <div id="hansi">
+            <h1 class="display-3">Ein praktisches Beispiel</h1>
+            <p class="lead"> Du siehst hier einen Zielbaum mit dem <b>Hauptziel</b>
+                "Ein gutes Abitur erreichen".
+                Von diesem zweigen Äste ab zu <b>Teilzielen</b>.
+
+                "Abi-Prüfungen gut bestehen" und "Module Q1 und Q2"
+                sind demnach <b>Teilziele</b> des Fernzieles "Ein gutes
+                Abitur erreichen" - ohne das Erreichen der
+                <b>Teilziele</b>, ist es nicht möglich, das Fernziel zu
+                meistern. Ein gutes Abitur kannst Du nur erreichen, wenn Du die Module
+                Q1 und Q2 meisterst.
+
+                Nach diesem Schema geht es weiter: Die Teilziele werden konkreter und
+                detaillierter, bis sie schließlich in konkrete
+                <b>Aktionen und Strategien</b> münden (z.B. "Hausaufgaben erledigen").
+                Im Idealfall wird jedes Ziel in konkrete Aktionen heruntergebrochen.
+
+            </p>
+
+
+            <script type="module" src="static/d3_js/sunburst.js"></script>
+
+            <form action="{% url 'next_view' %}" method="post">{% csrf_token %}
+                <button class="btn btn-primary btn-lg" type="submit" name="current" value="example_tree">verstanden
+                </button>
+            </form>
+
+        </div>
+
+
+        <!-- Page Features -->
+        <div class="row text-center">
+
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
+

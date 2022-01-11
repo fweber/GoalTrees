@@ -1,0 +1,12 @@
+{% extends "construction/base_visu.html" %}
+
+
+{% block content %}
+    <h1>Treemap</h1>
+    {#    Treemap from https://www.d3-graph-gallery.com/graph/treemap_json.html#}
+    <svg></svg>
+    <script>
+        var nodeData = JSON.parse('{{ tree | escapejs }}');
+        draw_treemap(nodeData)
+    </script>
+{% endblock %}

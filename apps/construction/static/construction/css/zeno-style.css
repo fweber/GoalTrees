@@ -1,0 +1,16 @@
+
+.likert {
+    float: left;
+    padding: 0 1em;
+    text-align: center;
+}
+
+.test {
+    color: red;
+}
+
+.tree {
+    border: 1px solid #000000;
+    width: 1800px;
+    height: 700px;
+}

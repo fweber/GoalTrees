@@ -1,0 +1,171 @@
+{% extends "construction/base.html" %}
+
+{% load static %}
+
+{% load i18n %}
+{% load l10n %}
+
+{% block content %}
+
+    <style>
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .content-container .latent-variables-container, .content-container .tree-container {
+            width: 50%;
+        }
+        @media (max-width: 1000px) {
+            .content-container .latent-variables-container, .content-container .tree-container {
+                width: 100%;
+            }
+        }
+        .latent-variables-container {
+            padding: 0 20px;
+        }
+
+        /* arrow stylings */
+        .slick-prev, .slick-next {
+            position: absolute;
+            top: 50%;
+            font-size: 0;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            cursor: pointer;
+            color: transparent;
+            background: transparent;
+            border: none;
+            outline: none;
+            background-repeat: no-repeat;
+        }
+        .slick-next {
+            right: -25px;
+            background-image: url("{% static 'construction/images/arrow_right.svg' %}");
+        }
+        .slick-prev {
+            left: -25px;
+            background-image: url("{% static 'construction/images/arrow_left.svg' %}");
+        }
+        .slick-disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    </style>
+
+    <h1>{{ title }}</h1>
+
+    {% if introduction %}
+        {{ introduction|safe }}
+    {% endif %}
+
+{#    {% include "construction/tree/tree_editor.html" %}#}
+
+    <div class="content-container">
+        <div class="latent-variables-container">
+
+            {% if root_goals|length > 1 %}
+                <div class="select-tree">
+                    <label for="select-tree-select">Deine Zielbäume:</label>
+                    <div>
+                        <select class="form-control" id="select-tree-select">
+                            {% for goal in root_goals %}
+                                <option value="{{ goal.title }}" {% if goal.tree_id ==  tree_id %}selected{% endif %}
+                                    onclick="window.location.href='{% url 'explore_gcq' tree_id=goal.tree_id %}'">{{ goal.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            {% endif %}
+
+            <br>
+
+            <div class="select-latent-variable">
+                <label for="latent-variable-select">Latente Variable:</label>
+                <div>
+                    <select class="form-control" id="latent-variable-select">
+                        {% for variable in latent_variables %}
+                            <option value="{{ variable }}" {% if variable == current_latent_variable %}selected{% endif %}
+                                    data-index="{{ forloop.counter0 }}">{{ variable }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="latent-variables-scores">
+                {% for latent_score in latent_scores %}
+                    <div class="latent-variable-scores-item">
+                        <h2>{{ latent_score.latent_variable }}</h2>
+                        {% if latent_score.latent_variable_description %}
+                            <p>{{ latent_score.latent_variable_description }}</p>
+                        {% endif %}
+                        <table class="table score-table">
+                            <thead>
+                                <tr>
+                                    <th>Ziel</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for goal in latent_score.score_goals %}
+                                <tr>
+                                    <td>{{ goal.title }}</td>
+                                    <td>{{ goal.score|localize }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="tree-container">
+            <svg id="tree_svg"></svg>
+        </div>
+    </div>
+
+    <button class="butt" id="continue-button" onclick="location.href = '{% url 'next_view' %}'" {% if min_number_goals and personal_goals|length < min_number_goals %}disabled{% endif %}>{% translate "Zurück zur Baumerstellung" %}</button>
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="{% static 'construction/js/d3_visualizations.js' %}"></script>
+
+    <script>
+        var nodeData = JSON.parse('{{ tree | escapejs }}');
+        FONTSIZE = "10px";
+        console.log(nodeData);
+        function drawTree() {
+            WIDTH = parseInt(d3.select('.tree-container').style('width'), 10);
+            HEIGHT = WIDTH * 0.5625;
+            var condition = {{ condition }};
+            visualize(condition, nodeData, "tree_svg");
+        }
+        drawTree();
+        window.addEventListener('resize', drawTree);
+    </script>
+
+    <!-- load slick.js -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+        var selectedSlide = $("#latent-variable-select").find(":selected").data('index');
+        $(".latent-variables-scores").slick({
+            infinite: false,
+            initialSlide: selectedSlide,
+        });
+
+        $("#latent-variable-select").change(function() {
+            var selectedSlide = $(this).find(":selected").data('index');
+            $(".latent-variables-scores").slick("slickGoTo", selectedSlide);
+        });
+
+        $('.latent-variables-scores').on('afterChange', function(event, slick, currentSlide) {
+            $("#latent-variable-select option[data-index='"+currentSlide+"']").prop("selected", true);
+        });
+    </script>
+
+{% endblock %}

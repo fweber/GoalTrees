@@ -1,0 +1,4 @@
+pandas
+django
+psycopg2
+django-import-export

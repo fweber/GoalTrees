@@ -1,0 +1,162 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    {% load i18n %}
+
+    <style>
+        .user-data-table td {
+            padding: 10px 0 10px 0;
+        }
+
+        .user-data-table tr > td:first-child label {
+            padding-right: 20px;
+        }
+
+        label.userdata-radio-input input {
+            margin-right: 5px;
+        }
+
+        label.userdata-radio-input {
+            margin-right: 5px;
+        }
+    </style>
+
+    <h1>{{ title }}</h1>
+    {% if introduction %}
+        {{ introduction|safe }}
+    {% endif %}
+
+    <form action="{% url 'register_participant' %}" method="post">
+        {% csrf_token %}
+
+        {# not displayed inputs filled by js #}
+        <input type="hidden" id="screen_size" name="screen_size">
+        <input type="hidden" id="operating_system" name="operating_system">
+        <input type="hidden" id="browser_language" name="browser_language">
+
+        <table class="user-data-table">
+            {# set column widths #}
+            <colgroup>
+               <col span="1" style="width: 50%;">
+               <col span="1" style="width: 50%;">
+            </colgroup>
+
+            <tr>
+                <td><label for="age">{% translate "Wie alt bist Du?" %}</label></td>
+                <td><input type="number" min="16" max="99" id="age" name="age" {% if required %}required{% endif %}></td>
+            </tr>
+
+            <tr>
+                <td><label for="gender">{% translate "Mit welchem Geschlecht identifizierst Du dich?" %}</label></td>
+                <td>
+                    <label class="userdata-radio-input"><input type="radio" name="gender" id="gender" value="male" {% if required %}required{% endif %}>{% translate "männlich" %}</label>
+                    <label class="userdata-radio-input"><input type="radio" name="gender" id="gender" value="female">{% translate "weiblich" %}</label>
+                    <label class="userdata-radio-input"><input type="radio" name="gender" id="gender" value="others">{% translate "divers/anders" %}</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="subject">{% translate "Welches Fach studierst Du?" %}</label></td>
+                <td><input type="text" minlength="5" pattern="^[A-Za-z].+" title="{% translate "Die Eingabe muss mind. 5 Zeichen enthalten und mit einem Buchstaben beginnen" %}" id="subject" name="subject" {% if required %}required{% endif %}></td>
+            </tr>
+
+             <tr>
+                <td><label for="semester">
+                    {% translate "In welchem Semester bist Du?" %}<br>
+                    {% translate "(Bachelor- und Mastersemester aufaddiert)" %}
+                </label></td>
+                <td><input type="number" min="1" max="50" id="semester" name="semester" {% if required %}required{% endif %}></td>
+            </tr>
+
+            <tr>
+                <td><label for="tool">{% translate "Hast Du schon einmal Tools für die Studienplanungshilfe benutzt?" %}</label></td>
+                <td>
+                    <label class="userdata-radio-input">
+                         <input type="radio" name="tool" id="tool" value="yes" {% if required %}required{% endif %}>
+                         {% translate "Ja, und zwar" %} <input type="text" id="tool_name" name="tool_name" onclick="$('#tool').prop('checked', true);">
+                    </label>
+                    <br>
+                    <label class="userdata-radio-input"><input type="radio" name="tool" id="tool" value="no">{% translate "Nein" %}</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="consulting">{% translate "Hast Du schon einmal eine Studienberatung für Deine Studienplanung in Anspruch genommen? Wenn ja - in welcher Form?" %}</label></td>
+                <td>
+                    <label class="userdata-radio-input">
+                         <input type="radio" name="consulting" id="consulting" value="yes" {% if required %}required{% endif %}>
+                         {% translate "Ja, und zwar" %} <input type="text" id="consulting_name" name="consulting_form" onclick="$('#consulting').prop('checked', true);">
+                    </label>
+                    <br>
+                    <label class="userdata-radio-input"><input type="radio" name="consulting" id="consulting" value="no">{% translate "Nein" %}</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label for="handling">{% translate "Wie sicher fühlst Du Dich im Umgang mit Computern?" %}</label></td>
+                <td>
+                    <label class="userdata-radio-input">
+                        <input type="radio" name="handling" id="handling" value="{% translate "Ich fühle mich im Umgang mit Computern sicher und finde mich in neuen Programmen intuitiv und schnell zurecht." %}" {% if required %}required{% endif %}>
+                        {% translate "Ich fühle mich im Umgang mit Computern sicher und finde mich in neuen Programmen intuitiv und schnell zurecht." %}
+                    </label>
+                    <label class="userdata-radio-input">
+                        <input type="radio" name="handling" id="handling" value="{% translate "Ich fühle mich im Umgang mit Computern sicher, aber finde mich in neuen Programmen nicht intuitiv zurecht." %}">
+                        {% translate "Ich fühle mich im Umgang mit Computern sicher, aber finde mich in neuen Programmen nicht intuitiv zurecht." %}
+                    </label>
+                    <label class="userdata-radio-input">
+                        <input type="radio" name="handling" id="handling" value="{% translate "Ich fühle mich im Umgang mit Computern unsicher, aber finde mich in neuen Programmen intuitiv zurecht." %}">
+                        {% translate "Ich fühle mich im Umgang mit Computern unsicher, aber finde mich in neuen Programmen intuitiv zurecht." %}
+                    </label>
+                    <label class="userdata-radio-input">
+                        <input type="radio" name="handling" id="handling" value="{% translate "Ich fühle mich im Umgang mit Computern unsicher und finde mich in neuen Programmen nicht intuitiv zurecht." %}">
+                        {% translate "Ich fühle mich im Umgang mit Computern unsicher und finde mich in neuen Programmen nicht intuitiv zurecht." %}
+                    </label>
+
+                </td>
+            </tr>
+
+            {% if ask_english_proficiency %}
+                <tr>
+                    <td><label for="english">{% translate "Wie würdest Du Deine Englisch-Kenntnisse beschreiben? (Voraussetzung für die Teilnahme an dieser Studie ist mindestens B2-Nivea)" %}</label></td>
+                    <td>
+                        <label class="userdata-radio-input">
+                            <input type="radio" name="english" id="english" value="{% translate "Überdurchschnittlich (B2)" %}">
+                            {% translate "Überdurchschnittlich (B2)" %}
+                        </label>
+                        <br>
+                        <label class="userdata-radio-input">
+                            <input type="radio" name="english" id="english" value="{% translate "Fortgeschritten (C1)" %}">
+                            {% translate "Fortgeschritten (C1)" %}
+                        </label>
+                        <br>
+                        <label class="userdata-radio-input">
+                            <input type="radio" name="english" id="english" value="{% translate "Erfahren (C2)" %}">
+                            {% translate "Erfahren (C2)" %}
+                        </label>
+                        <br>
+                        <label class="userdata-radio-input">
+                            <input type="radio" name="english" id="english" value="{% translate "Muttersprache oder Zweitsprache" %}">
+                            {% translate "Muttersprache oder Zweitsprache" %}
+                        </label>
+                    </td>
+                </tr>
+            {% endif %}
+            <input type="hidden" name="current" value="userdata">
+
+        </table>
+        <br>
+{#        <button class="btn btn-primary btn-lg" type="submit">Speichern und weiter</button>#}
+        <button type="submit">{% translate "Speichern und fortfahren" %}</button>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            $("#screen_size").val(screen.width+"x"+screen.height);
+            $("#operating_system").val(navigator.platform);
+            $("#browser_language").val(navigator.language);
+        });
+    </script>
+
+{% endblock %}
+

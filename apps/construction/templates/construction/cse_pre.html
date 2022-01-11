@@ -1,0 +1,59 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    <style type="text/css">
+        .likert ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .likert li {
+            float: left;
+            text-align: left;
+            list-style-type: none;
+        }
+    </style>
+
+    <h1>Bewerte bitte inwieweit die folgenden Aussagen zutreffen. </h1>
+    <br>
+
+    <form action="{% url 'answer_questionnaire' %}" method="post">
+        {% csrf_token %}
+        {% for item in cse_items %}
+
+            <div align="left">
+                <p class="lead"> {{ item.text }} </p>
+                <table id="likert">
+                    <tr>
+                        {% for answer in item.answers %}
+                            <td><label style="width: 200px; font-size: 10px; display: inline-block;">{{ answer }}<br>
+                                <input type="radio" style="display: inline-block; width: 220px;" name="{{ item.text }}"
+                                       value="{{ answer }}"/></label>
+                            </td>
+                        {% endfor %}
+                    </tr>
+
+                </table>
+
+                <br>
+            </div>
+            <br>
+        {% endfor %}
+
+        <!-- Hidden attribute is added to request -->
+        <input type="hidden" name="current" value="cse_pre">
+        <button type="submit">Abschicken</button>
+
+
+    </form>
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "construction/base_visu.html" %}
+
+
+{% block content %}
+    <h1>Sunburst</h1>
+    {#    Sunburst from Tutorial at https://bl.ocks.org/denjn5/e1cdbbe586ac31747b4a304f8f86efa5#}
+    <svg></svg>
+    <script>
+        var nodeData = JSON.parse('{{ tree | escapejs }}');
+        draw_sunburst(nodeData)
+    </script>
+{% endblock %}

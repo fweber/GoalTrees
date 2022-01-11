@@ -1,0 +1,25 @@
+{% extends "construction/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+    <p>{{ introduction|safe }}</p>
+    <form action="{% url 'new_tree' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label>
+                Bitte wähle hier dein persönliches Bildungsziel:
+                <select class="form-control" name="goal" required>
+                    {% for personal_goal in personal_goals %}
+                        <option value="{{ personal_goal.name }}">{{ personal_goal.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <br>
+        <button type="submit">{% translate "Speichern und fortfahren" %}</button>
+    </form>
+
+{% endblock %}

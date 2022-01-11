@@ -1,0 +1,27 @@
+{% extends "construction/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+
+    {{ text|safe }}
+
+{% comment %}    <form action="{% url 'example_tree' %}" method="post">{% csrf_token %}
+        <input type="checkbox" id="1" name="" value="" required>
+        <label for="1">Ziele lassen sich in Teilziele zerlegen bis sich konkrete Handlungen und Strategien
+            ergeben.</label><br>
+        <input type="checkbox" id="2" name="" value="" required>
+        <label for="2">Ein hierarchisches Zielsystem ist ein auf diese Weise konkretisiertes Ziel.</label><br>
+        <input type="checkbox" id="3" name="" value="" required>
+        <label for="3">Ich bin startklar gleich eigene Ziele zu Zielsystemen zu erweitern.</label><br><br>
+        <button type="post" name="current" value="instructions">Weiter</button>
+    </form>{% endcomment %}
+
+
+    <button onclick="location.href = '{% url 'next_view' %}'">{% translate "Weiter" %}</button>
+
+
+{% endblock %}
+

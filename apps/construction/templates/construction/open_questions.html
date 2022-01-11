@@ -1,0 +1,228 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+{% load i18n %}
+
+    <style>
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .open-question-input {
+            width: 100%;
+        }
+
+        .tree-ranking-table th, .tree-ranking-table td {
+            text-align: center;
+            padding-right: 50px;
+            padding-bottom: 30px;
+        }
+
+        .modal-body {
+          text-align: center;
+        }
+
+        .modal-content {
+            width: auto;
+        }
+
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="{% static 'construction/js/d3_visualizations.js' %}"></script>
+
+    {% if title %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+    {% if introduction %}
+        {{ introduction|safe }}
+    {% endif %}
+    <form id="open-questions-form" action="{% url 'answer_open_questions' %}" method="post">
+        {% csrf_token %}
+            {% for question in questions %}
+                <div class="question">
+                    {% if question.type == "text" %}
+                        <label class="open-question-label" for="{{ question.text }}">{{ question.text|safe }}</label><br>
+                        <textarea class="open-question-input open-question-text-input" id="{{ question.text }}" name="{{ question.text }}"
+                                  {% if question.rows %}rows="{{ question.rows }}"{% endif %}
+                                  {% if required or question.required %}required{% endif %}
+                                  {% if min_answer_length %}minlength="{{ min_answer_length }}"{% endif %}
+                                  {% if max_answer_length %}maxlength="{{ max_answer_length }}"{% endif %}></textarea>
+                        <br>
+                    {% elif question.type == "tree_ranking" %}
+                        <label class="open-question-label" style="font-size:large;font-weight:bold;" for="{{ question.text }}">{{ question.text|safe }}
+                        {% if zoomable %}<br>Für eine vergrößerte Ansicht bitte auf die Visualisierung klicken.{% endif %}
+                        </label><br>
+                        <table class="tree-ranking-table">
+                            <tr>
+                                <th></th>
+                                {% for image in question.conditions %}
+                                <th>{{ forloop.counter }}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for condition in question.conditions %}
+                                <tr>
+                                    {% load static %}
+                                    <td><svg class="tree-svg" data-tree="{{ tree }}" id="tree_{{ condition }}"></svg></td>
+                                    {% for i in question.conditions %}
+                                    <td>
+                                        <label class="questionnaire-item-radio">
+                                            <input class="open-question-radio" type="radio" name="{{ condition }}" value="{{ forloop.counter }}" {% if required or question.required %}required{% endif %}>
+                                            {# custom radio button #}
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% elif question.type == "radio" %}
+                        <label class="open-question-label" for="{{ question.text }}">{{ question.text|safe }}</label><br>
+                        {% for answer in question.answers %}
+                            <label>
+                                <input type="radio" name="{{ question.text }}" id="handling" value="{{ answer }}" {% if required or question.required %}required{% endif %}>
+                                {{ answer }}
+                            </label>
+                            <br>
+                        {% endfor %}
+                    {% elif question.type == "goal" %}
+                        <label class="open-question-label" for="{{ question.text }}">{{ question.text|safe }}</label><br>
+                        <input class="form-control open-question-goal-input" type="text" name="{{ question.text }}"
+                               {% if required or question.required %}required{% endif %}
+                               {% if min_goal_length %}minlength="{{ min_goal_length }}"{% endif %}
+                               {% if max_goal_length %}maxlength="{{ max_goal_length }}"{% endif %}>
+                    {% endif %}
+                    {% if show_min_answer_words and question.type == "text" or show_max_goal_words and question.type == "goal" %}
+                        <div class="open-question-text-words-container">
+                            <small>
+                                <span class="open-question-text-words">0</span>
+                                /
+                                {% if question.type == "text" %}
+                                    {{ min_answer_words }}
+                                {% elif question.type == "goal" %}
+                                    {{ max_goal_words }}
+                                {% endif %}
+                            </small>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        <br>
+        <input type="hidden" name="open_questions" value="{{ open_questions }}">
+        <input type="hidden" name="current" value="feedback">
+
+        <input type="submit" {% if min_answer_words %}disabled{% endif %} value="{% translate "Speichern und fortfahren" %}">
+    </form>
+
+    {% if zoomable %}
+        <div class="modal" id="tree-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <svg id="tree-modal-svg"></svg>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <script>
+        {# disallow same values #}
+        $("input[type=radio][class=open-question-radio]").change(function () {
+            var question = $(this).closest(".question")
+            question.find("input[type=radio][class=open-question-radio][value="+this.value+"][name!='"+this.name+"']").prop("checked", false)
+        });
+
+        {#  tree visualization  #}
+        $(".tree-svg").each(function () {
+            var id = $(this).attr("id");
+            var nodeData = $(this).data("tree")
+            var condition = parseInt(id.split("_")[1]);
+            WIDTH = 200;
+            if (condition === 3) {
+                // dendogramm need more width
+                WIDTH = 550
+            }
+            HEIGHT = 200;
+            FONTSIZE = "5px";
+            visualize(condition, nodeData, id);
+        });
+
+        {% if zoomable %}
+        // zoom function
+        var tree_svg = $(".tree-svg");
+        tree_svg.css("cursor", "pointer");
+        tree_svg.click(function () {
+            var tree_svg = $(this);
+            var id = $(this).attr("id");
+            var nodeData = tree_svg.data("tree");
+            var condition = parseInt(id.split("_")[1]);
+            WIDTH = 800;
+            HEIGHT = 800;
+            FONTSIZE = "15px";
+            visualize(condition, nodeData, "tree-modal-svg");
+            // show tree in modal dialog
+            $("#tree-modal").modal("show");
+        });
+        {% endif %}
+
+        function countWords(text) {
+            return text.split(' ').filter(function(n) { return n != '' }).length;
+        }
+        {% if min_answer_words or max_goal_words %}
+            function wordCountsSatisfied() {
+                var word_counts_satisfied = true;
+                // check text questions minimum word lenghts
+                $(".open-question-text-input").each(function () {
+                    if (countWords($(this).val()) < {{ min_answer_words }}) {
+                        word_counts_satisfied = false;
+                    }
+                });
+                // check goal question max word lengths
+                $(".open-question-goal-input").each(function () {
+                    if (countWords($(this).val()) > {{ max_goal_words }}) {
+                        word_counts_satisfied = false;
+                    }
+                });
+                return word_counts_satisfied;
+            }
+            // enable submit button when all word counts are satisfied
+            $(".open-question-text-input, .open-question-goal-input").on("input", function() {
+                $("#open-questions-form input[type=submit]").prop("disabled", !wordCountsSatisfied());
+            });
+
+            // prevent submitting until all minimum word counts are reached
+            $("#open-questions-form").submit(function () {
+                return wordCountsSatisfied();
+            });
+        {% endif %}
+
+        // show text word count
+        {% if show_min_answer_words or show_max_goal_words %}
+            function update_word_count() {
+                var text = $(this).val();
+                $(this).parents(".question").find(".open-question-text-words").text(countWords(text));
+            }
+            // initialize word count
+            $("max_goal_words").each(update_word_count);
+            // update text word counts when input changed
+            $(".open-question-text-input, .open-question-goal-input").on("input", update_word_count);
+        {% endif %}
+    </script>
+
+{% endblock %}
+

@@ -1,0 +1,109 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "construction/css/base.css" %}">
+    {% block head %}
+    {% endblock %}
+    <title>Hierarchische Zielsysteme{% block title %} {% endblock %}</title>
+  </head>
+  <body {% if iframe %}class="iframe"{% endif %}>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <span class="navbar-brand">Siddata Hierarchical Goal System Visualization</span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+          </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_superuser %}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'welcome' %}">Start</a></li>
+                {% endif %}
+                {% if perms.auth.view_dashboard %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'welcome' %}">Dashboard</a></li>
+                {% endif %}
+                <li class="nav-item">
+    {#              {% if user.is_authenticated %}#}
+    {#                <a class="nav-link" href="{% url 'welcome' %}">Logout ({{user.get_username}})</a>#}
+    {#              {% else %}#}
+    {#                <a class="nav-link" href="{% url 'welcome' %}">Login</a>#}
+    {#              {% endif %}#}
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+     <!--
+      <div class="jumbotron">
+        <h1>Aufbereitung von Studienzielen</h1>
+        <p class="lead">Dieses Interface dient dazu, die erfassten Studienziele auszuwerten und zu ordnen.
+       <a class="btn btn-lg btn-primary" href="/docs/4.2/components/navbar/" role="button">View navbar docs &raquo;</a>
+      </div>
+        -->
+      {% if messages %}
+        <ul class="list-unstyled messages">
+        {% for message in messages %}
+            <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if show_progress %}
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="{{ progress_value }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ progress_value }}%">
+            {{ progress_value }}%
+          </div>
+        </div>
+      {% endif %}
+
+      {% block content %}
+      {% endblock %}
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- Javascript to prevent backwards navigation -->
+    <script>
+        if (window.history && history.pushState) {
+            addEventListener('load', function() {
+                history.pushState(null, null, null); // creates new history entry with same URL
+                addEventListener('popstate', function() {
+                    history.pushState(null, null, null);
+                    alert("Auf die versandten Daten kann leider nicht mehr zugegriffen werden");
+
+                    // Decrement sequence pointer
+                    //$.get("{% url 'previous_view' %}", function () {
+                    //    history.back();
+                    //});
+                });
+            });
+        }
+    </script>
+
+      <footer class="footer">
+        <div class="container">
+            <a href="https://www.siddata.de">Siddata</a>
+{#          <a href="https://www.uni-osnabrueck.de/serviceseiten/impressum.html">Impressum</a>#}
+{#          <a href="https://www.uni-osnabrueck.de/serviceseiten/datenschutz.html" style="margin-left:20px">Datenschutz</a>#}
+{#        </div>#}
+      </footer>
+  </body>
+</html>
+
+
+

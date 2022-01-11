@@ -1,0 +1,111 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    <style>
+        .scale_label {
+            text-align: center;
+            width: 150px;
+            margin: 0px;
+            padding: 0px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            text-align: center;
+        }
+
+        .likert ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .likert li {
+            float: left;
+            text-align: left;
+            list-style-type: none;
+        }
+
+        #likert {
+            text-align: center;
+        }
+
+        #likert td {
+            width: 70px;
+        }
+
+        .nasa-tlx-mobile-form {
+            display: none;
+        }
+
+        .scale_label {
+            margin: 0 10px 0 10px;
+        }
+
+        {# show dropdown list form on small screens #}
+        @media (max-width: 767px) {
+            .nasa-tlx-form {
+                display: none;
+            }
+            .nasa-tlx-mobile-form {
+                display: block;
+            }
+        }
+    </style>
+
+
+    {# hidden on large screens #}
+    <form class="nasa-tlx-form" action="{% url 'answer_nasa_tlx' %}" method="post">
+        {% csrf_token %}
+        {% for item in nasa_tlx_items %}
+            <div align="left">
+                <p class="lead"> {{ item.text }} </p>
+                <label class="scale_label">{{ item.left }}</label>
+                {% for answer in item.range %}
+                    <label class="questionnaire-item-radio">
+                        <input type="radio" name="{{ item.text }}" value="{{ answer }}"/>
+                        {# custom radio button #}
+                        <span class="checkmark"></span>
+                    </label>
+                    {% if answer == 10 %}
+                        <label>|</label>
+                    {% endif %}
+                {% endfor %}
+                <label class="scale_label">{{ item.right }}</label>
+            </div>
+            <br>
+            <br>
+        {% endfor %}
+
+        <!-- Hidden attribute is added to request -->
+        <input type="hidden" name="current" value="nasa_tlx">
+        <button type="submit">Abschicken</button>
+    </form>
+
+
+    {# Formula for small screen #}
+    <form class="nasa-tlx-mobile-form" action="{% url 'answer_nasa_tlx' %}" method="post">
+        {% csrf_token %}
+        {% for item in nasa_tlx_items %}
+            <div>
+                <p class="lead"> {{ item.text }} </p>
+                {# Uses same key/name value pairs as form above alowing same processing #}
+                <select name="{{ item.text }}">
+                    {% for answer in item.range %}
+                        <option value="{{ answer }}">
+                            {{ answer }}
+                            {% if answer == 1 %}(sehr niedrig){% endif %}
+                            {% if answer == 20 %}(sehr hoch){% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <br>
+        {% endfor %}
+
+        <!-- Hidden attribute is added to request -->
+        <input type="hidden" name="current" value="nasa_tlx">
+        <button type="submit">Abschicken</button>
+    </form>
+
+{% endblock %}

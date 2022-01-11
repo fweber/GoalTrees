@@ -1,0 +1,19 @@
+svg {
+    flex: 30;
+}
+
+.tree-node {
+    stroke: steelblue;
+    fill: #1E1E20;
+}
+
+.tree-line {
+    stroke: steelblue;
+    fill: none;
+}
+
+.tree-label {
+    text-anchor: middle;
+    stroke: white;
+    fill: none;
+}

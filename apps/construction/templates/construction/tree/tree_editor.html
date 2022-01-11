@@ -1,0 +1,505 @@
+{% load static %}
+
+<style>
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    .controls {
+        background-color: #f1f1f1;
+    }
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 8px 16px;
+        transition: 0.3s;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .trees {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .trees-first {
+        margin-top: 0;
+    }
+
+    .tree {
+        text-align: center;
+        /* two trees side by side */
+        width: 50%;
+    }
+
+    /* one tree to visualize */
+    .tree:only-child {
+        width: 100%;
+    }
+
+    .container .trees {
+        padding: 0;
+    }
+
+    .next-button-container {
+        padding-bottom: 2em;
+    }
+
+    .tree-text-bottom {
+        margin-top: 15px;
+    }
+
+    /* display trees vertically */
+    @media (max-width: 1140px) {
+        .tree {
+            width: 100%;
+        }
+    }
+
+    /* iframe styles */
+    .iframe .trees {
+        padding: 0;
+    }
+
+    .iframe .tree {
+        max-width: 1140px;
+        padding: 0;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="{% static 'construction/js/d3_visualizations.js' %}"></script>
+
+<script>
+    function openTab(evt, tabName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+{% if show_tree_first %}
+    <div class="trees trees-first">
+        <div class="own-tree tree">
+            {% if tree_title %}
+                <h4>{{ tree_title }}</h4>
+            {% endif %}
+            <svg id="construct_svg"></svg>
+        </div>
+        {% if example_tree %}
+        <div class="target-tree tree">
+            {% if example_tree_title %}
+                <h4>{{ example_tree_title }}</h4>
+            {% endif %}
+            <svg id="example_svg"></svg>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+<div class="container">
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks active" onclick="openTab(event, 'erstellen')">Erstellen</button>
+        <button class="tablinks" onclick="openTab(event, 'bearbeiten')">Umbenennen</button>
+        <button class="tablinks" onclick="openTab(event, 'verwerfen')">Verwerfen</button>
+        {% if allow_mark_as_done %}
+        <button class="tablinks" onclick="openTab(event, 'markieren')">Markieren</button>
+        {% endif %}
+        {% if condition_selector %}
+        <button class="tablinks" onclick="openTab(event, 'darstellung')">Darstellung</button>
+        {% endif %}
+    </div>
+
+    <!-- Tab content -->
+    <div id="erstellen" class="tabcontent">
+        <p>Wähle ein Ziel aus und lege ein neues Teilziel dazu an.</p>
+        <form id="create-node-form" style="width: 100%" action="{% url 'write_goal' %}"
+              method="post">{% csrf_token %}
+            <div class="form-group row">
+                <label for="parent_id" class="col-sm-2 col-form-label">Oberziel:</label>
+                <div class="col-sm">
+                    <select class="controls form-control" name="parent_id" id="parent_id"
+                            title="Wähle hier aus, welchem Oberziel du ein Unterziel hinzufügen möchtest">
+                        {% for goal in goals %}
+                            <option value="{{ goal.id }}">{{ goal.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="goal_text" class="col-sm-2 col-form-label">Neues Teilziel:</label>
+                <div class="col-sm">
+                    <input class="controls form-control" type="text" name="goal_title" id="goal_title" maxlength="{{ max_title_length }}"
+                           title="Gib hier deinem neuen Unterziel einen Namen" required>
+                </div>
+            </div>
+            {% if description_enabled %}
+            <div class="form-group row">
+                <label for="goal_description" class="col-sm-2 col-form-label">Beschreibung:</label>
+                <div class="col-sm">
+                    <textarea class="controls form-control" type="text" name="goal_description" id="goal_description"  maxlength="512"></textarea>
+                </div>
+            </div>
+            {% endif %}
+            <div style="text-align: right">
+                <input type="hidden" name="condition" value="{{ condition }}">
+                <input type="hidden" name="view" value="{{ view }}">
+                <button type="submit" class="controls">
+                    Erstellen
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="bearbeiten" class="tabcontent">
+        <p>Wähle ein Ziel aus, um es zu editieren.</p>
+        <form id="edit-node-form" style="width: 100%" action="{% url 'edit_goal' %}"
+              method="post">{% csrf_token %}
+            <div class="form-group row">
+                <label for="goal_id" class="col-sm-2 col-form-label">Ziel:</label>
+                <div class="col-sm">
+                    <select class="controls form-control" name="goal_id" id="edit_goal_id"
+                            title="Wähle hier aus, welches Ziel du umbenennen möchtest">
+                        {% for goal in goals %}
+                            <option value="{{ goal.id }}">{{ goal.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="edit_goal_title" class="col-sm-2 col-form-label">Neuer Titel:</label>
+                <div class="col-sm">
+                    <input class="controls form-control" type="text" name="goal_title" id="edit_goal_title" maxlength="{{ max_title_length }}"
+                           title="Gib hier deinem Ziel einen neuen Namen">
+                </div>
+            </div>
+            {% if description_enabled %}
+            <div class="form-group row">
+                <label for="edit_goal_description" class="col-sm-2 col-form-label">Neue Beschreibung:</label>
+                <div class="col-sm">
+                    <textarea class="controls form-control" type="text" name="goal_description" id="edit_goal_description"
+                              maxlength="512"></textarea>
+                </div>
+            </div>
+            {% endif %}
+            <div style="text-align: right">
+                <input type="hidden" name="condition" value="{{ condition }}">
+                <input type="hidden" name="view" value="{{ view }}">
+                <button type="submit" class="controls">
+                    Ändern
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="verwerfen" class="tabcontent">
+        <p>Wähle ein Ziel aus und verwerfe es mit allen seinen Unterzielen.</p>
+        <form id="discard-node-form" style="width: 100%" action="{% url 'discard_goal' %}"
+              method="post">{% csrf_token %}
+            <div class="form-group row">
+                <label for="goal_id" class="col-sm-1 col-form-label">Ziel:</label>
+                <div class="col-sm">
+                    <select class="controls form-control select-goals" name="goal_id" id="discard_goal_id"
+                            title="Wähle hier aus, welches Ziel du verwerfen möchtest">
+                        {% for goal in goals %}
+                        {{ goal.parent_id }}
+                        {% if goal.parent_id == None %}
+                        {% else %}
+                            <option value="{{ goal.id }}">{{ goal.title }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <input type="hidden" name="condition" value="{{ condition }}">
+                <input type="hidden" name="view" value="{{ view }}">
+                <button type="submit" class="controls">
+                    Verwerfen
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if allow_mark_as_done %}
+    <div id="markieren" class="tabcontent">
+        <p>Wähle ein Ziel aus, um es als erledigt zu markieren.</p>
+        <form id="mark-node-form" style="width: 100%" action="{% url 'mark_goal' %}"
+              method="post">{% csrf_token %}
+            <div class="form-group row">
+                <label for="goal_id" class="col-sm-1 col-form-label">Ziel:</label>
+                <div class="col-sm">
+                    <select class="controls form-control" name="goal_id" id="marked_goal_id"
+                            title="Wähle hier aus, welches Ziel als erledigt markiert werden soll.">
+                            {% for goal in goals %}
+                                <option value="{{ goal.id }}">{{ goal.title }}</option>
+                            {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <input type="hidden" name="condition" value="{{ condition }}">
+                <input type="hidden" name="view" value="{{ view }}">
+                <button type="submit" class="controls">
+                    Markieren
+                </button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if condition_selector %}
+    <div id="darstellung" class="tabcontent">
+        <p>Wähle eine Baumdarstellung aus.</p>
+        <form id="condition-select-form" style="width: 100%" action="{% url 'change_condition' %}"
+              method="post">{% csrf_token %}
+            <div class="form-group row">
+                <label for="selected_condition" class="col-sm-2 col-form-label">Darstellung:</label>
+                <div class="col-sm">
+                    <select class="controls form-control select-condition" name="selected_condition" id="selected_condition"
+                            title="Wähle hier aus, wie der Baum dargestellt werden soll.">
+                            <option value="1" {% if condition == "1" %}selected{% endif %}>Sunburst</option>
+                            <option value="2" {% if condition == "2" %}selected{% endif %}>Treemap</option>
+                            <option value="3" {% if condition == "3" %}selected{% endif %}>Dendogram</option>
+                            <option value="4" {% if condition == "4" %}selected{% endif %}>Circlepacking</option>
+                    </select>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <input type="hidden" name="condition" value="{{ condition }}">
+                <input type="hidden" name="view" value="{{ view }}">
+                <button type="submit" class="controls">
+                    Ändern
+                </button>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+
+<script>
+    document.getElementsByClassName("tablinks active")[0].click();
+</script>
+
+{% if not show_tree_first %}
+    <div class="trees">
+        <div class="own-tree tree">
+            {% if tree_title %}
+                <h4>{{ tree_title }}</h4>
+            {% endif %}
+            <svg id="construct_svg"></svg>
+        </div>
+        {% if example_tree %}
+        <div class="target-tree tree">
+            {% if example_tree_title %}
+                <h4>{{ example_tree_title }}</h4>
+            {% endif %}
+            <svg id="example_svg"></svg>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+<script>
+    if ($("#example_svg").length) {
+        // remove container for more size
+        $("body > main.container").removeClass("container")
+        function drawExampleTree() {
+            WIDTH = parseInt(d3.select('.target-tree').style('width'), 10);
+            HEIGHT = WIDTH * 0.5625;
+            var nodeData = JSON.parse('{{ example_tree | escapejs }}');
+            var condition = {{ condition }};
+            visualize(condition, nodeData, "example_svg");
+        }
+        drawExampleTree()
+        window.addEventListener('resize', drawExampleTree);
+    }
+
+    var nodeData = JSON.parse('{{ tree | escapejs }}');
+    function drawTree() {
+        WIDTH = parseInt(d3.select('.own-tree').style('width'), 10);
+        HEIGHT = WIDTH * 0.5625;
+        {% if tree_color %}
+        LINECOLOR = "{{ tree_color }}";
+        {% endif %}
+        var condition = {{ condition }};
+        visualize(condition, nodeData, "construct_svg");
+    }
+    drawTree();
+    window.addEventListener('resize', drawTree);
+
+    function update_goals(select_id, goals, parent=true) {
+        var goal_select = $("#"+select_id);
+        var selected_goal_id = goal_select.val();
+        goal_select.empty();
+        goals.forEach(function (goal, index) {
+            if (parent || goal.parent_id) {
+                goal_select.append(new Option(goal.title, goal.id));
+            }
+        });
+        goal_select.val(selected_goal_id);
+    }
+
+    function handleResponse(data) {
+        // update goal select boxes
+        update_goals("parent_id", data.goals);
+        update_goals("edit_goal_id", data.goals);
+        update_goals("discard_goal_id", data.goals, false);
+
+        nodeData = JSON.parse(data.tree);
+        drawTree();
+
+        // Allow to continue the study when minimum number of nodes reached
+        {% if min_node_number %}
+            var min_number = {{ min_node_number }};
+            if (data.goals.length >= min_number) {
+                $("#continue-button").prop("disabled", false);
+            } else {
+                $("#continue-button").prop("disabled", true);
+            }
+        {% endif %}
+    }
+
+    $("#create-node-form").submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+
+
+        {% if identical_nodes_disabled %}
+        var goal_select_options = form.find("#parent_id option");
+        var goals = [];
+        goal_select_options.each(function () {
+            goals.push(this.text);
+        });
+
+        var new_goal = form.find("input[name='goal_title']").val()
+
+        if (goals.indexOf(new_goal) !== -1) {
+            // avoid to execute the actual submit of the form.
+            alert("Identische Teilziele sind nicht erlaubt.");
+            return;
+        }
+        {% endif %}
+
+        // create new goal
+        $.ajax({
+            type: "POST",
+            url: "{% url 'write_goal' %}",
+            data: form.serialize(),
+        }).done(function (data) {
+            // if new goal is created successfully
+            $("#goal_title").val("");
+            $("#goal_description").val("");
+
+            handleResponse(data);
+        }).fail(function () {
+            alert("Knoten konnte nicht erstellt werden.");
+        });
+    });
+
+    // edit node handling
+    $("#edit-node-form").submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+
+        // edit goal
+        $.ajax({
+            type: "POST",
+            url: "{% url 'edit_goal' %}",
+            data: form.serialize(),
+        }).done(function (data) {
+            // if goal is edited successfully
+            $("#edit_goal_title").val("");
+            $("#edit_goal_description").val("");
+
+            handleResponse(data);
+        }).fail(function () {
+            alert("Knoten konnte nicht bearbeitet werden.");
+        });
+    });
+
+    // discard node handling
+    $("#discard-node-form").submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+
+        // discard goal
+        $.ajax({
+            type: "POST",
+            url: "{% url 'discard_goal' %}",
+            data: form.serialize(),
+        }).done(function (data) {
+            handleResponse(data);
+        }).fail(function () {
+            alert("Knoten konnte nicht verworfen werden.");
+        });
+    });
+
+    // mark node handling
+    $("#mark-node-form").submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+
+        // discard goal
+        $.ajax({
+            type: "POST",
+            url: "{% url 'mark_goal' %}",
+            data: form.serialize(),
+        }).done(function (data) {
+            handleResponse(data);
+        }).fail(function () {
+            alert("Knoten konnte nicht verworfen werden.");
+        });
+    });
+</script>

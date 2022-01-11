@@ -1,0 +1,55 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+{% load i18n %}
+
+<style>
+    .iframe .example-tree-container {
+        max-width: 1140px;
+    }
+</style>
+
+{% if title %}
+    <h1>{{ title }}</h1>
+{% endif %}
+
+{% if text %}
+    {{ text|safe }}
+{% endif %}
+
+<div class="example-tree-container">
+    <svg id="example_svg"></svg>
+</div>
+
+{% if text_bottom %}
+    {{ text_bottom|safe }}
+{% endif %}
+
+<!-- Load d3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="{% static 'construction/js/d3_visualizations.js' %}"></script>
+
+<script>
+    var nodeData = JSON.parse('{{ tree | escapejs }}');
+    console.log(nodeData);
+    function drawTree() {
+        WIDTH = parseInt(d3.select('.example-tree-container').style('width'), 10);
+        HEIGHT = WIDTH * 0.5625;
+        var condition = {{ condition }};
+        visualize(condition, nodeData, "example_svg");
+    }
+    drawTree();
+    window.addEventListener('resize', drawTree);
+</script>
+<br>
+<button onclick="location.href = '{% url 'next_view' %}'">{% translate "Weiter" %}</button>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "construction/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <h1>Hierarchische Zielsysteme Studierender</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="{% static 'construction/js/d3_visualizations.js' %}"></script>
+    <style>
+        .ignore-css {
+            all: unset;
+        }
+    </style>
+
+    <div class="ignore-css">
+        <INPUT Type="BUTTON" Value="Sunburst" Onclick=draw_sunburst(nodeData,"tree")>
+        <INPUT Type="BUTTON" Value="Treemap" Onclick=draw_treemap(nodeData,"tree")>
+        <INPUT Type="BUTTON" Value="Dendrogram" Onclick=draw_dendrogram(nodeData,"tree")>
+        <INPUT Type="BUTTON" Value="Circlepacking" Onclick=draw_circlepacking(nodeData,"tree")>
+    </div>
+
+    <br>
+
+    <svg id="tree"></svg>
+
+    <br>
+
+    <div class="ignore-css">
+        <INPUT Type="BUTTON" Value="<<"
+               Onclick="window.location.href='{% url 'explore_trees' tree_id=last_tree_id %}'">
+        <label>{{ tree_id }}</label>
+        <INPUT Type="BUTTON" Value=">>"
+               Onclick="window.location.href='{% url 'explore_trees' tree_id=next_tree_id %}'">
+    </div>
+    <svg class="ignore-css">
+    </svg>
+    <script>
+        var nodeData = JSON.parse('{{ tree | escapejs }}');
+        draw_dendrogram(nodeData, "tree");
+    </script>
+    <h2>Tree Characteristics</h2>
+    <table>
+        {% for property in tree_properties %}
+            <tr>
+                <td> {{ property.name }}</td>
+                <td>{{ property.value }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <h2>Study Characteristics</h2>
+    <table>
+        {% for property in study_properties %}
+            <tr>
+                <td> {{ property.name }}</td>
+                <td>{{ property.value }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
+    </body>
+{% endblock %}

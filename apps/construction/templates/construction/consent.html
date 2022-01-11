@@ -1,0 +1,15 @@
+{% extends "construction/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+
+    {{ text|safe }}
+
+    <button onclick="location.href = '{% url 'next_view' %}'">{% translate "Ich bin einverstanden." %}</button>
+
+
+{% endblock %}
+

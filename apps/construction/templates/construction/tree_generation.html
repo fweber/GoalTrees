@@ -1,0 +1,141 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    <h1>Hier wächst ein Zielbaum</h1>
+    <p>
+
+        {% if mode == "root" %}
+            Hier benennst Du ein Studienziel, aus dem Du dann Deinen Zielbaum aufbauen wirst.
+            <form action="{% url 'write_root' %}" method="post">{% csrf_token %}
+                <div style="display: flex; width: 100%">
+
+                    <input style="flex: 2; border: none; height: 50px;" align="top" type="text" id="goal"
+                           name="goal_text" required>
+                    <button type="submit" class="btn btn-primary btn-lg" style="float:right; height: 50px">
+                        Studienziel speichern
+                    </button>
+                </div>
+            </form>
+
+
+        {% elif mode == "new" %}
+            Hier kannst Du zu einem Oberziel ein Teilziel erstellen. Dazu benennst Du das Teilziel und
+            speicherst.
+            <div style="display: flex; width: 100%">
+
+                <form style="float:right;" action="{% url 'change_functionality' %}"
+                      method="post">{% csrf_token %}
+                    <select class="btn btn-primary btn-lg" style="height: 50px;" name='function'
+                            onchange='this.form.submit()'>
+                        <option value="new" selected>Teilziel erstellen</option>
+                        <option value="edit">Zieltext ändern</option>
+                        <option value="delete">Ziel löschen</option>
+                    </select>
+                    <noscript><input type="submit" value="Submit"/></noscript>
+                </form>
+
+                <form style="display: flex; width: 100%" action="{% url 'write_goal' %}"
+                      method="post">{% csrf_token %}
+                    <select class="btn btn-primary btn-lg" style="height: 50px; height: 50px;" name="parent_id">
+                        {% for goal in goals %}
+                            <option value="{{ goal.id }}">Oberziel: {{ goal.title }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input style="flex: 2; height: 50px; border: none" type="text" id="goal" name="goal_text"
+                           required>
+                    <button type="submit" class="btn btn-primary btn-lg" style="float:right; height: 50px;">
+                        Speichern
+                    </button>
+                </form>
+            </div>
+
+        {% elif mode == "edit" %}
+            Um den Text eines Zieles zu ändern wählst Du es aus der Liste aus, gibst einen neuen Text ein und
+            speicherst diesen.
+            <div style="display: flex; width: 100%">
+                <form action="{% url 'change_functionality' %}" method="post">{% csrf_token %}
+                    <select class="btn btn-primary btn-lg" name='function' onchange='this.form.submit()'>
+                        <option value="new">Teilziel erstellen</option>
+                        <option value="edit" selected>Zieltext ändern</option>
+                        <option value="delete">Ziel löschen</option>
+                    </select>
+                    <noscript><input type="submit" value="Submit"/></noscript>
+                </form>
+
+
+                <form style="display: flex; width: 100%" action="{% url 'edit_goal' %}"
+                      method="post">{% csrf_token %}
+                    <select class="btn btn-primary btn-lg" style="height: 50px;" name="goal_id">
+                        {% for goal in goals %}
+                            <option value="{{ goal.id }}">Ändern: {{ goal.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <input style="flex: 2; border: none; height: 50px;" type="text" id="goal" name="goal_text"
+                           required>
+                    <button type="submit" class="btn btn-primary btn-lg" style="float:right; height: 50px;">
+                        Speichern
+                    </button>
+                </form>
+            </div>
+
+        {% elif mode == "delete" %}
+            Um ein Ziel zu löschen wählst du es aus der Liste aus und klickst auf den Löschen Button.
+            <div style="display: flex; width: 100%">
+                <form action="{% url 'change_functionality' %}" method="post">{% csrf_token %}
+                    <select class="btn btn-primary btn-lg" name='function' onchange='this.form.submit()'>
+                        <option value="new">Teilziel erstellen</option>
+                        <option value="edit">Zieltext ändern</option>
+                        <option value="delete" selected>Ziel löschen</option>
+                    </select>
+                    <noscript><input type="submit" value="Submit"/></noscript>
+                </form>
+
+
+                <form style="display: flex; width: 100%" action="{% url 'discard_goal' %}"
+                      method="post">{% csrf_token %}
+                    <select class="btn btn-primary btn-lg" style="height: 50px; flex: 2;" name="goal_id">
+                        {% for goal in goals %}
+                            {{ goal.parent_id }}
+                            {% if goal.parent_id == 0 %}
+                            {% else %}
+                                <option value="{{ goal.id }}">Löschen: {{ goal.title }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-lg" style="float:right; height: 50px;">
+                        Löschen
+                    </button>
+                </form>
+            </div>
+
+        {% endif %}
+
+
+    </p>
+    <p>
+        Wenn du mit diesem Zielbaum fertig bist, kannst Du ihn speichern und mit dem nächsten beginnen.
+        <br>
+        Dies ist Dein {{ number_of_trees }}. Zielbaum. Ab 3 fertigen Zielbäumen erscheint ein "weiter" Button.
+    </p>
+    <br>
+    <div style="display: flex;">
+        <form action="{% url 'tree_generation_root' %}" method="post">{% csrf_token %}
+            <button class="btn btn-primary btn-lg" style="margin: 5px">Zielbaum speichern</button>
+        </form>
+        <div class="divider">
+            <form action="{% url 'next_view' %}" method="post">{% csrf_token %}
+                {% if number_of_trees > 3 %}
+                    <button class="btn btn-primary btn-lg" style="margin: 5px" type="submit" name="current"
+                            value="tree_generation">
+                        Weiter
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+

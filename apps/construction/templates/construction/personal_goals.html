@@ -1,0 +1,128 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    {% load static %}
+
+    {% load i18n %}
+
+    <style>
+        .personal-goals-list {
+            margin-top: 25px;
+        }
+
+        .personal-goal-list-item {
+            color: #28497c;
+            font-weight: bold;
+        }
+
+        img.personal-goal-list-item-delete {
+            cursor: pointer;
+        }
+    </style>
+
+    <h1>{{ title }}</h1>
+    <p>{{ introduction|safe }}</p>
+    <form id="personal-goal-form" method="post">
+        {% csrf_token %}
+        <label>
+{#            Gib Dein persönliches Bildungsziel an:<br>#}
+            <input class="personal-goal-input" type="text" name="personal_goal" maxlength="{{ max_title_length }}" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %} required>
+            <input class="personal-goal-input" type="submit" value="Ziel hinzufügen" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %}>
+        </label>
+    </form>
+
+    <div class="personal-goals-list">
+        <ul>
+            {% for goal in personal_goals %}
+                <li class="personal-goal-list-item">{{ goal }}
+                    <img src="{% static 'construction/images/trash.svg' %}" data-goal="{{ goal }}" class="personal-goal-list-item-delete"
+                         title="Persönliches Ziel löschen" alt="Löschen">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <br>
+    <button id="continue-button" onclick="location.href = '{% url 'next_view' %}'" {% if min_number_goals and personal_goals|length < min_number_goals %}disabled{% endif %}>{% translate "Speichern und fortfahren" %}</button>
+
+    <script>
+        $("#personal-goal-form").submit(function (event) {
+            // avoid to execute the actual submit of the form.
+            event.preventDefault();
+            var form = $(this);
+
+            var goal = form.find("input[name='personal_goal']").val()
+            // prevent same goals
+            var match_goal = $(".personal-goal-list-item").filter(function () {
+                return $.trim($(this).text()) === $.trim(goal);
+            });
+            if (!match_goal.length) {
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'write_personal_goal' %}",
+                    data: form.serialize(),
+                }).done(function (data) {
+                    // if personal goal is created successfully
+
+                    // Add goal to list
+                    var goal_name = form.find("input[name='personal_goal']").val();
+                    // clear input field
+                    form.find("input[name='personal_goal']").val("");
+                    $(".personal-goals-list ul").append("<li class='personal-goal-list-item'>"+goal_name+
+                        " <img src='{% static 'construction/images/trash.svg' %}' data-goal='"+goal_name+
+                        "' class='personal-goal-list-item-delete' title='Persönliches Ziel löschen' alt='Löschen'></li>");
+
+                    {% if min_number_goals %}
+                    if ($(".personal-goal-list-item").length >= {{ min_number_goals }}) {
+                        // enable button if four goals
+                        $("#continue-button").prop("disabled", false);
+                    }
+                    {% endif %}
+
+                    {% if max_number_goals %}
+                    if ($(".personal-goal-list-item").length >= {{ max_number_goals }}) {
+                        // disable goal input
+                        $(".personal-goal-input").prop("disabled", true);
+                    }
+                    {% endif %}
+                });
+            } else {
+                alert("Identische Ziele sind nicht erlaubt.")
+            }
+        });
+
+        $(document).on('click', 'img.personal-goal-list-item-delete', function () {
+            var goal = $(this).data("goal");
+            var token = '{{ csrf_token }}';
+
+            // delete goal from server
+            $.ajax({
+                    type: "POST",
+                    url: "{% url 'delete_personal_goal' %}",
+                    headers: {"X-CSRFToken": token},
+                    data: {"personal_goal": goal},
+            }).done(function (data) {
+                // if personal goal is deleted successfully
+
+                // Remove goal from list
+                $("img[data-goal='"+goal+"']").parents("li.personal-goal-list-item").remove()
+
+                {% if min_number_goals %}
+                if ($(".personal-goal-list-item").length < {{ min_number_goals }}) {
+                    // enable button if four goals
+                    $("#continue-button").prop("disabled", true);
+                }
+                {% endif %}
+
+                {% if max_number_goals %}
+                if ($(".personal-goal-list-item").length < {{ max_number_goals }}) {
+                    // disable goal input
+                    $(".personal-goal-input").prop("disabled", false);
+                }
+                {% endif %}
+            });
+        });
+    </script>
+
+{% endblock %}
+

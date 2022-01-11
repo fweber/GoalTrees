@@ -1,0 +1,42 @@
+{% extends "construction/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <style>
+        #thankyou-comment-form {
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <h1>{{ title }}</h1>
+
+    {% if text %}
+        {{ text|safe }}
+    {% endif %}
+
+    {% if comment_enabled %}
+        <form id="thankyou-comment-form" action="{% url 'write_comment' %}" method="post">
+        {% csrf_token %}
+        <div class="question">
+            <label class="open-question-label" for="thankyou_comment">{{ comment_text }}</label><br>
+            <textarea style="width: 100%" class="open-question-input" id="thankyou_comment"
+                      name="thankyou_comment" rows="5"></textarea>
+            <input type="hidden" name="comment_text" value="{{ comment_text }}">
+            <br>
+        </div>
+        <input type="hidden" name="open_questions" value="thankyou_comment">
+        <input type="hidden" name="current" value="feedback">
+
+        <input type="submit" value="{% translate "Speichern" %}">
+        </form>
+    {% endif %}
+
+    {% if text_bottom %}
+        {{ text_bottom|safe }}
+    {% endif %}
+
+
+{% endblock %}
+

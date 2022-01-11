@@ -1,0 +1,21 @@
+{% extends "construction/base.html" %}
+
+{% load i18n %}
+
+{% block content %}
+
+    <h1>{{ title }}</h1>
+    <p>{{ introduction|safe }}</p>
+    <form action="{% url 'new_tree' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label>
+                Bitte gib hier dein persönliches Ziel an:
+                <input type="text" name="goal" maxlength="{{ max_title_length }}" required>
+            </label>
+        </div>
+        <br>
+        <button type="submit">{% translate "Speichern und fortfahren" %}</button>
+    </form>
+
+{% endblock %}

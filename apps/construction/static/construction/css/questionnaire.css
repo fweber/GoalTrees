@@ -1,0 +1,233 @@
+/* questionnaire styles */
+.questionnaire {
+    margin-bottom: 20px;
+}
+
+.questionnaire-item {
+    align-items: center;
+    /* equal heights */
+    min-height: 70px;
+}
+
+.questionnaire-item, .questionnaire-header, .questionnaire-likert-header, .questionnaire-item-text-header, .questionnaire-bottom {
+    display: flex;
+    padding: 5px 0 5px 5px;
+}
+
+.questionnaire-buttons {
+    padding: 15px 0 0 0;
+}
+
+.questionnaire-header {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.questionnaire-item-input-col {
+    /* same width of all radio elements */
+    flex: 1 1 0;
+    text-align: center;
+}
+
+/* margin for five answers as default */
+.questionnaire-item-slider-col, .questionnaire-slider-ticks {
+    margin: 0 7% 0;
+}
+
+/* margin for four answers */
+.answer-size-4 .questionnaire-item-slider-col, .answer-size-4 .questionnaire-slider-ticks {
+    margin: 0 9% 0;
+}
+
+/* margin for six answers */
+.answer-size-6 .questionnaire-item-slider-col, .answer-size-6 .questionnaire-slider-ticks {
+    margin: 0 5% 0;
+}
+
+/* margin for seven answers */
+.answer-size-7 .questionnaire-item-slider-col, .answer-size-7 .questionnaire-slider-ticks {
+    margin: 0 5% 0;
+}
+
+/* slider styles */
+.questionnaire-item-slider, .questionnaire-item-slider-input {
+    display: flex;
+    align-items: center;
+}
+
+.questionnaire-item-slider-output {
+    flex: 0 0 50px;
+    text-align: left;
+}
+
+.questionnaire-item-slider-col input {
+    width: 100%;
+    -webkit-appearance: none;
+    height: .5rem;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    z-index: 1;
+}
+
+.questionnaire-item-slider-col input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 0;
+    background: #aaaaaa;
+}
+
+.questionnaire-item-slider-col input::-moz-range-thumb  {
+    width: 1rem;
+    height: 1rem;
+    border: 0;
+    background: #aaaaaa;
+}
+
+.questionnaire-item-slider-col input.questionnaire-slider-value-set::-moz-range-thumb {
+    background: cornflowerblue;;
+}
+
+.questionnaire-item-slider-col input.questionnaire-slider-value-set::-webkit-slider-thumb {
+    background: cornflowerblue;;
+}
+
+/* slider ticks */
+.questionnaire-slider-header {
+    width: 100%;
+}
+
+.questionnaire-slider-header, .questionnaire-slider-ticks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.questionnaire-slider-ticks-label, .questionnaire-slider-ticks {
+    /* same width of all radio elements */
+    flex: 1 1 0;
+    text-align: center;
+}
+
+/* padding for five answers as default */
+.questionnaire-slider-ticks-left-value {
+    flex-grow: 1;
+    padding-left: 7%;
+}
+
+/* padding for four answers */
+.answer-size-4 .questionnaire-slider-ticks-left-value {
+    padding-left: 9%;
+}
+
+/* padding for six answers */
+.answer-size-6 .questionnaire-slider-ticks-left-value {
+    padding-left: 5%;
+}
+
+/* padding for seven answers */
+.answer-size-7 .questionnaire-slider-ticks-left-value {
+    padding-left: 5%;
+}
+
+.questionnaire-slider-ticks-left-value div {
+    transform: translateX(4px);
+}
+
+/* padding for five answers as default */
+.questionnaire-slider-ticks-right-value {
+    flex-grow: 1;
+    text-align: right;
+    padding-right: 7%;
+}
+
+/* padding for seven answers */
+.answer-size-7 .questionnaire-slider-ticks-right-value {
+    padding-right: 5%;
+}
+
+/* padding for six answers */
+.answer-size-6 .questionnaire-slider-ticks-right-value {
+    padding-right: 4%;
+}
+
+/* padding for four answers */
+.answer-size-4 .questionnaire-slider-ticks-right-value {
+    padding-right: 5%;
+}
+
+.questionnaire-slider-ticks-right-value div {
+    transform: translateX(-4px);
+}
+
+.questionnaire-slider-ticks {
+    padding: 0 8px 0;
+}
+
+.questionnaire-slider-ticks span {
+    width: 1px;
+    background: #D3D3D3;
+    height: 10px;
+}
+
+/* input ticks */
+
+.questionnaire-item-slider-input {
+    flex-direction: column;
+    width: 100%;
+}
+
+.questionnaire-item-slider-input .questionnaire-slider-ticks {
+    width: 100%;
+    z-index: 0;
+}
+
+/* color every second item grey */
+.questionnaire-item:nth-child(odd) {
+    background-color: #f2f2f2;;
+}
+
+.questionnaire-item-text-col {
+    flex: 0 0 20%;
+    /* hyphens */
+    /*-moz-hyphens: auto;*/
+    /*-o-hyphens: auto;*/
+    /*-webkit-hyphens: auto;*/
+    /*-ms-hyphens: auto;*/
+    /*hyphens: auto;*/
+    /*!* prevent overflow *!*/
+    /*overflow-wrap: break-word;*/
+    /*word-wrap: break-word;*/
+    /*word-break: break-word;*/
+}
+
+/* custom radio button */
+
+/* hide browser default radio button */
+.questionnaire-item-radio input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* base custom radio button stying */
+.questionnaire-item-radio .checkmark {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: 0.1em solid cornflowerblue;
+    transform: translateX(-0.05em);
+}
+
+/* styling for checked radio button */
+.questionnaire-item-radio input:checked + .checkmark {
+    background: radial-gradient(cornflowerblue 50%, rgba(255, 0, 0, 0) 51%);
+}
+
+/* radio button shadow */
+.questionnaire-item-radio input:hover + .checkmark {
+    box-shadow: 0 0 0 0.05em #fff, 0 0 0.15em 0.1em cornflowerblue;
+}

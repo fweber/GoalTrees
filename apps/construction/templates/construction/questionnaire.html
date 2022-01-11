@@ -1,0 +1,178 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+{% load i18n %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="{% static 'construction/js/d3_visualizations.js' %}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'construction/css/questionnaire.css' %}">
+
+
+{% if title %}
+    <h2>{{ title }}</h2>
+{% endif %}
+{% if tree %}
+    {{ tree_text|safe }}
+    <div>
+        <svg id="tree_svg"></svg>
+    </div>
+    <br>
+{% endif %}
+{% if introduction %}
+    {{ introduction|safe }}
+{% endif %}
+<br>
+
+<form id="questionnaire-form" action="{% url 'answer_questionnaire' %}" method="post">
+    {% csrf_token %}
+
+    <div class="questionnaire answer-size-{{ answers|length }}">
+        <div class="questionnaire-header">
+            {% if item_text %}
+                <div class="questionnaire-item-text-header">
+                    <div class="questionnaire-item-text-col"></div>
+                    <div class="questionnaire-item-text">{{ item_text|safe }}</div>
+                </div>
+            {% endif %}
+            {% if type == "likert" %}
+                <div class="questionnaire-likert-header">
+                    <div class="questionnaire-item-text-col"></div>
+                    {% for answer in answers %}
+                        <div class="questionnaire-item-input-col questionnaire-item-radio-col">{{ answer }}</div>
+                    {% endfor %}
+                </div>
+            {% elif type == "slider" %}
+                <div class="questionnaire-slider-header questionnaire-slider-ticks-labels">
+                        <div class="questionnaire-item-text-col" style="{% if show_values %}margin-right: 50px;{% endif %}"></div>
+                        {% for answer in answers %}
+                            <div class="questionnaire-slider-ticks-label">{{ answer }}</div>
+                        {% endfor %}
+                </div >
+                {% if show_values %}
+                    <div class="questionnaire-slider-header questionnaire-slider-ticks-values">
+                        <div class="questionnaire-item-text-col" style="{% if show_values %}margin-right: 50px;{% endif %}"></div>
+                        <div class="questionnaire-slider-ticks-left-value">
+                            <div>{{ slider_min }}</div>
+                        </div>
+                        <div class="questionnaire-slider-ticks-right-value">
+                            <div>{{ slider_max }}</div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="questionnaire-slider-header questionnaire-slider-ticks-header">
+                    <div class="questionnaire-item-text-col" style="{% if show_values %}margin-right: 50px;{% endif %}"></div>
+                    <div class="questionnaire-slider-ticks">
+                        {% for answer in answers %}
+                            <span></span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% for item in items %}
+            <div class="questionnaire-item">
+                <div class="questionnaire-item-text questionnaire-item-text-col">{{ item.item_text }}</div>
+                {% if type == "likert" %}
+                    {% for answer in answers %}
+                        <label class="questionnaire-item-input-col questionnaire-item-radio questionnaire-item-radio-col">
+                            {# custom radio button #}
+                            <input type="radio" name="{{ item.item_text }}" value="{{ answer }}" {% if required %}required{% endif %}/>
+                            <span class="checkmark"></span>
+                        </label>
+                    {% endfor %}
+                {% elif type == "slider" %}
+                    <div class="questionnaire-item-input-col questionnaire-item-slider questionnaire-item-slider-col">
+                        {% if show_values %}
+                            <div class="questionnaire-item-slider-output"></div>
+                        {% endif %}
+                        <div class="questionnaire-item-slider-input">
+                            <input data-value-set="false" type="range" min="{{ slider_min }}" max="{{ slider_max }}" step="{{ slider_step }}" name="{{ item.item_text }}"/>
+                            <div class="questionnaire-slider-ticks">
+                                {% for answer in answers %}
+                                    <span></span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        {% if display_answers_bottom %}
+            <div class="questionnaire-bottom">
+                {% if type == "likert" %}
+                    <div class="questionnaire-item-text-col"></div>
+                    {% for answer in answers %}
+                        <div class="questionnaire-item-input-col questionnaire-item-radio-col">{{ answer }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="questionnaire-bottom questionnaire-buttons">
+            {% if type == "slider" %}
+                <div class="questionnaire-item-text-col"></div>
+            {% endif %}
+            <button type="submit" {% if type == "slider" and required %}title="{% translate "Bitte beantworte alle Elemente" %}" disabled{% endif %}>{% translate "Speichern und fortfahren" %}</button>
+        </div>
+    </div>
+    <input type="hidden" name="questionnaire" value="{{ questionnaire }}">
+</form>
+
+<script>
+{% if tree %}
+    // visualize tree under introduction
+    WIDTH = 600;
+    HEIGHT = 600;
+    var nodeData = JSON.parse('{{ tree | escapejs }}');
+    var condition = {{ tree_condition }};
+    visualize(condition, nodeData, "tree_svg");
+{% endif %}
+
+// slider script
+
+// update the output value
+$(".questionnaire-item-slider").each(function () {
+    var slider = $(this).find("input");
+    var value_output = $(this).find(".questionnaire-item-slider-output");
+    value_output.text(parseFloat(slider.val()));
+
+    slider.on("input", function () {
+        value_output.text(parseFloat(this.value));
+    });
+});
+
+// Change color when slider is set
+$(".questionnaire-item-slider input[type=range]").click(function () {
+    var value = $(this).val();
+    $(this).data("value-set", true);
+    $(this).addClass("questionnaire-slider-value-set");
+    if (allSlidersSet()) {
+        $("#questionnaire-form button[type=submit]").prop("disabled", false);
+    }
+});
+
+{% if type == "slider" and required %}
+// prevent submitting until all slider values are set
+$("#questionnaire-form").submit(function () {
+    return allSlidersSet();
+});
+{% endif %}
+
+// Checks weather all slider inputs are set
+function allSlidersSet() {
+    var values_set = true;
+    $(".questionnaire-item-slider input[type=range]").each(function () {
+        if ($(this).data("value-set") === false) {
+            values_set = false;
+        }
+    });
+    return values_set;
+}
+</script>
+
+{% endblock %}

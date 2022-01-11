@@ -1,0 +1,34 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+{% load i18n %}
+
+<div class="container">
+    {% if title %}
+        <h1>{{ title }}</h1>
+    {% endif %}
+
+    {% if introduction %}
+        {{ introduction|safe }}
+    {% endif %}
+</div>
+
+{# include tree editor #}
+{% include "construction/tree/tree_editor.html" %}
+
+{% if text_bottom %}
+    <div class="container tree-text-bottom">
+        {{ text_bottom|safe }}
+    </div>
+{% endif %}
+
+<div class="container next-button-container">
+    <br>
+    {#<button onclick="location.href = '/new_tree'">Neue Zielhierarchie</button>#}
+    <button id="continue-button" onclick="location.href = '{% url 'next_view' %}'" {% if goals|length <= min_node_number %}disabled{% endif %}>{% translate "Speichern und fortfahren" %}</button>
+</div>
+
+{% endblock %}
