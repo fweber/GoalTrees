@@ -144,18 +144,16 @@ class STUDY_goal_setting_study(STUDY_BASE):
                 "context": {
                     "title": "Part 1: Task-Related Experience and Goal",
                     "text": """<h2>Task Instruction</h2>
-                            <p>In the following pages, you will be asked several open-ended questions about your past experiences and future goals.</p>
+                            <p>In the following pages, you will be asked several open-ended questions about your task-related experience and your future goals.</p>
 
                             <p>We would like you to read each question carefully and type your answer into the text box. 
-                            <b>Please try to answer with the first thing that comes to your mind, and not spend too long on a single question</b>.</p>
-
-                            <p>Following every writing task, <b>you will set your five different academic goals</b>, and here, do not include simple tasks 
+                            <b>Please try to answer with the first thing that comes to your mind, and not spend too long on a single question</b>.
+                            In between the questions on your past experience, <b>you will set five different academic goals</b>, and here, do not include simple tasks 
                             such as “going to the store” or “clean my room.”</p>
                             
-                            <p>There will be a minimum or a maximum number of words we ask you to write, and you will see it with the word count under 
-                            the text box. You can move on to the next page when your text meets the specified number of words.</p>
-                            
-                            <p>You don’t have to worry about sentence construction, spelling, or grammar.</p>"""
+                            <p>There will be a minimum or a maximum number of words we ask you to write, which you will see with the word count under 
+                            the text box. You can move on to the next page when your text meets the specified number of words.
+                            You don’t have to worry about sentence construction, spelling, or grammar.</p>"""
                 }
             }
         )
@@ -168,30 +166,30 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that you <b>enjoyed</b>.<br>"
-                                    "Describe why you think it was an <b>enjoyable</b> experience for you.",
+                            "text": "Think about a task that you <b>enjoyed</b>.<br>"
+                                    "Describe why it was an <b>enjoyable</b> experience for you.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you found it <b>fun</b>.<br>"
-                                    "Describe why you think it was <b>fun</b> to do.",
+                            "text": "Think about a task you found <b>fun</b>.<br>"
+                                    "Describe why it was <b>fun</b> to do.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was a <b>pleasure</b> to do.<br>"
-                                    "Describe why you think it was a <b>pleasant</b> experience for you.",
+                            "text": "Think about a task that was a <b>pleasure</b> to do.<br>"
+                                    "Describe why it was a <b>pleasant</b> experience for you.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>interesting</b>.<br>"
-                                    "Describe why you think it was an <b>interesting</b> task for you.",
+                            "text": "Think about a task that was <b>interesting</b> for you.<br>"
+                                    "Describe why it was an <b>interesting</b> task.",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting question.</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -214,30 +212,30 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that you strongly <b>valued</b>.<br>"
-                                    "Describe why you think you <b>valued</b> that task.",
+                            "text": "Think about a task that you <b>strongly valued</b>.<br>"
+                                    "Describe why you <b>valued</b> that task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>personally important</b> to you.<br>"
-                                    "Describe why you think it was a <b>personally important</b> task.",
+                            "text": "Think about a task that was <b>personally important</b> to you.<br>"
+                                    "Describe why it was an <b>important</b> task for you.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was your <b>personal choice</b> to do.<br>"
+                            "text": "Think about a task that was your <b>personal choice</b> to do.<br>"
                                     "Describe why you think it was your <b>personal choice</b>.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>meaningful</b> to you.<br>"
-                                    "Describe why you think it was a <b>meaningful</b> experience.",
+                            "text": "Think about a task that was <b>meaningful</b> to you.<br>"
+                                    "Describe why it was a <b>meaningful</b> experience for you.",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting question.</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -261,29 +259,29 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         {
                             "type": "text",
                             "text": "Think about a task you did because you would have <b>felt ashamed</b> if you hadn’t done it.<br>"
-                                    "Describe why you think you could have <b>felt ashamed</b> about it.",
+                                    "Describe why you would have <b>felt ashamed</b> of it.",
                         },
                         {
                             "type": "text",
                             "text": "Think about a task you did because you didn’t want to <b>feel bad about yourself</b>.<br>"
-                                    "Describe why you think you didn’t want to <b>feel bad about yourself</b> by doing that task.",
+                                    "Describe why you didn’t want to <b>feel bad about yourself</b> by doing that task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you wanted to <b>feel proud of yourself</b>.<br>"
-                                    "Describe why you think you wanted to <b>feel proud of yourself</b> by doing that task.",
+                            "text": "Think about a task in which you wanted to <b>feel proud of yourself</b>.<br>"
+                                    "Describe why you wanted to <b>feel proud of yourself</b> by doing that task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you wanted to <b>prove to yourself</b> that you were <b>capable</b>.<br>"
-                                    "Describe why you think you wanted to <b>prove to yourself</b> that you were <b>capable</b> by doing that task.",
+                            "text": "Think about a task in which you wanted to <b>prove to yourself</b> that <b>you were capable</b>.<br>"
+                                    "Describe why you wanted to <b>prove to yourself</b> that <b>you were capable</b> by doing that task.",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting question.</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -306,30 +304,30 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that made <b>important people</b> (i.e., parents, professors) <b>like you better</b>.<br>"
-                                    "Describe why you think it was important to you that <b>those people liked you</b>.",
+                            "text": "Think about a task you did because it would make <b>important people</b> (i.e., parents, professors) <b>like you better</b>.<br>"
+                                    "Describe why it was important to you that <b>those people liked you</b>.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because <b>others</b> would have become <b>angry</b> if you hadn’t done it.<br>"
-                                    "Describe why you think <b>others</b> could have become <b>angry</b>.",
+                            "text": "Think about a task that <b>others</b> could have become <b>angry about</b> if you hadn’t done it.<br>"
+                                    "Describe why <b>others</b> could have become <b>angry on you</b>.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you would have <b>got in trouble</b> if you hadn’t done it.<br>"
-                                    "Describe why you think it could have <b>put you in trouble</b>.",
+                            "text": "Think about a task that could have <b>got you in trouble</b> if you hadn’t done it.<br>"
+                                    "Describe why it could have <b>got you in trouble</b>.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>didn’t have any choice</b> but to do.<br>"
-                                    "Describe why you think you <b>didn’t have any choice</b> about it.",
+                            "text": "Think about a task that you <b>had no choice but to do</b>.<br>"
+                                    "Describe why you <b>didn’t have any choice</b> about it.",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting question.</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -352,30 +350,30 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>once had good reasons</b> for doing, but <b>later you didn’t</b>.<br>"
-                                    "Describe why you think you <b>lost those reasons</b> later.",
+                            "text": "Think about a task that you'd <b>once had good reasons</b> for doing, but later <b>you didn’t anymore</b>.<br>"
+                                    "Describe why you think you <b>lost those reasons</b>.",
                         },
                         {
                             "type": "text",
                             "text": "Think about a task that you honestly <b>didn’t know why you did</b>.<br>"
-                                    "Describe why you think you <b>didn’t know why you did</b> that task.",
+                                    "Describe why you think you <b>didn’t know the reason</b> you did that task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did, but you were <b>not sure about it and wondered</b> whether you should <b>continue doing it</b>.<br>"
+                            "text": "Think about a task you <b>wondered whether you should continue doing</b>.<br>"
                                     "Describe why you think you were <b>not sure about continuing that task</b>.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did but you <b>couldn't understand exactly what you were doing</b>.<br>"
+                            "text": "Think about a task you did, but you <b>did not understand what exactly you were doing</b>.<br>"
                                     "Describe why you think you <b>couldn't understand what you were doing</b>.",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting question.</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
