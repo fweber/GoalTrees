@@ -80,7 +80,7 @@ def example_tree(request):
     #tree = models.Goal.get_children(root_goal.id)
     condition = models.Participant.get_current_participant(request).condition
     #print(tree)
-    print("condition is {}".format(condition))
+    #print("condition is {}".format(condition))
     context = {#'tree_id': tree_id,
                #'tree': json.dumps(tree),
                'condition': models.Participant.get_current_participant(request).condition,

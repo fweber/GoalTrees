@@ -515,6 +515,7 @@ class Item(models.Model):
         return big_five
 
     def get_gcq_items(file="gcq.csv", language="de"):
+        print('{}/apps/construction/static/construction/data/{}'.format(settings.BASE_DIR, file))
         with open(
                 '{}/apps/construction/static/construction/data/{}'.format(settings.BASE_DIR, file),
                 'r',

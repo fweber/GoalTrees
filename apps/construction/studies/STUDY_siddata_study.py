@@ -203,8 +203,8 @@ class STUDY_siddata_study(STUDY_BASE):
         gcq_items = Item.get_gcq_short_items()
         for i in range(len(gcq_items)):
             item = gcq_items[i]
-            self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_"+str(i+1))
-            StudyContext.objects.update_or_create(study=self.study, view="goal_characteristics_questionnaire_item_"+str(i+1),
+            self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_{}".format(str(i+1)))
+            StudyContext.objects.update_or_create(study=self.study, view="goal_characteristics_questionnaire_item_{}".format(str(i+1)),
                 defaults={
                     "context": {
                         "title": "",

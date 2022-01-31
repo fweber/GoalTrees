@@ -164,32 +164,32 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that you <b>enjoyed</b>.<br>"
+                            "text": "Think about a task you did that you <b>enjoyed</b>.                                                                <br>"
                                     "Describe why you think it was an <b>enjoyable</b> experience for you.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you found it <b>fun</b>.<br>"
+                            "text": "Think about a task you did because you found it <b>fun</b>.                                                        <br>"
                                     "Describe why you think it was <b>fun</b> to do.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was a <b>pleasure</b> to do.<br>"
+                            "text": "Think about a task you did that was a <b>pleasure</b> to do.                                                       <br>"
                                     "Describe why you think it was a <b>pleasant</b> experience for you.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>interesting</b>.<br>"
+                            "text": "Think about a task you did that was <b>interesting</b>.                                                            <br>"
                                     "Describe why you think it was an <b>interesting</b> task for you.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did in which you <b>enjoyed</b> learning new things.<br>"
+                            "text": "Think about a task you did in which you <b>enjoyed</b> learning new things.                                        <br>"
                                     "Describe why you think it was an <b>enjoyable</b> experience.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did in which you found <b>satisfaction</b> by acquiring new knowledge and skills.<br>"
+                            "text": "Think about a task you did in which you found <b>satisfaction</b> by acquiring new knowledge and skills.           <br>"
                                     "Describe why you think it was a <b>satisfying</b> experience.",
                         },
                         {
@@ -199,13 +199,13 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that allowed you to continue to learn about many things that <b>interested</b> you.<br>"
+                            "text": "Think about a task you did that allowed you to continue to learn about many things that <b>interested</b> you.     <br>"
                                     "Describe why you think it was <b>interesting</b> to do.",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.                        </b> "
                                     "Write that goal into the box. <br>"
                                     "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
                             "random": False,
@@ -230,22 +230,22 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that you strongly <b>valued</b>.<br>"
+                            "text": "Think about a task you did that you strongly <b>valued</b>.                                                              <br>"
                                     "Describe why you think you <b>valued</b> that task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>personally important</b> to you.<br>"
+                            "text": "Think about a task you did that was <b>personally important</b> to you.                                                  <br>"
                                     "Describe why you think it was a <b>personally important</b> task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was your <b>personal choice</b> to do.<br>"
+                            "text": "Think about a task you did that was your <b>personal choice</b> to do.                                                   <br>"
                                     "Describe why you think it was your <b>personal choice</b>.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>meaningful</b> to you.<br>"
+                            "text": "Think about a task you did that was <b>meaningful</b> to you.                                                            <br>"
                                     "Describe why you think it was a <b>meaningful</b> experience.",
                         },
                         {
@@ -255,12 +255,12 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because it was <b>important to you to do well</b> in that task.<br>"
+                            "text": "Think about a task you did because it was <b>important to you to do well</b> in that task.                                <br>"
                                     "Describe why you think it was <b>important to do well</b> in that task.",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because it would <b>improve your training</b> for <b>your future career</b>.<br>"
+                            "text": "Think about a task you did because it would <b>improve your training</b> for <b>your future career</b>.                   <br>"
                                     "Describe why you think it could <b>improve your training</b> for <b>your future career</b>.",
                         },
                         {
@@ -271,7 +271,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b>"
                                     "Write that goal into the box. <br>"
                                     "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
                             "random": False,
@@ -279,9 +279,9 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     ],
                     "random_order": True,
                     "single_view": True,
-                    "min_answer_words": 20, # words instead length counts number words
+                    "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 10,
+                    "max_goal_words": 20,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -345,9 +345,9 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     ],
                     "random_order": True,
                     "single_view": True,
-                    "min_answer_words": 20, # words instead length counts number words
+                    "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 10,
+                    "max_goal_words": 20,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -411,9 +411,9 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     ],
                     "random_order": True,
                     "single_view": True,
-                    "min_answer_words": 20, # words instead length counts number words
+                    "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 10,
+                    "max_goal_words": 20,
                     "show_max_goal_words": True,
                     "required": True,
                 }
