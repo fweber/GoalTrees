@@ -144,14 +144,16 @@ class STUDY_goal_setting_study(STUDY_BASE):
                 "context": {
                     "title": "Part 1: Task-Related Experience and Goal",
                     "text": """<h2>Task Instruction</h2>
-                            <p>In the following pages, you will be asked several questions about your thoughts on past experiences
-                            and your future goals. We would like you to spend some time thinking about answers to each question.</p>
+                            <p>In the following pages, you will be asked several open-ended questions about your task-related experience and your future goals.</p>
+
+                            <p>We would like you to read each question carefully and type your answer into the text box. 
+                            <b>Please try to answer with the first thing that comes to your mind, and not spend too long on a single question</b>.
+                            In between the questions on your past experience, <b>you will set five different academic goals</b>, and here, do not include simple tasks 
+                            such as “going to the store” or “clean my room.”</p>
                             
-                            <p>Please type them into the text box provided and consider the minimum or maximum number of words
-                            we will ask you to write. It will be shown under the text box with a word count. You can move on
-                            to the next task when your text meets the number of words specified.</p>
-                            
-                            <p>You don’t have to worry about sentence construction, spelling, or grammar.</p>"""
+                            <p>There will be a minimum or a maximum number of words we ask you to write, which you will see with the word count under 
+                            the text box. You can move on to the next page when your text meets the specified number of words.
+                            You don’t have to worry about sentence construction, spelling, or grammar.</p>"""
                 }
             }
         )
@@ -164,56 +166,40 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that you <b>enjoyed</b>.                                                                <br>"
-                                    "Describe why you think it was an <b>enjoyable</b> experience for you.",
+                            "text": "Think about a task that you <b>enjoyed</b>.<br>"
+                                    "Describe why it was an <b>enjoyable</b> experience for you.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you found it <b>fun</b>.                                                        <br>"
-                                    "Describe why you think it was <b>fun</b> to do.",
+                            "text": "Think about a task you found <b>fun</b>.<br>"
+                                    "Describe why it was <b>fun</b> to do.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was a <b>pleasure</b> to do.                                                       <br>"
-                                    "Describe why you think it was a <b>pleasant</b> experience for you.",
+                            "text": "Think about a task that was a <b>pleasure</b> to do.<br>"
+                                    "Describe why it was a <b>pleasant</b> experience for you.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>interesting</b>.                                                            <br>"
-                                    "Describe why you think it was an <b>interesting</b> task for you.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did in which you <b>enjoyed</b> learning new things.                                        <br>"
-                                    "Describe why you think it was an <b>enjoyable</b> experience.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did in which you found <b>satisfaction</b> by acquiring new knowledge and skills.           <br>"
-                                    "Describe why you think it was a <b>satisfying</b> experience.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did for the <b>pleasure</b> you experienced when you discovered new things never seen before.<br>"
-                                    "Describe why you think it was a <b>pleasant</b> experience.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did that allowed you to continue to learn about many things that <b>interested</b> you.     <br>"
-                                    "Describe why you think it was <b>interesting</b> to do.",
+                            "text": "Think about a task that was <b>interesting</b> for you.<br>"
+                                    "Describe why it was an <b>interesting</b> task.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.                        </b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
                     "random_order": True,
                     "single_view": True,
-                    "min_answer_words": 20, # words instead length counts number words
+                    "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
                     "max_goal_words": 10,
                     "show_max_goal_words": True,
@@ -230,50 +216,34 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that you strongly <b>valued</b>.                                                              <br>"
-                                    "Describe why you think you <b>valued</b> that task.",
+                            "text": "Think about a task that you <b>strongly valued</b>.<br>"
+                                    "Describe why you <b>valued</b> that task.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>personally important</b> to you.                                                  <br>"
-                                    "Describe why you think it was a <b>personally important</b> task.",
+                            "text": "Think about a task that was <b>personally important</b> to you.<br>"
+                                    "Describe why it was an <b>important</b> task for you.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was your <b>personal choice</b> to do.                                                   <br>"
-                                    "Describe why you think it was your <b>personal choice</b>.",
+                            "text": "Think about a task that was your <b>personal choice</b> to do.<br>"
+                                    "Describe why you think it was your <b>personal choice</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did that was <b>meaningful</b> to you.                                                            <br>"
-                                    "Describe why you think it was a <b>meaningful</b> experience.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because you <b>wanted to learn and acquire an understanding</b> of the task or related topics.<br>"
-                                    "Describe why you think you <b>wanted to learn and understand</b> that task or related topics.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because it was <b>important to you to do well</b> in that task.                                <br>"
-                                    "Describe why you think it was <b>important to do well</b> in that task.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because it would <b>improve your training</b> for <b>your future career</b>.                   <br>"
-                                    "Describe why you think it could <b>improve your training</b> for <b>your future career</b>.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because it allowed you to <b>learn</b> things which you can then <b>apply in other areas of your life</b>.<br>"
-                                    "Describe why you think it allowed you to <b>learn</b> things and <b>apply them in other areas of your life</b>.",
+                            "text": "Think about a task that was <b>meaningful</b> to you.<br>"
+                                    "Describe why it was a <b>meaningful</b> experience for you.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b>"
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -296,50 +266,34 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you would have <b>felt guilty</b> if you hadn’t done it.<br>"
-                                    "Describe why you think you could have <b>felt guilty</b> about it.",
-                        },
-                        {
-                            "type": "text",
                             "text": "Think about a task you did because you would have <b>felt ashamed</b> if you hadn’t done it.<br>"
-                                    "Describe why you think you could have <b>felt ashamed</b> about it.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because you would have <b>felt like a failure</b> if you hadn’t done it.<br>"
-                                    "Describe why you think you could have <b>felt like a failure</b> that way.",
+                                    "Describe why you would have <b>felt ashamed</b> of it.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
                             "text": "Think about a task you did because you didn’t want to <b>feel bad about yourself</b>.<br>"
-                                    "Describe why you think you didn’t want to <b>feel bad about yourself</b> by doing that task.",
+                                    "Describe why you didn’t want to <b>feel bad about yourself</b> by doing that task.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you wanted to <b>feel proud of yourself</b>.<br>"
-                                    "Describe why you think you wanted to <b>feel proud of yourself</b> by doing that task.",
+                            "text": "Think about a task in which you wanted to <b>feel proud of yourself</b>.<br>"
+                                    "Describe why you wanted to <b>feel proud of yourself</b> by doing that task.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you wanted to <b>prove to yourself</b> that you were <b>capable</b>.<br>"
-                                    "Describe why you think you wanted to <b>prove to yourself</b> that you were <b>capable</b> by doing that task.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did that <b>boosted your self-esteem</b>.<br>"
-                                    "Describe why you think it <b>boosted your self-esteem</b>.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because you wanted to <b>feel good about yourself</b>.<br>"
-                                    "Describe why you think you wanted to <b>feel good about yourself</b> by doing that task.",
+                            "text": "Think about a task in which you wanted to <b>prove to yourself</b> that <b>you were capable</b>.<br>"
+                                    "Describe why you wanted to <b>prove to yourself</b> that <b>you were capable</b> by doing that task.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -362,50 +316,34 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did that made <b>important people</b> (i.e., parents, professors) <b>like you better</b>.<br>"
-                                    "Describe why you think it was important to you that <b>those people liked you</b>.",
+                            "text": "Think about a task you did because it would make <b>important people</b> (i.e., parents, professors) <b>like you better</b>.<br>"
+                                    "Describe why it was important to you that <b>those people liked you</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because <b>others</b> would have become <b>angry</b> if you hadn’t done it.<br>"
-                                    "Describe why you think <b>others</b> could have become <b>angry</b>.",
+                            "text": "Think about a task that <b>others</b> could have become <b>angry about</b> if you hadn’t done it.<br>"
+                                    "Describe why <b>others</b> could have become <b>angry on you</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you would have <b>got in trouble</b> if you hadn’t done it.<br>"
-                                    "Describe why you think it could have <b>put you in trouble</b>.",
+                            "text": "Think about a task that could have <b>got you in trouble</b> if you hadn’t done it.<br>"
+                                    "Describe why it could have <b>got you in trouble</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>didn’t have any choice</b> but to do.<br>"
-                                    "Describe why you think you <b>didn’t have any choice</b> about it.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because it was what <b>you were supposed to do</b>.<br>"
-                                    "Describe why you think <b>you were supposed to do</b> that task.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did so that <b>your professor or boss</b> did <b>not single you out</b>.<br>"
-                                    "Describe why you think <b>your professor or boss</b> could have <b>singled you out</b>.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because you believed <b>the system required</b> you to do it even though it was not explicitly mandatory.<br>"
-                                    "Describe why you think <b>the system required</b> you to do it.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did because you wanted to <b>obtain a more prestigious job</b> later on.<br>"
-                                    "Describe why you think you wanted to <b>get a more prestigious job</b>.",
+                            "text": "Think about a task that you <b>had no choice but to do</b>.<br>"
+                                    "Describe why you <b>didn’t have any choice</b> about it.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
@@ -428,56 +366,40 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>once had good reasons</b> for doing, but <b>later you didn’t</b>.<br>"
-                                    "Describe why you think you <b>lost those reasons</b> later.",
+                            "text": "Think about a task that you'd <b>once had good reasons</b> for doing, but later <b>you didn’t anymore</b>.<br>"
+                                    "Describe why you think you <b>lost those reasons</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
                             "text": "Think about a task that you honestly <b>didn’t know why you did</b>.<br>"
-                                    "Describe why you think you <b>didn’t know why you did</b> that task.",
+                                    "Describe why you think you <b>didn’t know the reason</b> you did that task.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did, but you were <b>not sure about it and wondered</b> whether you should <b>continue doing it</b>.<br>"
-                                    "Describe why you think you were <b>not sure about continuing that task</b>.",
+                            "text": "Think about a task you <b>wondered whether you should continue doing</b>.<br>"
+                                    "Describe why you think you were <b>not sure about continuing that task</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>used to know why you did</b>, but later <b>you didn’t anymore</b>.<br>"
-                                    "Describe why you think you <b>didn’t know why you did</b> that task <b>anymore</b>.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task that you <b>didn’t understand why you had to do</b>.<br>"
-                                    "Describe why you think you <b>didn’t understand why you had to do</b>.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task that you actually thought was <b>wasting your time</b>.<br>"
-                                    "Describe why you think it was <b>a waste of your time</b>.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task that you <b>didn’t think you’d got much out of</b>.<br>"
-                                    "Describe why you think you <b>didn’t get much out of</b> that task.",
-                        },
-                        {
-                            "type": "text",
-                            "text": "Think about a task you did but you <b>couldn't understand exactly what you were doing</b>.<br>"
-                                    "Describe why you think you <b>couldn't understand what you were doing</b>.",
+                            "text": "Think about a task you did, but you <b>did not understand what exactly you were doing</b>.<br>"
+                                    "Describe why you think you <b>couldn't understand what you were doing</b>.<p>"
+                                    "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
-                                    "Write that goal into the box. <br>"
-                                    "<small>Please do not include simple tasks such as “going to the store” or “clean my room.”</small>",
+                                    "Type the goal into the box. <br>"
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
                         },
                     ],
                     "random_order": True,
                     "single_view": True,
-                    "min_answer_words": 20, # words instead length counts number words
+                    "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
                     "max_goal_words": 10,
                     "show_max_goal_words": True,
@@ -552,7 +474,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         "slider_max": 100,              # maximum slider value
                         "slider_step": 1,            # slider step length
                         "show_values": True,
-                        # "required": True,
+                        "required": True,
                     }
                 }
             )
