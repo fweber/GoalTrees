@@ -191,7 +191,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.    </b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
@@ -241,7 +241,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
                             "random": False,
@@ -334,7 +334,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>had no choice but to do</b>.<br>"
+                            "text": "Think about a task that you <b>had no choice but to do</b>.                                        <br>"
                                     "Describe why you <b>didn’t have any choice</b> about it.<p>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
