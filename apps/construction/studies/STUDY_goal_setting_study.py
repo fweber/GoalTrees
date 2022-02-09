@@ -34,11 +34,11 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             our study, you can not only acquire VP hours but also gain more clarity about your goals and improve
                             your chances of achieving them. </p>
                             
-                            <p> This study is part of the formative studies on hierarchical goal-setting intervention in a digital assistant
+                            <p> This study is part of the formative studies on a web-based hierarchical goal setting intervention for higher education
                             and aims to investigate the relation between task-related experiences and goal characteristics. You will be asked 
-                            to answer questions about your experience, and then to set your academic goals.
-                            After having set personal goals, you will be asked to rate and compare those goals in relation to
-                            diverse goal characteristics which have been found to influence relevant goal outcomes. </p>"""
+                            to answer open-ended questions about your experiences and then to set academic goals.
+                            After having set five goals, you will rate these goals with regard to
+                            diverse goal characteristics that several studies have found to be related to future goal outcomes. </p>"""
                 }
             }
         )
@@ -48,20 +48,19 @@ class STUDY_goal_setting_study(STUDY_BASE):
             defaults={
                 "context": {
                     "title": "General Instructions",
-                    "text": """<p> The study consists of two main tasks. Please allow yourself at least one hour to complete this study. 
-                            It is best to complete this study in one uninterrupted session. You will need to concentrate and
-                            process what you are writing, so try to complete tasks when you are feeling alert and relatively
-                            unrushed. Simply follow the on-screen instructions as you go along. Press the button on the bottom to
-                            move on to the next page. </p>
+                    "text": """<p> <b>The study has to be completed on a laptop or desktop computer.</b> Participation using a smartphone
+                            or a tablet will not count as valid data or VP hours. You will need to concentrate and
+                            process what you are writing, so please participate in the study when you are feeling alert and relatively
+                            unrushed. </p>
                             
-                            <p>For technical reasons, you will not be able to access the forms that have already been sent. It means
-                            you will also not be able to use the "Back" button in your browser. So please check your entries every
-                            time before you move on to the next page.</p>
+                            <p> Allow yourself at least <b>one uninterrupted hour</b> to complete the study. Simply follow the on-screen instructions
+                            as you go along. Press the button on the bottom to move on to the next page.
+                            For technical reasons, you will not be able to access the forms that have already been sent. It means
+                            you will not be able to use the "Back" button in your browser. So please check your entries before you move on to the next page.</p>
                             
-                            <p>Please answer the questions honestly and remember that this study does not intend to examine your
-                            personal information, but the relationship between research variables of the study.</p>
-                            
-                            <p>Please try to take as few breaks as possible.</p>"""
+                            <p>Answer the questions honestly, and remember that this study does not intend to examine your
+                            personal information but the relationship between the research variables.
+                            Please try to take as few breaks as possible.</p>"""
                 }
             }
         )
@@ -81,18 +80,18 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             setting. </p>
                             
                             <h2>Procedures</h2>
-                            <p>You will be asked to work through a series of web-based writing tasks (Part 1) and questionnaires
+                            <p>You will work through a series of web-based writing tasks (Part 1) and questionnaires
                             (Part 2).</p>
                             
                             <p style="margin-left: 55px;">Part 1:<br>
                             You will be asked to (1) <b>answer the open-ended questions about your past task-related
-                            experiences</b>. Then you will be asked to (2) <b>set one personal academic goal</b>.
-                            The sequence of describing your experiences &#8594; setting a goal will be repeated five times with
+                            experiences</b>. Then you will (2) <b>set a personal academic goal</b>.
+                            The sequence of describing your experiences &#8594; setting a goal will be repeated <b>five times</b> with
                             a different set of questions. After completing five steps, you will have elicited five
                             of your academic goals in total.</p>
                             
                             <p style="margin-left: 55px;">Part 2:<br>
-                            You will be asked to complete the goal characteristics questionnaire in which you will rate the
+                            You will be asked to complete Goal Characteristics Questionnaire (GCQ) in which you will rate the
                             characteristics of the five goals you set in the previous process.</p>
                             
                             <h2>Risks and Benefits</h2>
@@ -144,11 +143,11 @@ class STUDY_goal_setting_study(STUDY_BASE):
                 "context": {
                     "title": "Part 1: Task-Related Experience and Goal",
                     "text": """<h2>Task Instruction</h2>
-                            <p>In the following pages, you will be asked several open-ended questions about your task-related experience and your future goals.</p>
+                            <p>In the following pages, you will be asked open-ended questions about your task-related experiences and your future goals.
+                            Read each question carefully and type your answer into the text box</p>
 
-                            <p>We would like you to read each question carefully and type your answer into the text box. 
-                            <b>Please try to answer with the first thing that comes to your mind, and not spend too long on a single question</b>.
-                            In between the questions on your past experience, <b>you will set five different academic goals</b>, and here, do not include simple tasks 
+                            <p><b>Please try to answer with the first thing that comes to your mind</b>, and not spend too long on a single question.
+                            You will set <b>five different academic goals</b> in between the questions on your past experiences, and here, do not include simple tasks 
                             such as “going to the store” or “clean my room.”</p>
                             
                             <p>There will be a minimum or a maximum number of words we ask you to write, which you will see with the word count under 
@@ -193,7 +192,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.    </b> "
                                     "Type the goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
                         },
                     ],
@@ -201,7 +200,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "single_view": True,
                     "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 10,
+                    "max_goal_words": 5,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -243,7 +242,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
                                     "Type the goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
                         },
                     ],
@@ -251,7 +250,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "single_view": True,
                     "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 20,
+                    "max_goal_words": 5,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -293,7 +292,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.            </b> "
                                     "Type the goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
                         },
                     ],
@@ -301,7 +300,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "single_view": True,
                     "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 20,
+                    "max_goal_words": 5,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -343,7 +342,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
                                     "Type the goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
                         },
                     ],
@@ -351,7 +350,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "single_view": True,
                     "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 20,
+                    "max_goal_words": 5,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -393,7 +392,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             "text": "What goal will you be pursuing during your studies?"
                                     " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
                                     "Type the goal into the box. <br>"
-                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions.</small>",
+                                    "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
                         },
                     ],
@@ -401,7 +400,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "single_view": True,
                     "min_answer_words": 10, # words instead length counts number words
                     "show_min_answer_words": True,
-                    "max_goal_words": 10,
+                    "max_goal_words": 5,
                     "show_max_goal_words": True,
                     "required": True,
                 }
@@ -435,7 +434,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="task_instructions_part_2",
             defaults={
                 "context": {
-                    "title": "Part 2: Goal Characteristic Questionnaire (GCQ)",
+                    "title": "Part 2: Goal Characteristic Questionnaire",
                     "text": """<h2>Task Instruction</h2>
                             <p>In the previous part, you have set five academic goals. Now we would like you to think about certain
                             characteristics of those goals in the following questionnaire.</p>
