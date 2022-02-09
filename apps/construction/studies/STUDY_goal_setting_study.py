@@ -84,7 +84,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
                             (Part 2).</p>
                             
                             <p style="margin-left: 55px;">Part 1:<br>
-                            You will be asked to (1) <b>answer the open-ended questions about your past task-related
+                            You will be asked to (1) <b>answer the open-ended questions about your task-related
                             experiences</b>. Then you will (2) <b>set a personal academic goal</b>.
                             The sequence of describing your experiences &#8594; setting a goal will be repeated <b>five times</b> with
                             a different set of questions. After completing five steps, you will have elicited five
@@ -434,7 +434,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="task_instructions_part_2",
             defaults={
                 "context": {
-                    "title": "Part 2: Goal Characteristic Questionnaire",
+                    "title": "Part 2: Goal Characteristics Questionnaire",
                     "text": """<h2>Task Instruction</h2>
                             <p>In the previous part, you have set five academic goals. Now we would like you to think about certain
                             characteristics of those goals in the following questionnaire.</p>
