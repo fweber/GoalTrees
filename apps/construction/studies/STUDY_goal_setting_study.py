@@ -165,32 +165,32 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>enjoyed</b>.                                                    <br>"
+                            "text": "Think about a task that you <b>enjoyed</b>.<br>"
                                     "Describe why it was an <b>enjoyable</b> experience for you.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you found <b>fun</b>.                                                       <br>"
+                            "text": "Think about a task you found <b>fun</b>.<br>"
                                     "Describe why it was <b>fun</b> to do.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that was a <b>pleasure</b> to do.                                           <br>"
+                            "text": "Think about a task that was a <b>pleasure</b> to do.<br>"
                                     "Describe why it was a <b>pleasant</b> experience for you.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that was <b>interesting</b> for you.                                        <br>"
+                            "text": "Think about a task that was <b>interesting</b> for you.<br>"
                                     "Describe why it was an <b>interesting</b> task.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.    </b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
@@ -215,32 +215,32 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>strongly valued</b>.                                                <br>"
+                            "text": "Think about a task that you <b>strongly valued</b>.<br>"
                                     "Describe why you <b>valued</b> that task.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that was <b>personally important</b> to you.                                    <br>"
+                            "text": "Think about a task that was <b>personally important</b> to you.<br>"
                                     "Describe why it was an <b>important</b> task for you.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that was your <b>personal choice</b> to do.                                     <br>"
+                            "text": "Think about a task that was your <b>personal choice</b> to do.<br>"
                                     "Describe why you think it was your <b>personal choice</b>.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that was <b>meaningful</b> to you.                                              <br>"
+                            "text": "Think about a task that was <b>meaningful</b> to you.<br>"
                                     "Describe why it was a <b>meaningful</b> experience for you.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
@@ -265,32 +265,32 @@ class STUDY_goal_setting_study(STUDY_BASE):
                     "questions": [
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you would have <b>felt ashamed</b> if you hadn’t done it.       <br>"
+                            "text": "Think about a task you did because you would have <b>felt ashamed</b> if you hadn’t done it.<br>"
                                     "Describe why you would have <b>felt ashamed</b> of it.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did because you didn’t want to <b>feel bad about yourself</b>.              <br>"
+                            "text": "Think about a task you did because you didn’t want to <b>feel bad about yourself</b>.<br>"
                                     "Describe why you didn’t want to <b>feel bad about yourself</b> by doing that task.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task in which you wanted to <b>feel proud of yourself</b>.                           <br>"
+                            "text": "Think about a task in which you wanted to <b>feel proud of yourself</b>.<br>"
                                     "Describe why you wanted to <b>feel proud of yourself</b> by doing that task.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task in which you wanted to <b>prove to yourself</b> that <b>you were capable</b>.   <br>"
+                            "text": "Think about a task in which you wanted to <b>prove to yourself</b> that <b>you were capable</b>.<br>"
                                     "Describe why you wanted to <b>prove to yourself</b> that <b>you were capable</b> by doing that task.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.            </b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
@@ -327,20 +327,20 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that could have <b>got you in trouble</b> if you hadn’t done it.                <br>"
+                            "text": "Think about a task that could have <b>got you in trouble</b> if you hadn’t done it.<br>"
                                     "Describe why it could have <b>got you in trouble</b>.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that you <b>had no choice but to do</b>.                                        <br>"
+                            "text": "Think about a task that you <b>had no choice but to do</b>.<br>"
                                     "Describe why you <b>didn’t have any choice</b> about it.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
@@ -371,26 +371,26 @@ class STUDY_goal_setting_study(STUDY_BASE):
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task that you honestly <b>didn’t know why you did</b>.                               <br>"
+                            "text": "Think about a task that you honestly <b>didn’t know why you did</b>.<br>"
                                     "Describe why you think you <b>didn’t know the reason</b> you did that task.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you <b>wondered whether you should continue doing</b>.                          <br>"
+                            "text": "Think about a task you <b>wondered whether you should continue doing</b>.<br>"
                                     "Describe why you think you were <b>not sure about continuing that task</b>.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "text",
-                            "text": "Think about a task you did, but you <b>did not understand what exactly you were doing</b>.         <br>"
+                            "text": "Think about a task you did, but you <b>did not understand what exactly you were doing</b>.<br>"
                                     "Describe why you think you <b>couldn't understand what you were doing</b>.<br>"
                                     "<small>Write for 1-2 minutes, then move on.</small>",
                         },
                         {
                             "type": "goal",
                             "text": "What goal will you be pursuing during your studies?"
-                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.        </b> "
+                                    " <b>Try to think of one goal that you will work on throughout the year and possibly beyond.</b> "
                                     "Type the goal into the box. <br>"
                                     "<small>Please make sure this goal is different from the other goals you may have previously set or will set in the next goal-setting questions, so that you can compare those goals in Part 2.</small>",
                             "random": False,
