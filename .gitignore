@@ -1,5 +1,5 @@
 collected_apache_static/
-data/
+data/export_import
 .idea/
 /goaltrees/settings.py
 

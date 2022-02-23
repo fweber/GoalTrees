@@ -455,7 +455,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq_items(file="study_data/goal_setting/gcq.csv", language="en")
+        gcq_items = Item.get_gcq_items(file="gcq.csv", language="en")
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_"+str(i+1))

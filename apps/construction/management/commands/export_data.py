@@ -3,8 +3,9 @@ from apps.construction import models
 import csv
 import pandas as pd
 import os
+from goaltrees import settings
 
-EXPORT_PATH = "{}/data".format(os.getcwd())
+EXPORT_PATH = "{}/data/export_import".format(settings.BASE_DIR)
 
 
 
@@ -18,7 +19,11 @@ def write_model_to_csv(model, file_path):
     model_fields = model._meta.get_fields()
     field_names = list(set([f.name for f in model_fields]))
 
-    objects = model.objects.all()
+    if model == models.Goal:
+        # do not export example goals
+        objects = model.objects.filter(is_example=False)
+    else:
+        objects = model.objects.all()
 
     df_model = pd.DataFrame(columns=field_names)
     for s in list(objects.values()):
