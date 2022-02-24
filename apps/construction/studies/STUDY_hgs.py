@@ -200,7 +200,7 @@ class STUDY_hgs(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq(language="de", n_items=3)
+        gcq_items = Item.get_gcq(language="de", n_items=1)
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_{}".format(str(i+1)))
@@ -214,7 +214,7 @@ class STUDY_hgs(STUDY_BASE):
                         "code": item.get("code", ""),                                   # overrides the item code of the goal item
                         "latent_variable": item.get("latent_variable", ""),             # overrides the item latent_variable of the goal item
                         "reverse_coded": item.get("reverse_coded", ""),      # overrides the item reverse_coded
-                        "answers": ["Stimme überhaupt nicht zu", "Stimme nicht zu", "Stimme weder zu noch lehne ab", "Simme zu", "Stimme voll und ganz zu"],
+                        "answers": ["Stimme überhaupt nicht zu", "Stimme nicht zu", "Stimme weder zu noch lehne ab", "Stimme zu", "Stimme voll und ganz zu"],
                         "type": "slider",
                         "slider_min": 0,                # minimum slider value
                         "slider_max": 1,                # maximum slider value
@@ -227,33 +227,24 @@ class STUDY_hgs(STUDY_BASE):
                 }
             )
 
-        self.sequence.append("explore_gcq")
-        StudyContext.objects.update_or_create(study=self.study, view="explore_gcq",
+        self.sequence.append("thankyou")
+        StudyContext.objects.update_or_create(study=self.study, view="thankyou",
             defaults={
                 "context": {
-                    "title": "Bewertung deiner Ziele",
-                    "iframe": True,
-                    "condition": "3",
-                    "max_title_length": 50,
-                    "tree_color": "#28497c",
-                    "allow_mark_as_done": True,
-                    "show_progress": True,
-                    "progress_value": 100,
-                }
-            }
-        )
+                        "title": "Study Completed",
+                        "text": """<p>Congratulations! You have completed all tasks of the study. We hope you have found goals that are
+                            inspiring and fulfilling.</p>
 
-        self.sequence.append("goal_definition")
-        StudyContext.objects.update_or_create(study=self.study, view="goal_definition",
-            defaults={
-                "context": {
-                    "title": "Dein Studienziel definieren",
-                    "introduction": """<p> Formuliere hier nun ein neues Studienziel, zu dem Du auf der nächsten Seite dein Zielsystem
-                                    erstellen wirst.</p>""",
-                    "max_title_length": 128,
-                    "iframe": True,
-                    "show_progress": True,
-                    "progress_value": 0,
+                            <p>If you want to achieve VP hours, please send an email to 
+                            <a href='mailto:fweber@uni-osnabrueck.de'>fweber@uni-osnabrueck.de</a> including your
+                            <b>Matrikel-Nr. and major</b> with the subject “<b>VP {timestamp}</b>”</p>
+
+                            <p>If you have any questions about the digital study assistant, contact us at 
+                            <a href='mailto:fweber@uni-osnabrueck.de'>fweber@uni-osnabrueck.de</a>.</p>""",
+                        "text_bottom": """<p><b>Thank you for participating in our study, and good luck with your goals! You can close the
+                                    browser now.</b></p>""",
+                        "show_progress": True,
+                        "progress_value": 100,
                 }
             }
         )
