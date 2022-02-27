@@ -1,6 +1,7 @@
 import csv
 import math
 import statistics
+import pandas as pd
 from goaltrees import settings
 
 from django.contrib.postgres.fields import ArrayField
@@ -515,69 +516,50 @@ class Item(models.Model):
         return big_five
 
 
-    # todo: complete function
-    def get_gcq(n_items=3, language="de", exclude_dimensions=[]):
+
+    def get_gcq(n_items=3, language="en", version="V3", exclude_dimensions=[]):
         """
         Returns a list of dictionaries with GCQ items.
         @param n_items: Number of items per dimension to be returned
-        @param language: "en" or "de", defining the language of items to be returned
+        @param language: "english" or "german", defining the language of items to be returned
+        @param version: GCQ version, V2 or V3
         @param exclude_dimensions: list of gcq dimensions to be excluded
         """
-        with open(
-                '{}/apps/construction/static/construction/data/questionnaires/2022_GCQ_full_goaltrees.csv'.format(settings.BASE_DIR),
-                'r',
-                encoding="utf-8") as file:
-            reader = csv.reader(file, delimiter=";")
+        if language == "en":
+            language="english"
+        elif language == "de":
+            language="german"
 
+        gcq_file='{}/apps/construction/static/construction/data/questionnaires/2022_GCQ_full_goaltrees.csv'.format(settings.BASE_DIR)
 
-            columns={
-                "id":0,
-                "reverse_coded":1,
-                "priority":2,
-                "subscale_english":3,
-                "subscale_german":4,
-                "factor_english":5,
-                "factor_german":6,
-                "item_english":7,
-                "item_german":8,
-                "explanation_german":9,
-            }
+        df_items=pd.read_csv(filepath_or_buffer=gcq_file,
+                             sep=";",
+                             )
+        gcq_items = []
 
-            gcq_items = []
-            latent_variable = ""
-            for index, row in enumerate(reader):
-                # skip first row
-                if index == 0:
+        item_label = "{}_item_{}".format(version, language)
+        dimension_label = "factor_{}".format(language)
+        description_label = "explanation_{}".format(language)
 
-                    continue
-                # skip items higher than n_items
-                if int(row[columns["priority"]]) > int(n_items):
-                    continue
+        for index, row in df_items.iterrows():
 
-                # skip dimensions from exclusion list
-                if row[columns["factor_english"]] in exclude_dimensions:
-                    continue
+            # skip items higher than n_items
+            if row["priority"] > int(n_items):
+                continue
 
-                if language=="de":
-                    item_text=row[columns["item_german"]]
-                    latent_variable=row[columns["factor_german"]]
-                    explanation=row[columns["explanation_german"]]
-                elif languae=="en":
-                    item_text = row[columns["item_english"]]
-                    latent_variable = row[columns["factor_english"]]
-                    # todo: add english explanation to gcq
-                    explanation = row[columns["explanation_german"]]
-                else:
-                    raise Exception("Unknown language: {}".format(language))
+            # skip excluded dimensions
+            elif row[dimension_label] in exclude_dimensions:
+                continue
 
-                gcq_items.append(
-                    {"code": "gcq_{}".format(row[columns["id"]]),
-                     "item_text": item_text,
-                     "answers": Item.get_likert_scale(7),
-                     "reverse_coded": (True if row[columns["reverse_coded"]] == "1" else False),
-                     "latent_variable": latent_variable,
-                     "latent_variable_description": explanation,
-                     })
+            gcq_items.append(
+                {"code": "gcq_{}".format(row["id"]),
+                "item_text": row[item_label],
+                "answers": Item.get_likert_scale(7),
+                "reverse_coded": bool(row["reverse_coded"]),
+                "latent_variable": row[dimension_label],
+                "latent_variable_description": row[description_label],
+             })
+
         return gcq_items
 
 

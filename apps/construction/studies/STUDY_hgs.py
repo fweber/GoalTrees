@@ -29,36 +29,91 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="welcome",
            defaults={
                "context": {
-                   "title": "Willkommen im digitalen Assistenten zu persönlichen Studienzielen.",
-                   "text": """<p> Hier bekommst Du Anregungen dazu, dir über deine ganz eigenen Motive und Ziele im 
-                   Studium bewusster zu werden um dann zu planen wie du diese in die Tat umsetzen kannst. Darüber hinaus 
-                   kannst du Fragen zu deinen Zielen beantworten um Charakteristika deiner Ziele zu erfassen. Im Anschluss 
-                   bekommst du Forschungsergebnisse zu Zielcharakteristika und ihre Bedeutung für deine konkreten Ziele
-                   zurückgemeldet. 
-                   <br><br>
+                   "title": "Willkommen zur Studie zu persönlichen Studienzielen.",
+                   "text": """<p> 
                    Im ersten Schritt wirst du zur Einstimmung Fragen zu deiner idealen Zukunft und deinem idealen 
                    Studium beantworten um dann eigene Studienziele zu benennen.
                    <br>
-                   Im zweiten Schritt wirst du eines deiner Studienziele in Teilziele zerlegen und ein hierarchisches 
-                   Zielsystem daraus erstellen.
+                   Im zweiten Schritt wirst du eines deiner Studienziele in Teilziele zerlegen und ein 
+                   System aus konkreteren Teilzielen dazu erstellen.
                    <br><br>
                    Im dritten Schritt wirst du für deine Ziele auf einer Skala einschätzen, inwiefern eine Reihe von 
-                   Aussagen auf sie zutrifft. Im Anschluss bekommst du quantitative Informationen zu den Charakteristika 
-                   deiner Ziele und der Bedeutung davon.
+                   Aussagen auf sie zutrifft. 
                    <br><br>
                    Der gesamte Vorgang dauert ca. 45 Minuten. Um gute Ergebnisse zu bekommen sorgst du am besten für eine
-                   störungsfreie Atmosphäre (Handy aus, E-Mail Postfach aus...) und wählst einen Zeitraum, in dem du 
+                   störungsfreie Atmosphäre (Handy aus, E-Mail Postfach zu, nur diesen Tab im Browser öffnen) und wählst einen Zeitraum, in dem du 
                    dich ganz auf die Übung konzentrieren kannst.     
                     </p>""",
                    "iframe": True,
                    "show_progress": True,
-                   "progress_value": 0,
+                   "progress_value": 1,
                }
            }
         )
 
-        self.sequence.append("open_questions/goal_questions")
-        StudyContext.objects.update_or_create(study=self.study, view="goal_questions",
+        self.sequence.append("consent")
+        StudyContext.objects.update_or_create(study=self.study, view="consent",
+                defaults={
+                    "context": {
+                        "title": "Einverständniserklärung",
+                        "text": """<p> Du hast dich freiwillig zur Teilnahme an dieser Studie gemeldet. Hier erhältst Du nun einige Informationen zu
+                            deinen Rechten und zum Ablauf der Studie. Bitte lese die folgenden Abschnitte sorgfältig durch. </p>
+
+                            <h2>1. Zweck der Studie</h2>
+                            <p> Ziel dieser Studie ist es, neue Erkenntnisse über Visualisierungen von hierarchischen Zielsystemen zu gewinnen.
+                            Die gesammelten Informationen sollen dazu beitragen, Studierende beim Setzen individueller Bildungsziele zu
+                            unterstützen. </p>
+
+                            <h2>2. Ablauf der Studie</h2>
+                            <p> Du wirst zu einem eigenen Bildungsziel ein hierarchisches Zielsystem erstellen, sowie davor und
+                            danach einige Fragen beantworten. Das Zielsystem stellt deine Ziele mit Teilzielen und Aktionen dar,
+                            sodass Wege zum Erreichen der Ziele klarer werden. </p>
+
+                            <h2>3. Risiken und Nebenwirkungen</h2>
+                            <p> Diese Studie ist nach derzeitigem Wissensstand ungefährlich. Durch deine Teilnahme an dieser Studie setzt Du
+                            dich keinen besonderen Risiken aus und es sind keine Nebenwirkungen bekannt. Auswirkungen auf die
+                            Lernleistung sind laut derzeitigem Wissensstand eher förderlich. </p>
+
+                            <h2>4. Abbruch des Experiments</h2>
+                            <p> Du hast das Recht, diese Studie zu jedem Zeitpunkt und ohne Angabe eines Grundes abzubrechen. Deine
+                            Teilnahme ist vollkommen freiwillig und ohne Verpflichtungen. Es entstehen Dir keine Nachteile durch einen
+                            Abbruch. </p>
+
+                            <h2>5. Vertraulichkeit</h2>
+                            <p> Die Bestimmungen des Datenschutzes werden eingehalten. Personenbezogene Daten werden von uns nicht an
+                            Dritte weitergegeben. Die erfassten Daten werden in anonymisierter Form verarbeitet und für wissenschaftliche
+                            Zwecke in Forschungsdatenrepositorien publiziert. </p> 
+
+                            <h2>Einverständniserklärung</h2>
+                            <p> Bitte bestätige durch Klicken auf den Button die folgende Aussage:
+                            “Hiermit bestätige ich, dass ich über Zwecke, Ablauf und nicht auszuschließende Nebenwirkungen der Studie
+                            aufgeklärt und informiert worden bin. Ich habe diese Erklärung gelesen und verstanden. Ich stimme jedem der
+                            Punkte zu. Ich ermächtige hiermit die von mir in dieser Untersuchung erworbenen Daten zu wissenschaftlichen
+                            Zwecken zu analysieren und in wissenschaftlichen Arbeiten anonymisiert zu veröffentlichen. Ich wurde über
+                            meine Rechte als Versuchsperson informiert und erkläre mich zu der freiwilligen Teilnahme an dieser Studie
+                            bereit.” </p>""",
+                        "show_progress": True,
+                        "progress_value": 2,
+                        }
+                    }
+                )
+
+        self.sequence.append("userdata")
+        StudyContext.objects.update_or_create(study=self.study, view="userdata",
+            defaults={
+                "context": {
+                        "title": "Anmeldung",
+                        "introduction": "Die Beantwortung folgender Fragen ist optional:",
+                        "required": False,
+                        "show_progress": True,
+                        "progress_value": 3,
+                }
+            }
+
+        )
+
+        self.sequence.append("open_questions/goal_question_1")
+        StudyContext.objects.update_or_create(study=self.study, view="goal_question_1",
            defaults={
                "context": {
                    "title": "Fragen zu deiner idealen Zukunft",
@@ -69,16 +124,54 @@ class STUDY_hgs(STUDY_BASE):
                    "questions": [
                        {
                            "type": "text",
-                           "text": "Wie stellst du dir deine ideale Zukunft bis zu Deinem Ende ungefähr vor? (min. 200 Buchstaben)",
+                           "text": "Wie stellst du dir deine ideale Zukunft bis zu Deinem Lebensende vor? (min. 200 Buchstaben)",
                            "rows": 3,
                            "required": True,
                        },
+                   ],
+                   "min_answer_length": 200,   # minimum textarea char number
+                   "iframe": True,
+                   "show_progress": True,
+                   "progress_value": 5,
+               }
+           }
+        )
+
+        self.sequence.append("open_questions/goal_question_2")
+        StudyContext.objects.update_or_create(study=self.study, view="goal_question_2",
+           defaults={
+               "context": {
+                   "title": "Fragen zu deiner idealen Zukunft",
+                   "introduction": """<p> Um deine Aufmerksamkeit darauf zu richten, was für dich ganz persönlich im 
+                   Leben und im Studium wirklich wichtig ist, beantworte bitte zunächst die folgenden Fragen. 
+                   Du kannst dir für jede Frage ca. zwei Minuten Zeit nehmen und deine Überlegungen auf ein Blatt Papier 
+                   und/oder in die Textfelder schreiben.</p>""",
+                   "questions": [
                        {
                            "type": "text",
                            "text": "Was waren die Gründe dafür, dass du dich für ein Studium entschieden hast? (min. 200 Buchstaben)",
                            "rows": 3,
                            "required": True,
                        },
+                   ],
+                   "min_answer_length": 200,   # minimum textarea char number
+                   "iframe": True,
+                   "show_progress": True,
+                   "progress_value": 8,
+               }
+           }
+        )
+
+        self.sequence.append("open_questions/goal_question_3")
+        StudyContext.objects.update_or_create(study=self.study, view="goal_question_3",
+           defaults={
+               "context": {
+                   "title": "Fragen zu deiner idealen Zukunft",
+                   "introduction": """<p> Um deine Aufmerksamkeit darauf zu richten, was für dich ganz persönlich im 
+                   Leben und im Studium wirklich wichtig ist, beantworte bitte zunächst die folgenden Fragen. 
+                   Du kannst dir für jede Frage ca. zwei Minuten Zeit nehmen und deine Überlegungen auf ein Blatt Papier 
+                   und/oder in die Textfelder schreiben.</p>""",
+                   "questions": [
                        {
                            "type": "text",
                            "text": "Stell' dir vor du stehst am Ende deines Studiums. Wie sollte es verlaufen sein, damit "
@@ -90,10 +183,11 @@ class STUDY_hgs(STUDY_BASE):
                    "min_answer_length": 200,   # minimum textarea char number
                    "iframe": True,
                    "show_progress": True,
-                   "progress_value": 2,
+                   "progress_value": 12,
                }
            }
         )
+
 
         self.sequence.append("personal_goals")
         StudyContext.objects.update_or_create(study=self.study, view="personal_goals",
@@ -106,7 +200,7 @@ class STUDY_hgs(STUDY_BASE):
                     "min_number_goals": 1,
                     "iframe": True,
                     "show_progress": True,
-                    "progress_value": 5,
+                    "progress_value": 15,
                 }
             }
         )
@@ -117,13 +211,12 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="example_tree",
             defaults={
                 "context": {
-                    "title": "Ein praktisches Beispiel",
-                    "text": """<p> Hier siehst du ein Zielsystem mit einem Hauptziel. Die Teilziele werden konkreter und 
-                            detaillierter, bis sie schließlich in konkreten Aktionen und Strategien enden. 
-                            Im Idealfall wird jedes Ziel in konkrete Aktionen heruntergebrochen. </p>""",
+                    "title": "Zielsystem: Ein Beispiel",
+                    "text": """<p> Hier siehst du ein Zielsystem mit einem Hauptziel, welches in konkretere Teilziele aufgegliedert ist.
+                              </p>""",
                     "tree_id": example_root.id,
                     "tree": json.dumps(example_tree),
-                    "condition": "3",   # show dendogram
+                    "condition": "3",   # show dendrogram
                     "iframe": True,
                     "show_progress": True,
                     "progress_value": 22,
@@ -154,7 +247,7 @@ class STUDY_hgs(STUDY_BASE):
                    "example_tree_title": "Vorgegebenes Zielsystem",
                    "example_tree_id": task_example_root.id,
                    "example_tree": json.dumps(task_example_tree),
-                   "condition": "3",  # show dendogram
+                   "condition": "3",  # show dendrogram
                    "tree_color": "#28497c",
                    "show_tree_first": True,
                    "description_enabled": False,
@@ -189,7 +282,7 @@ class STUDY_hgs(STUDY_BASE):
                                     Wege zum Erreichen der Bildungsziele klarer und zunehmend konkret werden. </p>""",
                     # "condition_selector": True,
                     "max_title_length": 128,
-                    "condition": "3",  # show dendogram
+                    "condition": "3",  # show dendrogram
                     "description_enabled": False,
                     "show_tree_first": True,
                     "tree_color": "#28497c",
@@ -259,7 +352,7 @@ class STUDY_hgs(STUDY_BASE):
     def init_example_tree(self):
         """ Creates example tree """
         root = Goal.objects.get_or_create(
-            title="Abitur",  # When title changed, a new sample tree will be created in database
+            title="Erfolgreiches Abitur",  # When title changed, a new sample tree will be created in database
             is_example=True,
             example_id=1,
             study=self.study,
@@ -294,7 +387,7 @@ class STUDY_hgs(STUDY_BASE):
         """ Creates example tree for practical task """
         # todo: create proper example tree
         root = Goal.objects.get_or_create(
-            title="Beispiel",  # When title changed, a new sample tree will be created in database
+            title="Mein Studienziel",  # When title changed, a new sample tree will be created in database
             is_example=True,
             example_id=1,
             study=self.study,
@@ -304,8 +397,8 @@ class STUDY_hgs(STUDY_BASE):
         )[0]
         root.save()
 
-        goal_2 = self.create_node(2, root, title="Zweig 1")
-        goal_3 = self.create_node(3, root, title="Zweig 2")
+        goal_2 = self.create_node(2, root, title="Teilziel 1")
+        goal_3 = self.create_node(3, root, title="Teilziel 2")
 
         # delete possible remaining example goals
         Goal.objects.filter(is_example=True, study=self.study, tree_id=root.tree_id, example_id__gt=3).delete()

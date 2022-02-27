@@ -11,6 +11,7 @@
             margin-top: 25px;
         }
 
+
         .personal-goal-list-item {
             color: #28497c;
             font-weight: bold;
@@ -19,18 +20,28 @@
         img.personal-goal-list-item-delete {
             cursor: pointer;
         }
+
+        .personal-goal-form{
+            width: 100%;
+            display: flex;
+        }
+
+        .personal-goal-input {
+          flex-grow: 1;
+          margin-right: 5px;
+        }
+
     </style>
 
     <h1>{{ title }}</h1>
     <p>{{ introduction|safe }}</p>
-    <form id="personal-goal-form" method="post">
+    <form class="personal-goal-form" method="post">
         {% csrf_token %}
-        <label>
 {#            Gib Dein persönliches Bildungsziel an:<br>#}
-            <input class="personal-goal-input" type="text" name="personal_goal" maxlength="{{ max_title_length }}" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %} required>
-            <input class="personal-goal-input" type="submit" value="Ziel hinzufügen" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %}>
-        </label>
+            <input class="personal-goal-input" type="text" name="personal_goal" maxlength={{ max_title_length }} {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %} required>
+            <input  type="submit" value="Ziel hinzufügen" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %}>
     </form>
+
 
     <div class="personal-goals-list">
         <ul>
