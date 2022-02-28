@@ -1,6 +1,7 @@
 import csv
 import math
 import statistics
+import pandas as pd
 from goaltrees import settings
 
 from django.contrib.postgres.fields import ArrayField
@@ -500,7 +501,7 @@ class Item(models.Model):
 
     def get_big_five_items():
         with open(
-                '{}/apps/construction/static/construction/data/big_five.csv'.format(settings.BASE_DIR),
+                '{}/apps/construction/static/construction/data/questionnaires/big_five.csv'.format(settings.BASE_DIR),
                 'r',
                 encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")
@@ -514,10 +515,59 @@ class Item(models.Model):
 
         return big_five
 
+
+
+    def get_gcq(n_items=3, language="en", version="V3", exclude_dimensions=[]):
+        """
+        Returns a list of dictionaries with GCQ items.
+        @param n_items: Number of items per dimension to be returned
+        @param language: "english" or "german", defining the language of items to be returned
+        @param version: GCQ version, V2 or V3
+        @param exclude_dimensions: list of gcq dimensions to be excluded
+        """
+        if language == "en":
+            language="english"
+        elif language == "de":
+            language="german"
+
+        gcq_file='{}/apps/construction/static/construction/data/questionnaires/2022_GCQ_full_goaltrees.csv'.format(settings.BASE_DIR)
+
+        df_items=pd.read_csv(filepath_or_buffer=gcq_file,
+                             sep=";",
+                             )
+        gcq_items = []
+
+        item_label = "{}_item_{}".format(version, language)
+        dimension_label = "factor_{}".format(language)
+        description_label = "explanation_{}".format(language)
+
+        for index, row in df_items.iterrows():
+
+            # skip items higher than n_items
+            if row["priority"] > int(n_items):
+                continue
+
+            # skip excluded dimensions
+            elif row[dimension_label] in exclude_dimensions:
+                continue
+
+            gcq_items.append(
+                {"code": "gcq_{}".format(row["id"]),
+                "item_text": row[item_label],
+                "answers": Item.get_likert_scale(7),
+                "reverse_coded": bool(row["reverse_coded"]),
+                "latent_variable": row[dimension_label],
+                "latent_variable_description": row[description_label],
+             })
+
+        return gcq_items
+
+
+    # todo: deprecated, remove when studies done
     def get_gcq_items(file="gcq.csv", language="de"):
-        print('{}/apps/construction/static/construction/data/{}'.format(settings.BASE_DIR, file))
+        print('{}/apps/construction/static/construction/data/questionnaires/{}'.format(settings.BASE_DIR, file))
         with open(
-                '{}/apps/construction/static/construction/data/{}'.format(settings.BASE_DIR, file),
+                '{}/apps/construction/static/construction/data/questionnaires/{}'.format(settings.BASE_DIR, file),
                 'r',
                 encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")
@@ -544,9 +594,10 @@ class Item(models.Model):
 
         return gcq_items
 
+    # todo: deprecated, remove when studies done
     def get_gcq_short_items():
         with open(
-                '{}/apps/construction/static/construction/data/gcq_short.csv'.format(settings.BASE_DIR),
+                '{}/apps/construction/static/construction/data/questionnaires/gcq_short.csv'.format(settings.BASE_DIR),
                 'r',
                 encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")

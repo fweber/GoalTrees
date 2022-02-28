@@ -21,7 +21,7 @@ def read_data(apps, schema_editor):
 
     # read participants
     with open(
-            '{}/apps/construction/static/construction/data/study_data/prestudy_draksler/participants.csv'.format(settings.BASE_DIR),
+            '{}/apps/construction/static/construction/data/study_data/prestudy/participants.csv'.format(settings.BASE_DIR),
             'r',
             encoding="utf-8") as file:
         reader = csv.reader(file, delimiter=";")
@@ -44,7 +44,7 @@ def read_data(apps, schema_editor):
             participant.save()
 
     with open(
-            '{}/apps/construction/static/construction/data/study_data/prestudy_draksler/goals.csv'.format(settings.BASE_DIR),
+            '{}/apps/construction/static/construction/data/study_data/prestudy/goals.csv'.format(settings.BASE_DIR),
             'r',
             encoding="utf-8") as file:
         reader = csv.reader(file, delimiter=";")
@@ -66,7 +66,7 @@ def read_data(apps, schema_editor):
             goal.save()
 
     with open(
-            '{}/apps/construction/static/construction/data/study_data/prestudy_draksler/Items.csv'.format(settings.BASE_DIR),
+            '{}/apps/construction/static/construction/data/study_data/prestudy/Items.csv'.format(settings.BASE_DIR),
             'r',
             encoding="utf-8") as file:
         reader = csv.reader(file, delimiter=";")
@@ -90,7 +90,7 @@ def read_data(apps, schema_editor):
             item.save()
 
     with open(
-            '{}/apps/construction/static/construction/data/study_data/prestudy_draksler/questions.csv'.format(settings.BASE_DIR),
+            '{}/apps/construction/static/construction/data/study_data/prestudy/questions.csv'.format(settings.BASE_DIR),
             'r',
             encoding="utf-8") as file:
         reader = csv.reader(file, delimiter=";")

@@ -8,13 +8,13 @@ import json
 import datetime
 import traceback
 
-EXPORT_PATH = "{}/data".format(os.getcwd())
+EXPORT_PATH = "{}/data/export_import".format(os.getcwd())
 ID_FILE="{}/id_table.json".format(EXPORT_PATH)
 
 
 def get_or_create_id_table():
     if os.path.isfile(ID_FILE):
-        print("Loaded ID table")
+        #print("Loaded ID table")
         id_table=json.load(open(ID_FILE))
     else:
         print("Created ID table")
@@ -41,12 +41,59 @@ def import_participants():
         for index, row in df_participants.iterrows():
 
             if str(row["id"]) in id_table["participants"].keys():
-                print("Participant {} already exists!".format(row["id"]))
+                pass
+                #print("Participant {} already exists!".format(row["id"]))
             else:
+                try:
+                    gender=row["gender"] if not numpy.isnan(row["gender"]) else None
+                except:
+                    #print("gender fail: {}".format(row["gender"]))
+                    gender = row["gender"]
+
+                try:
+                    additional_data = row["additional_data"] if not numpy.isnan(row["additional_data"]) else None
+                except:
+                    print("additional_data fail: {}".format(row["additional_data"]))
+
+                    context = row["additional_data"]
+                    context = str(context).strip("'<>() ").replace('\"', '\*').replace('\'', '\"').replace('True',
+                                                                                                           'true').replace(
+                        'False', 'false').replace('\*', '\'')
+
+                    additional_data= json.loads(context)
+
+                try:
+                    screen_size=row["screen_size"] if not numpy.isnan(row["screen_size"]) else None
+                except:
+                    #print("screen_size fail: {}".format(row["screen_size"]))
+                    screen_size=row["screen_size"]
+
+                try:
+                    operating_system=row["operating_system"] if not numpy.isnan(row["operating_system"]) else None
+                except:
+                    #print("operating system fail: {}".format(row["operating_system"]))
+                    operating_system=row["operating_system"]
+
+                try:
+                    browser_language=row["browser_language"] if not numpy.isnan(row["browser_language"]) else None
+                except:
+                    #print("browser language fail: {}".format(row["browser_language"]))
+                    browser_language=row["browser_language"]
+
+                try:
+                    siddata_user_id=row["siddata_user_id"] if not row["siddata_user_id"] else None
+                except:
+                    #print("siddata_user_id fail: {}".format(row["siddata_user_id"]))
+                    siddata_user_id=row["siddata_user_id"]
+
+
+
+
+
                 study = get_or_create_study(row["study_id"], id_table)
                 participant = models.Participant.objects.create(
                     age=row["age"] if not numpy.isnan(row["age"]) else None,
-                    gender=row["gender"] if not numpy.isnan(row["gender"]) else None,
+                    gender=gender,
                     semester=row["semester"] if not numpy.isnan(row["semester"]) else None,
                     subject=row["subject"] if row["subject"] else None,
                     degree=row["degree"] if not row["degree"] else None,
@@ -56,14 +103,14 @@ def import_participants():
                     study=study,
                     study_sequence_position=row["study_sequence_position"] if not numpy.isnan(
                         row["study_sequence_position"]) else None,
-                    additional_data=row["additional_data"] if not numpy.isnan(row["additional_data"]) else None,
-                    screen_size=row["screen_size"] if not numpy.isnan(row["screen_size"]) else None,
-                    operating_system=row["operating_system"] if not numpy.isnan(row["operating_system"]) else None,
-                    browser_language=row["browser_language"] if not numpy.isnan(row["browser_language"]) else None,
-                    siddata_user_id=row["siddata_user_id"] if not row["siddata_user_id"] else None,
+                    additional_data=additional_data,
+                    screen_size=screen_size,
+                    operating_system=operating_system,
+                    browser_language=browser_language,
+                    siddata_user_id=siddata_user_id,
                 )
                 id_table["participants"][str(row["id"])] = participant.pk
-                print("Participant {} copied with new id {}!".format(row["id"], participant.pk))
+                #print("Participant {} copied with new id {}!".format(row["id"], participant.pk))
     except Exception as e:
         print(e)
         track = traceback.format_exc()
@@ -82,21 +129,26 @@ def import_study_contexts():
 
         for index, row in df_studycontexts.iterrows():
             if str(row["id"]) in id_table["studycontexts"].keys():
-                print("Studycontext {} already exists!".format(row["id"]))
+                pass
+                #print("Studycontext {} already exists!".format(row["id"]))
             else:
                 study = get_or_create_study(row["study_id"], id_table)
 
-                context = row["context"]
-                context = str(context).strip("'<>() ").replace('\"', '\*').replace('\'', '\"').replace('True','true').replace('False','false').replace('\*', '\'')
-                context = json.loads(context)
-
-                studycontext = models.StudyContext.objects.create(
+                try:
+                    context = row["context"]
+                    context = str(context).strip("'<>() ").replace('\"', '\*').replace('\'', '\"').replace('True','true').replace('False','false').replace('\*', '\'')
+                    context = json.loads(context)
+                except:
+                    context = json.loads("{\"error\":\"context\"}")
+                studycontext, created = models.StudyContext.objects.get_or_create(
                     view=row["view"],
                     study=study,
-                    context=context,
                 )
+                if created:
+                    studycontext.context = context
+                    studycontext.save()
                 id_table["studycontexts"][str(int(row["id"]))] = studycontext.pk
-                print("Studycontext {} copied with new id {}!".format(row["id"], studycontext.pk))
+                #print("Studycontext {} copied with new id {}!".format(row["id"], studycontext.pk))
     except Exception as e:
         print(e)
         track = traceback.format_exc()
@@ -116,7 +168,8 @@ def import_goals():
         for index, row in df_goals.iterrows():
 
             if str(row["id"]) in id_table["goals"].keys():
-                print("Goal {} already exists!".format(row["id"]))
+                pass
+                #print("Goal {} already exists!".format(row["id"]))
             else:
                 study = get_or_create_study(row["study_id"], id_table)
 
@@ -142,7 +195,7 @@ def import_goals():
                 goal.save()
 
                 id_table["goals"][str(row["id"])] = goal.pk
-                print("Goal {} copied with new id {}!".format(row["id"], goal.pk))
+                #print("Goal {} copied with new id {}!".format(row["id"], goal.pk))
 
         # parent correction
         goal_ids = list(df_goals["id"])
@@ -153,7 +206,7 @@ def import_goals():
                 parent=models.Goal.objects.get(pk=id_table["goals"][str(goal.parent_id)])
                 goal.parent_id=parent.pk
                 goal.save()
-                print("Changed goal {} parent_id to {}".format(goal.pk,parent.pk))
+                #print("Changed goal {} parent_id to {}".format(goal.pk,parent.pk))
 
     except Exception as e:
         print(e)
@@ -174,7 +227,8 @@ def import_personalgoals():
         for index, row in df_personalgoals.iterrows():
 
             if str(row["id"]) in id_table["personalgoals"].keys():
-                print("Personaloal {} already exists!".format(row["id"]))
+                pass
+                #print("Personaloal {} already exists!".format(row["id"]))
             else:
                 if not numpy.isnan(row["participant_id"]):
                     participant=models.Participant.objects.get(id=id_table["participants"][str(int(row["participant_id"]))])
@@ -188,7 +242,7 @@ def import_personalgoals():
                 personalgoal.save()
 
                 id_table["personalgoals"][str(row["id"])] = personalgoal.pk
-                print("Personalgoal {} copied with new id {}!".format(row["id"], personalgoal.pk))
+                #print("Personalgoal {} copied with new id {}!".format(row["id"], personalgoal.pk))
 
 
     except Exception as e:
@@ -250,12 +304,13 @@ def import_items():
         for index, row in df_items.iterrows():
 
             if str(row["id"]) in id_table["items"].keys():
-                print("Item {} already exists!".format(row["id"]))
+                pass
+                #print("Item {} already exists!".format(row["id"]))
             else:
                 if numpy.isnan(row["personal_goal_id"]):
                     personal_goal=None
                 else:
-                    personal_goal = models.PersonalGoal.objects.get(pk=id_table["personalgoals"][str(row["personal_goal_id"])])
+                    personal_goal = models.PersonalGoal.objects.get(pk=id_table["personalgoals"][str(int(row["personal_goal_id"]))])
 
                 if numpy.isnan(row["goal_id"]):
                     goal=None
@@ -286,7 +341,7 @@ def import_items():
                 item.save()
 
                 id_table["items"][str(row["id"])] = item.pk
-                print("Item {} copied with new id {}!".format(row["id"], item.pk))
+                #print("Item {} copied with new id {}!".format(row["id"], item.pk))
 
     except Exception as e:
         print(e)
@@ -302,7 +357,7 @@ def get_or_create_study(id, id_table):
                              )
 
     if numpy.isnan(id):
-        print("Study id is NaN")
+        #print("Study id is NaN")
         return
 
     study_series= df_studies.loc[df_studies["id"]==id].iloc[0]
@@ -320,9 +375,10 @@ def get_or_create_study(id, id_table):
         study.conditions=json.loads(study_series["conditions"])
         study.language=study_series["language"]
         study.save()
-        print("Study {} created!".format(study.pk))
+        #print("Study {} created!".format(study.pk))
     else:
-        print("Study {} already exists!".format(study.pk))
+        pass
+        #print("Study {} already exists!".format(study.pk))
     id_table["studies"][str(study_series["id"])] = study.pk
     return study
 
@@ -338,7 +394,8 @@ def import_questions():
         for index, row in df_questions.iterrows():
 
             if str(row["id"]) in id_table["questions"].keys():
-                print("Question {} already exists!".format(row["id"]))
+                pass
+                #print("Question {} already exists!".format(row["id"]))
             else:
 
                 if not numpy.isnan(row["participant_id"]):
@@ -362,7 +419,7 @@ def import_questions():
                 question.save()
 
                 id_table["questions"][str(row["id"])] = question.pk
-                print("Question {} copied with new id {}!".format(row["id"], question.pk))
+                #print("Question {} copied with new id {}!".format(row["id"], question.pk))
 
     except Exception as e:
         print(e)
