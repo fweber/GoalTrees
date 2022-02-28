@@ -21,7 +21,7 @@
             cursor: pointer;
         }
 
-        .personal-goal-form{
+        #personal-goal-form{
             width: 100%;
             display: flex;
         }
@@ -35,11 +35,13 @@
 
     <h1>{{ title }}</h1>
     <p>{{ introduction|safe }}</p>
-    <form class="personal-goal-form" method="post">
+    <form id="personal-goal-form" method="post">
         {% csrf_token %}
+{#        <label class="personal-goal-input">#}
 {#            Gib Dein persönliches Bildungsziel an:<br>#}
-            <input class="personal-goal-input" type="text" name="personal_goal" maxlength={{ max_title_length }} {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %} required>
+            <input class="personal-goal-input" type="text" name="personal_goal" maxlength="{{ max_title_length }}" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %} required>
             <input  type="submit" value="Ziel hinzufügen" {% if max_number_goals and personal_goals|length >= max_number_goals %}disabled{% endif %}>
+{#        </label>#}
     </form>
 
 

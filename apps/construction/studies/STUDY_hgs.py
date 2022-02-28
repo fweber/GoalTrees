@@ -45,7 +45,7 @@ class STUDY_hgs(STUDY_BASE):
                    dich ganz auf die Übung konzentrieren kannst.     
                     </p>""",
                    "iframe": True,
-                   "show_progress": True,
+                   "show_progress": False,
                    "progress_value": 1,
                }
            }
@@ -92,7 +92,7 @@ class STUDY_hgs(STUDY_BASE):
                             Zwecken zu analysieren und in wissenschaftlichen Arbeiten anonymisiert zu veröffentlichen. Ich wurde über
                             meine Rechte als Versuchsperson informiert und erkläre mich zu der freiwilligen Teilnahme an dieser Studie
                             bereit.” </p>""",
-                        "show_progress": True,
+                        "show_progress": False,
                         "progress_value": 2,
                         }
                     }
@@ -103,10 +103,10 @@ class STUDY_hgs(STUDY_BASE):
             defaults={
                 "context": {
                         "title": "Anmeldung",
-                        "introduction": "Die Beantwortung folgender Fragen ist optional:",
+                        "introduction": "Fragen zu Studiengang und Vorerfahrungen.",
                         "required": False,
                         "show_progress": True,
-                        "progress_value": 3,
+                        "progress_value": 1,
                 }
             }
 
@@ -116,15 +116,13 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="goal_question_1",
            defaults={
                "context": {
-                   "title": "Fragen zu deiner idealen Zukunft",
-                   "introduction": """<p> Um deine Aufmerksamkeit darauf zu richten, was für dich ganz persönlich im 
-                   Leben und im Studium wirklich wichtig ist, beantworte bitte zunächst die folgenden Fragen. 
-                   Du kannst dir für jede Frage ca. zwei Minuten Zeit nehmen und deine Überlegungen auf ein Blatt Papier 
-                   und/oder in die Textfelder schreiben.</p>""",
+                   "title": "Frage 1 zu Deiner idealen Zukunft",
+                   "introduction": """<p> Du wirst nun drei Fragen zu Deiner Zukunft sehen und Zeit haben, über sie nachzudenken. 
+                   Die Fragen helfen bei der Entwicklung individueller Bildungsziele. Bitte nimm Dir pro Frage ca. <b>2 Minuten</b> Zeit.</p>""",
                    "questions": [
                        {
                            "type": "text",
-                           "text": "Wie stellst du dir deine ideale Zukunft bis zu Deinem Lebensende vor? (min. 200 Buchstaben)",
+                           "text": "Wie stellst Du Dir Deine ideale Zukunft bis zu Deinem Lebensende vor? (> 200 Buchstaben)",
                            "rows": 3,
                            "required": True,
                        },
@@ -141,15 +139,12 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="goal_question_2",
            defaults={
                "context": {
-                   "title": "Fragen zu deiner idealen Zukunft",
-                   "introduction": """<p> Um deine Aufmerksamkeit darauf zu richten, was für dich ganz persönlich im 
-                   Leben und im Studium wirklich wichtig ist, beantworte bitte zunächst die folgenden Fragen. 
-                   Du kannst dir für jede Frage ca. zwei Minuten Zeit nehmen und deine Überlegungen auf ein Blatt Papier 
-                   und/oder in die Textfelder schreiben.</p>""",
+                   "title": "Frage 2 zu Deiner idealen Zukunft",
+                   "introduction": """<p>Bitte nimm Dir pro Frage ca. <b>2 Minuten</b> Zeit.</p>""",
                    "questions": [
                        {
                            "type": "text",
-                           "text": "Was waren die Gründe dafür, dass du dich für ein Studium entschieden hast? (min. 200 Buchstaben)",
+                           "text": "Was waren die Gründe dafür, dass Du Dich für ein Studium entschieden hast? (> 200 Buchstaben)",
                            "rows": 3,
                            "required": True,
                        },
@@ -166,16 +161,13 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="goal_question_3",
            defaults={
                "context": {
-                   "title": "Fragen zu deiner idealen Zukunft",
-                   "introduction": """<p> Um deine Aufmerksamkeit darauf zu richten, was für dich ganz persönlich im 
-                   Leben und im Studium wirklich wichtig ist, beantworte bitte zunächst die folgenden Fragen. 
-                   Du kannst dir für jede Frage ca. zwei Minuten Zeit nehmen und deine Überlegungen auf ein Blatt Papier 
-                   und/oder in die Textfelder schreiben.</p>""",
+                   "title": "Frage 3 zu Deiner idealen Zukunft",
+                   "introduction": """<p>Bitte nimm Dir pro Frage ca. <b>2 Minuten</b> Zeit.</p>""",
                    "questions": [
                        {
                            "type": "text",
-                           "text": "Stell' dir vor du stehst am Ende deines Studiums. Wie sollte es verlaufen sein, damit "
-                                   "du zufrieden darauf zurückblicken kannst? (min. 200 Buchstaben)",
+                           "text": "Stell' Dir vor Du stehst am Ende Deines Studiums. Wie sollte es verlaufen sein, damit "
+                                   "Du zufrieden darauf zurückblicken kannst? (> 200 Buchstaben)",
                            "rows": 3,
                            "required": True,
                        },
@@ -193,17 +185,45 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="personal_goals",
             defaults={
                 "context": {
-                    "title": """Meine Ziele im Studium""",
-                    "introduction": """<p> Basierend auf deinen vorherigen Überlegungen: Welche (abstrakten) Ziele 
-                    möchtest du während deines Studiums erreichen? </p>""",
+                    "title": """Wichtige Ziele im Studium""",
+                    "introduction": """<p>Welche Ziele möchtest Du während Deines Studiums erreichen? 
+                                    <br>
+                                    Formuliere Deine <b>drei wichtigsten Ziele</b> möglichst als ganze Sätze und möglichst verständlich.</p>""",
                     "max_title_length": 128,
                     "min_number_goals": 1,
                     "iframe": True,
                     "show_progress": True,
-                    "progress_value": 15,
+                    "progress_value": 13,
                 }
             }
         )
+
+        gcq_items = Item.get_gcq(language="de", n_items=1)
+        for i in range(len(gcq_items)):
+            item = gcq_items[i]
+            self.sequence.append("questionnaire/pre_goal_characteristics_questionnaire_item_{}".format(str(i+1)))
+            StudyContext.objects.update_or_create(study=self.study, view="pre_goal_characteristics_questionnaire_item_{}".format(str(i+1)),
+                defaults={
+                    "context": {
+                        "title": "",
+                        "personal_goal_items": True,        # if true last tree goals are listed in each row as items
+                        "item_text": """<p style='font-weight: bold;font-size: x-large;'>
+                                        {} ({}/{})</p>""".format(item.get("item_text", ""), i+1, len(gcq_items)),    # overrides the item text of the goal item
+                        "code": item.get("code", ""),                                   # overrides the item code of the goal item
+                        "latent_variable": item.get("latent_variable", ""),             # overrides the item latent_variable of the goal item
+                        "reverse_coded": item.get("reverse_coded", ""),      # overrides the item reverse_coded
+                        "answers": ["Stimme überhaupt nicht zu", "Stimme nicht zu", "Stimme weder zu noch lehne ab", "Stimme zu", "Stimme voll und ganz zu"],
+                        "type": "slider",
+                        "slider_min": 0,                # minimum slider value
+                        "slider_max": 1,                # maximum slider value
+                        "slider_step": 0.01,            # slider step length
+                        "required": True,
+                        "iframe": True,
+                        "show_progress": True,
+                        "progress_value": round(13 + (9 / len(gcq_items) * i)),  # calculates progress based on length of items,
+                    }
+                }
+            )
 
         self.sequence.append("example_tree")
         example_root = self.init_example_tree()
@@ -212,7 +232,7 @@ class STUDY_hgs(STUDY_BASE):
             defaults={
                 "context": {
                     "title": "Zielsystem: Ein Beispiel",
-                    "text": """<p> Hier siehst du ein Zielsystem mit einem Hauptziel, welches in konkretere Teilziele aufgegliedert ist.
+                    "text": """<p> Hier siehst Du ein Zielsystem mit einem Hauptziel, welches in konkretere Teilziele aufgegliedert ist.
                               </p>""",
                     "tree_id": example_root.id,
                     "tree": json.dumps(example_tree),
@@ -238,9 +258,9 @@ class STUDY_hgs(STUDY_BASE):
                    "title": "Praktisches Beispiel",
                    "introduction": """<p> Als Nächstes wirst Du ein exemplarisches hierarchisches Zielsystem nachbauen. </p> 
                                 
-                                    <p> Unten rechts ist das nachzubauende Zielsystem abgebildet, links ist dein Zielsystem, das am Ende
+                                    <p> Unten rechts ist das nachzubauende Zielsystem abgebildet, links ist Dein Zielsystem, das am Ende
                                     genauso oder ähnlich aussehen sollte. Die Reihenfolge, in der gleichrangige Unterziele geordnet
-                                    sind, spielt hierbei keine Rolle. Während der Bearbeitung kann die Visualisierung von deinem
+                                    sind, spielt hierbei keine Rolle. Während der Bearbeitung kann die Visualisierung von Deinem
                                     Zielsystem anders aussehen. Dies wird sich aber zunehmend anpassen, wenn die allgemeine
                                     Struktur mit der Vorlage übereinstimmt. </p>""",
                    "tree_title": "Dein hierarchisches Zielsystem",
@@ -263,7 +283,7 @@ class STUDY_hgs(STUDY_BASE):
             defaults={
                 "context": {
                     "title": "Persönliches Bildungsziel auswählen",
-                    "introduction": """<p> Hier kannst du dein persönliches Bildungsziel auswählen, für das du
+                    "introduction": """<p> Hier kannst Du Dein persönliches Bildungsziel auswählen, für das Du
                                     auf der nächsten Seite ein Zielsystem erstellen wirst. </p>""",
                     "iframe": True,
                     "show_progress": True,
@@ -296,8 +316,8 @@ class STUDY_hgs(STUDY_BASE):
         gcq_items = Item.get_gcq(language="de", n_items=1)
         for i in range(len(gcq_items)):
             item = gcq_items[i]
-            self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_{}".format(str(i+1)))
-            StudyContext.objects.update_or_create(study=self.study, view="goal_characteristics_questionnaire_item_{}".format(str(i+1)),
+            self.sequence.append("questionnaire/post_goal_characteristics_questionnaire_item_{}".format(str(i+1)))
+            StudyContext.objects.update_or_create(study=self.study, view="post_goal_characteristics_questionnaire_item_{}".format(str(i+1)),
                 defaults={
                     "context": {
                         "title": "",
@@ -324,18 +344,16 @@ class STUDY_hgs(STUDY_BASE):
         StudyContext.objects.update_or_create(study=self.study, view="thankyou",
             defaults={
                 "context": {
-                        "title": "Study Completed",
-                        "text": """<p>Congratulations! You have completed all tasks of the study. We hope you have found goals that are
-                            inspiring and fulfilling.</p>
+                        "title": "Studie abgeschlossen!",
+                        "text": """<p>Glückwunsch! Du hast alle Aufgaben der Studie erledigt. Wir hoffen, Du konntest 
+                                    inspirierende und erfüllende Ziele entwickeln.</p>
 
-                            <p>If you want to achieve VP hours, please send an email to 
-                            <a href='mailto:fweber@uni-osnabrueck.de'>fweber@uni-osnabrueck.de</a> including your
-                            <b>Matrikel-Nr. and major</b> with the subject “<b>VP {timestamp}</b>”</p>
-
-                            <p>If you have any questions about the digital study assistant, contact us at 
-                            <a href='mailto:fweber@uni-osnabrueck.de'>fweber@uni-osnabrueck.de</a>.</p>""",
-                        "text_bottom": """<p><b>Thank you for participating in our study, and good luck with your goals! You can close the
-                                    browser now.</b></p>""",
+                            <p>Wenn Du Versuchspersonenstunden bekommen oder an der Verlosung von Amazon 
+                            Gutscheinen teilnehmen möchtest, sende eine E-Mail an mit dem Code 
+                            <b>VP {timestamp}</b> an <a href='mailto:fweber@uni-osnabrueck.de'>fweber@uni-osnabrueck.de</a> 
+                            </p>""",
+                        "text_bottom": """<p>Danke für Deine Teilnahme an der Studie und viel Erfolg bei Deinen 
+                                        Zielen. Du kannst den Tab nun schließen.</p>""",
                         "show_progress": True,
                         "progress_value": 100,
                 }
@@ -362,19 +380,19 @@ class STUDY_hgs(STUDY_BASE):
         )[0]
         root.save()
 
-        goal_2 = self.create_node(2, root, title="Notendurchschnitt besser als 2.5")
+        goal_2 = self.create_node(2, root, title="Einen Notendurchschnitt besser als 2.5 erreichen.")
         goal_3 = self.create_node(3, root, title="fit für's Studium werden")
-        goal_4 = self.create_node(4, root, title="tolle Abiturfeiern")
+        goal_4 = self.create_node(4, root, title="Tolle Abiturfeiern organisieren und erleben.")
 
-        goal_5 = self.create_node(5, goal_2, title="Matheprüfung mindestens 2.2")
-        goal_6 = self.create_node(6, goal_2, title="Kursdurchschnitt besser als 2.5")
-        goal_7 = self.create_node(7, goal_2, title="mündliche Prüfung bestehen")
+        goal_5 = self.create_node(5, goal_2, title="Die Matheprüfung mit mindestens 2.2 bestehen.")
+        goal_6 = self.create_node(6, goal_2, title="Kursdurchschnitt von besser als 2.5 erreichen")
+        goal_7 = self.create_node(7, goal_2, title="die mündliche Prüfung bestehen")
 
-        goal_8 = self.create_node(8, goal_3, title="Lernzeiten einhalten")
+        goal_8 = self.create_node(8, goal_3, title="eigene Lernzeiten einhalten")
         goal_9 = self.create_node(9, goal_3, title="Lerngruppen organisieren")
         goal_10 = self.create_node(10, goal_3, title="eigene Interessen entdecken")
 
-        goal_11 = self.create_node(11, goal_4, title="Abiturzeitung mitgestalten")
+        goal_11 = self.create_node(11, goal_4, title="Die Abiturzeitung mit gestalten")
         goal_12 = self.create_node(12, goal_4, title="Familie einladen")
         goal_13 = self.create_node(13, goal_4, title="Vorbereitungen mit Freunden")
 
@@ -400,8 +418,12 @@ class STUDY_hgs(STUDY_BASE):
         goal_2 = self.create_node(2, root, title="Teilziel 1")
         goal_3 = self.create_node(3, root, title="Teilziel 2")
 
+        action_1 = self.create_node(4, goal_2, title="konkrete Aktion 1")
+        action_2 = self.create_node(5, goal_2, title="konkrete Aktion 2")
+        action_3 = self.create_node(6, goal_2, title="konkrete Aktion 2")
+
         # delete possible remaining example goals
-        Goal.objects.filter(is_example=True, study=self.study, tree_id=root.tree_id, example_id__gt=3).delete()
+        Goal.objects.filter(is_example=True, study=self.study, tree_id=root.tree_id, example_id__gt=6).delete()
 
         return root
 
