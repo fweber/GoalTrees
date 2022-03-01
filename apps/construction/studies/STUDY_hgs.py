@@ -190,7 +190,7 @@ class STUDY_hgs(STUDY_BASE):
                                     <br>
                                     Formuliere Deine <b>drei wichtigsten Ziele</b> möglichst als ganze Sätze und möglichst verständlich.</p>""",
                     "max_title_length": 128,
-                    "min_number_goals": 1,
+                    "min_number_goals": 3,
                     "iframe": True,
                     "show_progress": True,
                     "progress_value": 13,
