@@ -198,7 +198,7 @@ class STUDY_hgs(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq(language="de", n_items=1)
+        gcq_items = Item.get_gcq(language="de", n_items=1, attention_checks=True)
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/pre_goal_characteristics_questionnaire_item_{}".format(str(i+1)))
@@ -313,7 +313,7 @@ class STUDY_hgs(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq(language="de", n_items=1)
+        gcq_items = Item.get_gcq(language="de", n_items=1, attention_checks=True)
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/post_goal_characteristics_questionnaire_item_{}".format(str(i+1)))
