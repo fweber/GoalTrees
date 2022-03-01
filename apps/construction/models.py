@@ -2,6 +2,8 @@ import csv
 import math
 import statistics
 import pandas as pd
+import random
+
 from goaltrees import settings
 
 from django.contrib.postgres.fields import ArrayField
@@ -517,7 +519,7 @@ class Item(models.Model):
 
 
 
-    def get_gcq(n_items=3, language="en", version="V3", exclude_dimensions=[]):
+    def get_gcq(n_items=3, language="en", version="V3", attention_checks=False, exclude_dimensions=[]):
         """
         Returns a list of dictionaries with GCQ items.
         @param n_items: Number of items per dimension to be returned
@@ -527,8 +529,15 @@ class Item(models.Model):
         """
         if language == "en":
             language="english"
+            check_items=["Choose the answering option in the middle for all items.",
+                     "Choose the answering option at the right for all items.",
+                     "Choose the answering option at the left for all items.",]
         elif language == "de":
             language="german"
+            check_items=["Wähle immer die mittlere Antwortoption aus.",
+                     "Wähle immer die Anwortoption ganz rechts.",
+                     "Wähle immer die Antwortoption ganz links."]
+
 
         gcq_file='{}/apps/construction/static/construction/data/questionnaires/2022_GCQ_full_goaltrees.csv'.format(settings.BASE_DIR)
 
@@ -559,6 +568,17 @@ class Item(models.Model):
                 "latent_variable": row[dimension_label],
                 "latent_variable_description": row[description_label],
              })
+            print("index is {}".format(index))
+            if attention_checks and (index % 10 == 0):
+                print("in loop")
+                gcq_items.append(
+                    {"code": "attention_check_{}".format(index/10),
+                     "item_text": random.choice(check_items),
+                     "answers": Item.get_likert_scale(7),
+                     "reverse_coded": False,
+                     "latent_variable": "check",
+                     "latent_variable_description": "check",
+                     })
 
         return gcq_items
 
