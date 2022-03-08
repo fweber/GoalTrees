@@ -188,15 +188,26 @@ class Study(models.Model):
                     parent = goals.get(id=parent.parent_id)
                     depth += 1
                 branch_depths.append(depth)
+        if len(branch_depths) == 0:
+            max_depth = 0
+            min_depth = 0
+            average_depth = 0
+        else:
+            max_depth = max(branch_depths)
+            min_depth = min(branch_depths)
+            average_depth = statistics.mean(branch_depths)
 
-        max_depth = max(branch_depths)
-        min_depth = min(branch_depths)
-        average_depth = statistics.mean(branch_depths)
+
         average_depth = "%.2f" % average_depth
 
-        min_branching = min(parents.values())
-        max_branching = max(parents.values())
-        average_branching = statistics.mean(parents.values())
+        if len(parents.values())==0:
+            min_branching = 0
+            max_branching = 0
+            average_branching = 0
+        else:
+            min_branching = min(parents.values())
+            max_branching = max(parents.values())
+            average_branching = statistics.mean(parents.values())
 
         study_properties.append({'name': 'minimal depth', "value": min_depth, })
         study_properties.append({'name': 'maximal depth', "value": max_depth, })
@@ -568,9 +579,8 @@ class Item(models.Model):
                 "latent_variable": row[dimension_label],
                 "latent_variable_description": row[description_label],
              })
-            print("index is {}".format(index))
+
             if attention_checks and (index % 10 == 0):
-                print("in loop")
                 gcq_items.append(
                     {"code": "attention_check_{}".format(index/10),
                      "item_text": random.choice(check_items),

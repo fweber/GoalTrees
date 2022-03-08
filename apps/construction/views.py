@@ -515,12 +515,6 @@ def explore_studies(request, study_id):
                 'study_properties':study_properties,
                 'tree_data':study.get_tree_data(),
                }
-    print("branching")
-    print(context["branching"])
-    print("tree_sizes")
-    print(context["tree_sizes"])
-    print("depths")
-    print(context["depths"])
     context.update(prev_next)
     return render(request, 'construction/explore_studies.html', context)
 
