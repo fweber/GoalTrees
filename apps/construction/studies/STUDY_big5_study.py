@@ -13,6 +13,9 @@ class STUDY_big5_study(STUDY_BASE):
     def __init__(self):
         super().__init__()
         self.name = "big5_study"
+        self.description = "Investigates correlations between OCEAN personality traits and visualization type preferences."
+        self.active = False
+        self.duration = 1
         self.sequence = ["welcome", "consent", "userdata", "questionnaire/big_five", "questionnaire/complexity_assessment_1", "questionnaire/complexity_assessment_2", "questionnaire/complexity_assessment_3", "questionnaire/complexity_assessment_4", "instructions", "example_tree", "goal_definition", "tree_construction", "questionnaire/sus", "open_questions/goalsystem_questions", "open_questions/ranking", "thankyou"]
         self.study = Study.objects.update_or_create(
             name=self.name,

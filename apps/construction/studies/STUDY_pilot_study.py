@@ -15,6 +15,9 @@ class STUDY_pilot_study(STUDY_BASE):
     def __init__(self):
         super().__init__()
         self.name = "pilot_study"
+        self.description = "Untersucht Usability und UX."
+        self.active = False
+        self.duration = 1
         self.sequence = ["welcome", "consent", "userdata", "new_tree/Abitur", "tree_construction/0/practical_task", "questionnaire/after_scenario", "questionnaire/sus", "open_questions/visualization_questions", "personal_goals", "process_personal_goals", "tree_construction", "questionnaire/personal_goals_questionnaire", "process_personal_goals", "open_questions/usability_open_questions", "thankyou"]
         self.study = Study.objects.update_or_create(
             name=self.name,
@@ -607,7 +610,6 @@ class STUDY_pilot_study(STUDY_BASE):
         deleted_goals = []
         for i in range(len(goals) - 1):
             current_goal = goals[i]
-            print(current_goal)
             next_goal = goals[i + 1]
             # subtract ids to get the distance between the ids
             sub_goals = next_goal.id - current_goal.id

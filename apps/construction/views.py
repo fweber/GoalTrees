@@ -8,6 +8,7 @@ from django.http import Http404, HttpResponse, HttpResponseServerError
 from django.utils import timezone
 from django.views.decorators.clickjacking import xframe_options_exempt
 
+
 from django.conf import settings
 from django.utils import translation
 from apps.construction.studies import study_functions
@@ -58,7 +59,7 @@ def userdata(request):
         "title": "Anmeldung",
         "introduction": "<p> Die folgenden Angaben sind freiwillig und optional. </p>",
         "ask_english_proficiency": False,
-        "required": True,   # required inputs as default
+        "required": True,  # required inputs as default
         "key": "value",
     }
     context.update(study_context)
@@ -75,16 +76,16 @@ def example_tree(request):
     study = models.Study.get_current_study(request)
     study_context = models.StudyContext.get_context(study=study, view="example_tree")
 
-    #tree_id = 2
-    #root_goal = models.Goal.objects.get(tree_id=tree_id,parent_id__isnull=True)
-    #tree = models.Goal.get_children(root_goal.id)
+    # tree_id = 2
+    # root_goal = models.Goal.objects.get(tree_id=tree_id,parent_id__isnull=True)
+    # tree = models.Goal.get_children(root_goal.id)
     condition = models.Participant.get_current_participant(request).condition
-    #print(tree)
-    #print("condition is {}".format(condition))
-    context = {#'tree_id': tree_id,
-               #'tree': json.dumps(tree),
-               'condition': models.Participant.get_current_participant(request).condition,
-               }
+    # print(tree)
+    # print("condition is {}".format(condition))
+    context = {  # 'tree_id': tree_id,
+        # 'tree': json.dumps(tree),
+        'condition': models.Participant.get_current_participant(request).condition,
+    }
     context.update(study_context)
     return render(request, 'construction/example_tree.html', context)
 
@@ -216,7 +217,8 @@ def explore_gcq(request, tree_id=None):
         })
 
     # collect all user trees / root goals
-    root_goals = models.Goal.objects.filter(participant=participant, parent_id__isnull=True, replicated_tree_id__isnull=True)
+    root_goals = models.Goal.objects.filter(participant=participant, parent_id__isnull=True,
+                                            replicated_tree_id__isnull=True)
 
     context = {
         "root_goals": root_goals,
@@ -274,7 +276,8 @@ def open_questions(request, open_questions="open_questions"):
 
     # single view
     if study_context.get("single_view", False):
-        if "remaining_questions_indices" not in request.session or len(request.session["remaining_questions_indices"]) == 0:
+        if "remaining_questions_indices" not in request.session or len(
+                request.session["remaining_questions_indices"]) == 0:
             # if first call
             if study_context.get("random_order", False):
                 random_questions_indices = []
@@ -310,7 +313,7 @@ def open_questions(request, open_questions="open_questions"):
         "title": "Teile uns Deine Erfahrungen mit",
         "tree": json.dumps(tree),
         "open_questions": open_questions,
-        "max_answer_length": 2048,          # model field is limited to 2048 chars
+        "max_answer_length": 2048,  # model field is limited to 2048 chars
         "max_goal_length": 256,
     }
     if "questions" not in study_context:
@@ -372,10 +375,10 @@ def questionnaire(request, questionnaire="questionnaire"):
 
     context = {
         "questionnaire": questionnaire,
-        "type": "likert",                # default type
-        "slider_min": 0,                 # default minimum
-        "slider_max": 1,                 # default maximum
-        "slider_step": 0.01,             # default step
+        "type": "likert",  # default type
+        "slider_min": 0,  # default minimum
+        "slider_max": 1,  # default maximum
+        "slider_step": 0.01,  # default step
     }
     context.update(study_context)
     return render(request, 'construction/questionnaire.html', context)
@@ -448,8 +451,8 @@ def study(request, study_name, userid=None):
         participant = models.Participant.get_or_create_siddata_participant(request, userid)
         # restore study position / last view of siddata participant
         if participant.study_sequence_position is not None:
-            position = participant.study_sequence_position-1
-    response = redirect("/"+study.get_next_view(request, position=position))
+            position = participant.study_sequence_position - 1
+    response = redirect("/" + study.get_next_view(request, position=position))
 
     # set study language
     translation.activate(study.language)
@@ -464,6 +467,16 @@ def index(request):
     :return:
     """
     context = {"key": "value"}
+    active_studies = study_functions.get_studies()
+    studies = []
+    for study in active_studies:
+        if (study.active == True) and (study.name != "STUDY_BASE"):
+            studies.append({"name": study.name,
+                            "description": study.description,
+                            "duration": study.duration,
+                            })
+    context["studies"] = studies
+    print("view: {}".format(len(studies)))
     return render(request, 'construction/index.html', context)
 
 
@@ -477,22 +490,22 @@ def explore_trees(request, tree_id):
 
     root_goal = models.Goal.objects.get(tree_id=tree_id, parent_id__isnull=True)
     tree = models.Goal.get_children(root_goal.id)
-    study=root_goal.participant.study
+    study = root_goal.participant.study
 
     prev_next = study.get_previous_and_next_tree(tree_id)
 
+    study_properties = study.summarize()
 
-    study_properties=study.summarize()
-
-    tree_properties=models.Goal.get_tree_properties(tree_id)
+    tree_properties = models.Goal.get_tree_properties(tree_id)
     context = {
-                'tree_properties':tree_properties,
-                'study_properties':study_properties,
-               'tree_id': tree_id,
-               'tree': json.dumps(tree),
-               }
+        'tree_properties': tree_properties,
+        'study_properties': study_properties,
+        'tree_id': tree_id,
+        'tree': json.dumps(tree),
+    }
     context.update(prev_next)
     return render(request, 'construction/explore_trees.html', context)
+
 
 # @login_required
 def explore_studies(request, study_id):
@@ -502,19 +515,31 @@ def explore_studies(request, study_id):
     :return:
     """
 
-    study=models.Study.objects.get(id=study_id)
+    if study_id == 0:
+        study_properties = models.Study.summarize(models.Study)
 
-    prev_next = study.get_previous_and_next_study()
+        prev_next = models.Study.get_previous_and_next_study()
 
-    study_properties = study.summarize()
+        tree_data = models.Study.get_tree_data()
+
+
+    else:
+
+        study = models.Study.objects.get(id=study_id)
+
+        prev_next = study.get_previous_and_next_study()
+
+        study_properties = study.summarize()
+
+        tree_data = study.get_tree_data()
 
     context = {
-                'branching':list(study_properties[-3]["nodes"]),
-                'depths':list(study_properties[-2]["branches"]),
-                'tree_sizes':list(study_properties[-1]["tree_sizes"]),
-                'study_properties':study_properties,
-                'tree_data':study.get_tree_data(),
-               }
+        'branching': list(study_properties[0]["nodes"]),
+        'depths': list(study_properties[0]["branches"]),
+        'tree_sizes': list(study_properties[0]["tree_sizes"]),
+        'study_properties': study_properties,
+        'tree_data': tree_data,
+    }
     context.update(prev_next)
     return render(request, 'construction/explore_studies.html', context)
 
@@ -616,3 +641,78 @@ def condition4(request):
                }
 
     return render(request, 'construction/condition4.html', context)
+
+
+# @login_required
+def participants(request):
+    """
+
+    :param request:
+    :return:
+    """
+
+    participant_objects = models.Participant.objects.all().order_by("id")
+    participants = []
+    for p in participant_objects:
+        if p.study.name != "prestudy" and p.finished == None:
+            continue
+
+        participants.append({})
+        participants[-1]["id"] = p.id
+        participants[-1]["age"] = p.age
+        participants[-1]["gender"] = p.gender
+        participants[-1]["semester"] = p.semester
+        participants[-1]["subject"] = p.subject
+        participants[-1]["degree"] = p.degree
+        participants[-1]["created"] = p.created
+        participants[-1]["finished"] = p.finished
+        participants[-1]["condition"] = p.condition
+        participants[-1]["study"] = p.study.name
+        participants[-1]["study_sequence_position"] = p.study_sequence_position
+        participants[-1]["additional_data"] = p.additional_data
+        participants[-1]["exclude_from_analyses"] = p.exclude_from_analyses
+
+        goals = models.Goal.objects.filter(participant=p)
+        participants[-1]["goals"] = len(goals)
+
+        personal_goals = models.PersonalGoal.objects.filter(participant=p)
+        participants[-1]["personal_goals"] = len(personal_goals)
+
+        items = models.Item.objects.filter(participant=p)
+        participants[-1]["items"] = len(items)
+
+        question = models.Question.objects.filter(participant=p)
+        participants[-1]["questions"] = len(question)
+
+    context = {'participants': participants}
+
+    return render(request, 'construction/participants.html', context)
+
+
+# @login_required
+def trees(request):
+    """
+
+    :param request:
+    :return:
+    """
+
+    root_goals=models.Goal.objects.filter(parent_id=None).order_by("tree_id")
+
+    trees = []
+    for goal in root_goals:
+        size=len(models.Goal.objects.filter(tree_id=goal.tree_id,
+                                         discarded=False,))
+        tree={"tree_id":goal.tree_id,
+              "size":size,
+              "root_goal":goal.title,
+              "study": goal.study.name if goal.study else None,
+              "is_example":goal.is_example,
+              "discarded":goal.discarded,}
+
+        trees.append(tree)
+
+
+    context = {'trees': trees}
+
+    return render(request, 'construction/trees.html', context)

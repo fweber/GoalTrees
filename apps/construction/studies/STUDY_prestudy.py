@@ -12,6 +12,9 @@ class STUDY_prestudy(STUDY_BASE):
     def __init__(self):
         super().__init__()
         self.name = "prestudy"
+        self.description = "Vorstudie zu Usability und UX."
+        self.active = False
+        self.duration = 1
         self.sequence = ["welcome", "consent", "userdata", "questionnaire/big_five", "instructions", "example_tree", "tree_construction", "nasa_tlx", "questionnaire/utility_measure", "thankyou"]
         self.study = Study.objects.update_or_create(
             name=self.name,

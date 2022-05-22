@@ -1,0 +1,15 @@
+goal_id,participant_id,tree_id,goal,parent_id
+1,1,1,Austausch mit Kommilitonen ,
+2,1,1,Gespräche über Studium ,1
+3,1,1,Lerngruppen,1
+4,1,1,Andere Studiengänge ,2
+5,1,1,Inter CogSci,2
+6,1,1,Gründen,3
+7,1,1,Finden,3
+8,1,1,Gleichgesinnte finden (nach Arbeitsmoral nicht Charakter) ,6
+9,1,1,Schwerpunkt finden,6
+10,1,1,Stud.IP,7
+11,1,1,Leute fragen,7
+12,1,1,Leute fragen,8
+13,1,1,Stud.IP (Antrag stellen),8
+14,1,1,Problemerkennung,9
