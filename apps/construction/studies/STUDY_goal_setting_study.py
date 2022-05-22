@@ -12,6 +12,9 @@ class STUDY_goal_setting_study(STUDY_BASE):
     def __init__(self):
         super().__init__()
         self.name = "goal_setting_study"
+        self.description = "Entwicklung persönlicher Bildungsziele"
+        self.active = True
+        self.duration = 1
         self.sequence = []
         self.study = Study.objects.update_or_create(
             name=self.name,

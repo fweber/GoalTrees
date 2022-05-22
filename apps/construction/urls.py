@@ -13,7 +13,8 @@ urlpatterns = [
                   path('accounts/', include('django.contrib.auth.urls')),
 
                   # VIEWS
-                  path('', views.welcome, name='welcome'),
+                  path('', views.index, name='index'),
+                  path('index', views.index, name='index'),
                   path('welcome', views.welcome, name='welcome'),
                   path('consent', views.consent, name='consent'),
                   path('userdata', views.userdata, name='userdata'),
@@ -62,15 +63,16 @@ urlpatterns = [
                   path('delete_personal_goal', api_views.delete_personal_goal, name='delete_personal_goal'),
                   path('process_personal_goals', api_views.process_personal_goals, name='process_personal_goals'),
                   path('random_views', api_views.random_views, name='random_views'),
-
-                  # OLD
-                  path('index', views.index, name='index'),
+                  path('filter_participants', api_views.filter_participants, name='filter_participants'),
+                  path('filter_trees', api_views.filter_trees, name='filter_trees'),
 
                   # Data views
                   path('<int:tree_id>/explore_trees', views.explore_trees, name='explore_trees'),
                   path('<int:study_id>/explore_studies', views.explore_studies, name='explore_studies'),
                   path('<str:study_id>/export_csv', views.export_csv, name='export_csv'),
                   path('<str:study_id>/export_csv/<str:export_name>', views.export_csv, name='export_csv'),
+                  path('participants', views.participants, name='participants'),
+                  path('trees', views.trees, name='trees'),
 
                   # path('cse_pre',views.cse_pre, name='cse_pre'),
                   # path('cse_post', views.cse_post, name='cse_post'),

@@ -1,0 +1,47 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    <body>
+    {% if trees %}
+        <form method="post" action="filter_trees" name="trees" >
+        {% csrf_token %}
+
+        <table border="1">
+            <tr>
+                <th>tree_id</th>
+                <th>size</th>
+                <th>root_goal</th>
+                <th>study</th>
+                <th>is_example</th>
+                <th>discarded</th>
+
+            </tr>
+            {% for tree in trees %}
+                <tr>
+                    <td>{{ tree.tree_id }}</td>
+                    <td>{{ tree.size }}</td>
+                    <td>{{ tree.root_goal }}</td>
+                    <td>{{ tree.study }}</td>
+                    {% if tree.is_example == False %}
+                        <td><input type="checkbox" id={{ tree.tree_id }} name=tree_is_example_{{tree.tree_id }} ></td>
+                    {% else %}
+                        <td><input type="checkbox" id={{ tree.tree_id }} name=tree_is_example_{{ tree.tree_id }} checked ></td>
+                    {% endif %}
+
+                    {% if tree.discarded == False %}
+                        <td><input type="checkbox" id={{ tree.tree_id }} name=tree_discarded_{{tree.tree_id }} ></td>
+                    {% else %}
+                        <td><input type="checkbox" id={{ tree.tree_id }} name=tree_discarded_{{ tree.tree_id }} checked ></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Abschicken">
+        </form>
+    {% else %}
+        <p>No trees available.</p>
+    {% endif %}
+
+{% endblock %}
+

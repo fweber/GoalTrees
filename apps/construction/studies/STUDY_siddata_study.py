@@ -14,6 +14,9 @@ class STUDY_siddata_study(STUDY_BASE):
     def __init__(self):
         super().__init__()
         self.name = "siddata_study"
+        self.description = "Studie im Rahmen von SIDDATA."
+        self.active = False
+        self.duration = 1
         self.sequence = []
         self.study = Study.objects.update_or_create(
             name=self.name,

@@ -6,6 +6,9 @@ class STUDY_BASE():
 
     def __init__(self):
         self.name = "STUDY_BASE"
+        self.description = "Default description"
+        self.active = True
+        self.duration = 1
         self.sequence = []
         self.context = {}
         self.study = None
