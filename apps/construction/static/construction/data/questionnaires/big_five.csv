@@ -1,0 +1,72 @@
+neuro1;Ich bin ein ängstlicher Typ.;2.4;0.83;.69
+neuro2;Ich fühle mich oft unsicher.;2.5;0.93;.81
+neuro3;Ich verspüre oft eine große innere Unruhe.;2.6;0.96;.73
+neuro4;Ich mache mir oft unnütze Sorgen.;2.9;0.93;.74
+neuro5;Ich grübele viel über meine Zukunft nach.;3.1;0.86;.57
+neuro6;Oft überwältigen mich meine Gefühle.;2.7;0.93;.69
+neuro7;Ich bin oft ohne Grund traurig.;2.3;1.01;.75
+neuro8;Ich bin oft nervös.;2.5;0.89;.75
+neuro9;Oft werde ich von meinen Gefühlen hin-und her gerissen.;2.6;0.92;.74
+neuro10;Ich bin mir in meinen Entscheidungen oft unsicher.;2.6;0.92;.72
+extra1;Ich bin gerne mit anderen Menschen zusammen.;3.0;0.81;.78
+extra2;Ich kann schnell gute Stimmung verbreiten.;2.8;0.82;.64
+extra3;Ich bin unternehmungslustig.;3.0;0.79;.68
+extra4;Ich stehe gerne im Mittelpunkt.;2.1;0.88;.55
+extra5;Im Grunde bin ich oft lieber für mich allein. (-);2.5;0.88;.71
+extra6;Ich bin ein Einzelgänger. (-);2.7;0.93;.70
+extra7;Ich gehe gerne auf Partys.;2.4;0.99;.62
+extra8;Ich bin in vielen Vereinen aktiv.;1.6;0.83;.45
+extra9;Ich bin ein gesprächiger und kommunikativer Mensch.;3.0;0.86;.73
+extra10;Ich bin sehr kontaktfreudig.;2.8;0.89;.81
+gewissen1;Ich bin sehr pflichtbewusst.;3.2;0.78;.67
+gewissen2;Meine Aufgaben erledige ich immer sehr genau.;3.1;0.71;.70
+gewissen3;Ich war schon als Kind sehr ordentlich.;2.2;0.96;.56
+gewissen4;Ich gehe immer planvoll vor.;2.7;0.81;.66
+gewissen5;Ich habe meine festen Prinzipien und halte daran auch fest.;2.9;0.75;.49
+gewissen6;Auch kleine Bußgelder sind mir sehr unangenehm.;2.6;1.06;.38
+gewissen7;Auch kleine Schlampereien stören mich.;2.5;0.85;.59
+gewissen8;Ich achte sehr darauf, dass Regeln eingehalten werden.;2.8;0.79;.65
+gewissen9;Wenn ich mich einmal entschieden habe, dann weiche ich davon auch nicht mehr ab.;2.6;0.76;.44
+gewissen10;Ich mache eigentlich nie Flüchtigkeitsfehler.;2.2;0.76;.51
+offen1;Ich will immer neue Dinge ausprobieren.;2.9;0.81;.63
+offen2;Ich bin ein neugieriger Mensch.;3.3;0.69;.60
+offen3;Ich reise viel, um andere Kulturen kennenzulernen.;2.4;1.01;.49
+offen4;Am liebsten ist es mir, wenn alles so bleibt, wie es ist. (-);2.7;0.85;.48
+offen5;Ich diskutiere gerne.;2.9;0.90;.49
+offen6;Ich lerne immer wieder gerne neue Dinge.;3.3;0.69;.67
+offen7;Ich beschäftige mich viel mit Kunst, Musik und Literatur.;2.6;0.98;.54
+offen8;Ich interessiere mich sehr für philosophische Fragen.;2.8;1.01;.57
+offen9;Ich lese viel über wissenschaftliche Themen, neue Entdeckungen oder historische Begebenheiten.;2.6;1.02;.58
+offen10;Ich habe viele Ideen und viel Fantasie.;3.1;0.80;.58
+vertrag1;Ich achte darauf, immer freundlich zu sein.;3.3;0.68;.67
+vertrag2;Ich bin ein höflicher Mensch.;3.5;0.60;.64
+vertrag3;Ich helfe anderen, auch wenn man mir es nicht dankt.;3.2;0.70;.60
+vertrag4;Ich habe immer wieder Streit mit anderen. (-);3.2;0.77;.52
+vertrag5;Ich bin ein Egoist. (-);3.0;0.84;.58
+vertrag6;Wenn mir jemand hilft, erweise ich mich immer als dankbar.;3.5;0.59;.57
+vertrag7;Ich würde meine schlechte Laune nie an anderen auslassen.;2.5;0.82;.48
+vertrag8;Es fällt mir sehr leicht, meine Bedürfnisse für andere zurückzustellen.;2.8;0.80;.58
+vertrag9;Ich kann mich gut in andere Menschen hinein versetzen.;3.3;0.75;.55
+vertrag10;Ich komme immer gut mit anderen aus, auch wenn sie nicht meiner Meinung sind.;2.9;0.71;.62
+leistung1;Ich habe schon immer ein starkes Bedürfnis verspürt nach meinen eigenen Maßstäben der Beste zu sein.;2.9;0.90;.63
+leistung2;Ich habe schon immer ein starkes Bedürfnis nach Anerkennung und Bewunderung verspürt.;2.6;0.89;.81
+leistung3;Für mehr Anerkennung würde ich auf vieles verzichten.;2.0;0.78;.69
+leistung4;Am glücklichsten bin ich dann, wenn viele Menschen mich bewundern und das toll finden, was ich mache.;2.6;0.86;.73
+leistung5;Tief in meinem Innersten gibt es eine Sehnsucht danach der Beste sein zu wollen.;2.7;0.99;.77
+leistung6;Ich träume oft davon, berühmt zu sein.;2.0;0.96;.65
+macht1;Ich träume oft davon, wichtige Entscheidungen für Politiker oder andere mächtige Menschen zu treffen.;1.8;0.92;.74
+macht2;Wenn ich die Wahl hätte, würde ich in meinem Leben gerne weltbewegende Entscheidungen treffen.;2.5;0.95;.73
+macht3;Tief in meinem Innersten gibt es eine Sehnsucht nach Einfluss und Macht.;2.2;0.93;.75
+macht4;Für mehr Einfluss würde ich auf vieles verzichten.;2.0;0.74;.76
+macht5;Am glücklichsten bin ich dann, wenn ich Verantwortung übernehmen kann und wichtige Entscheidungen treffen darf.;2.6;0.86;.64
+macht6;Ich kann Menschen verstehen, die sagen, dass andere Dinge wichtiger sind als Einfluss und Politik. (-);1.7;0.75;.48
+sicher1;Ich habe schon immer ein starkes Bedürfnis nach Sicherheit und Ruhe verspürt.;3.0;0.80;.74
+sicher2;Wenn ich die Wahl hätte, würde ich ein Leben in Sicherheit und Frieden wählen.;3.2;0.76;.75
+sicher3;Für ein sicheres Leben ohne böse Überraschungen würde ich auf vieles verzichten.;2.5;0.81;.71
+sicher4;Tief in meinem Innersten gibt es eine Sehnsucht nach Ruhe und Geborgenheit.;3.2;0.76;.79
+sicher5;Ich träume oft von einem ruhigen Leben ohne böse Überraschungen.;2.8;0.94;.71
+sicher6;Am glücklichsten bin ich dann, wenn ich mich geborgen fühle.;3.2;0.74;.68
+ehrlich1;Ich habe schon mal etwas unterschlagen oder nicht gleich zurückgegeben.;2.3;0.96;.70
+ehrlich2;Im privaten Bereich habe ich schon mal Dinge gemacht, die besser nicht an die Öffentlichkeit kommen sollten.;2.8;0.95;.68
+ehrlich3;Ich habe schon mal Dinge weitererzählt, die ich besser für mich behalten hätte.;2.5;0.91;.72
+ehrlich4;Ich habe schon mal über andere gelästert oder schlecht über sie gedacht.;3.1;0.74;.70
