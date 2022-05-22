@@ -100,7 +100,7 @@ table, th, td {
 
         // Show the Y scale
         var y = d3.scaleLinear()
-            .domain([0, 8])
+            .domain([0, max + 1])
             .range([height, 0]);
         svg.call(d3.axisLeft(y))
 
@@ -167,7 +167,7 @@ table, th, td {
 
         // Show the Y scale
         var y = d3.scaleLinear()
-            .domain([0, 8])
+            .domain([0, max + 1])
             .range([height, 0]);
         svg.call(d3.axisLeft(y))
 
@@ -234,7 +234,7 @@ table, th, td {
 
         // Show the Y scale
         var y = d3.scaleLinear()
-            .domain([0, 25])
+            .domain([0, max +1])
             .range([height, 0]);
         svg.call(d3.axisLeft(y))
 

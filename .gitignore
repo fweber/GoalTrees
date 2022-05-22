@@ -142,3 +142,5 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+/data/hgs_data/
+/data/visualization_data/

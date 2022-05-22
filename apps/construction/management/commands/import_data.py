@@ -26,6 +26,7 @@ def get_or_create_id_table():
                     "questions": {},
                     "studycontexts": {},
                     "userinteractions": {},
+                    "trees": {},
                     }
     return id_table
 
@@ -91,6 +92,8 @@ def import_participants():
 
 
                 study = get_or_create_study(row["study_id"], id_table)
+                if study.name == "prestudy":
+                    continue
                 participant = models.Participant.objects.create(
                     age=row["age"] if not numpy.isnan(row["age"]) else None,
                     gender=gender,
@@ -133,7 +136,8 @@ def import_study_contexts():
                 #print("Studycontext {} already exists!".format(row["id"]))
             else:
                 study = get_or_create_study(row["study_id"], id_table)
-
+                if study.name == "prestudy":
+                    continue
                 try:
                     context = row["context"]
                     context = str(context).strip("'<>() ").replace('\"', '\*').replace('\'', '\"').replace('True','true').replace('False','false').replace('\*', '\'')
@@ -171,14 +175,29 @@ def import_goals():
                 pass
                 #print("Goal {} already exists!".format(row["id"]))
             else:
+                print(row["study_id"])
+                print(row)
                 study = get_or_create_study(row["study_id"], id_table)
+                if study==None:
+                    continue
+                if study.name=="prestudy":
+                    continue
+
+                # get or set new tree id to avoid mixture of trees
+                if row["tree_id"] in id_table["trees"]:
+                    new_tree_id = id_table["trees"][row["tree_id"]]
+                else:
+                    max = models.Goal.objects.order_by('-tree_id')[0]
+                    new_tree_id = max.tree_id + 1
+                    id_table["trees"][row["tree_id"]]=new_tree_id
+
 
                 if not numpy.isnan(row["participant_id"]):
                     participant=models.Participant.objects.get(id=id_table["participants"][str(int(row["participant_id"]))])
                 else:
                     participant=None
                 goal = models.Goal.objects.create(
-                    tree_id=row["tree_id"],
+                    tree_id=new_tree_id,
                     parent_id=row["parent_id"] if not numpy.isnan(row["parent_id"]) else None,
                     title=row["title"],
                     description=row["description"],
@@ -200,6 +219,12 @@ def import_goals():
         # parent correction
         goal_ids = list(df_goals["id"])
         for index, row in df_goals.iterrows():
+                study = get_or_create_study(row["study_id"], id_table)
+                if study==None:
+                    continue
+                if study.name=="prestudy":
+                    continue
+                print(id_table["goals"])
                 goal=models.Goal.objects.get(pk=id_table["goals"][str(row["id"])])
                 if goal.parent_id==None:
                     continue
@@ -318,6 +343,16 @@ def import_items():
                     goal=models.Goal.objects.get(pk=id_table["goals"][str(int(row["goal_id"]))])
 
                 if not numpy.isnan(row["participant_id"]):
+                    try:
+                        participant=models.Participant.objects.get(pk=id_table["participants"][row["participant_id"]])
+                        study=participant.study
+                    except:
+                        continue
+                    if study == None:
+                        continue
+                    if study.name == "prestudy":
+                        continue
+                    print(id_table["goals"])
                     participant=models.Participant.objects.get(id=id_table["participants"][str(int(row["participant_id"]))])
                 else:
                     participant=None
@@ -398,9 +433,17 @@ def import_questions():
                 #print("Question {} already exists!".format(row["id"]))
             else:
 
-                if not numpy.isnan(row["participant_id"]):
+                if not numpy.isnan(row["participant"]):
+                    print(row)
+                    study = get_or_create_study(row["study_id"], id_table)
+                    if study == None:
+                        continue
+                    if study.name == "prestudy":
+                        continue
+                    print(id_table["goals"])
                     participant=models.Participant.objects.get(id=id_table["participants"][str(int(row["participant_id"]))])
                 else:
+                    continue
                     participant=None
 
                 if numpy.isnan(row["tree_id"]):

@@ -1,0 +1,60 @@
+{% extends "construction/base.html" %}
+
+{% block content %}
+
+    <body>
+    {% if participants %}
+        <form method="post" action="filter_participants" name="participants" >
+        {% csrf_token %}
+
+        <table border="1">
+            <tr>
+                <th>id</th>
+                <th>exclude_from_analyses</th>
+                <th>study</th>
+                <th>age</th>
+                <th>gender</th>
+                <th>semester</th>
+                <th>subject</th>
+                <th>degree</th>
+                <th>created</th>
+                <th>finished</th>
+                <th>condition</th>
+                <th>goals</th>
+                <th>personal_goals</th>
+                <th>items</th>
+                <th>questions</th>
+
+            </tr>
+            {% for participant in participants %}
+                <tr>
+                    <td>{{ participant.id }}</td>
+                    {% if participant.exclude_from_analyses == False %}
+                        <td><input type="checkbox" id={{ participant.id }} name=participant_{{ participant.id }} ></td>
+                    {% else %}
+                        <td><input type="checkbox" id={{ participant.id }} name=participant_{{ participant.id }} checked ></td>
+                    {% endif %}
+                    <td>{{ participant.study }}</td>
+                    <td>{{ participant.age }}</td>
+                    <td>{{ participant.gender }}</td>
+                    <td>{{ participant.semester }}</td>
+                    <td>{{ participant.subject }}</td>
+                    <td>{{ participant.degree }}</td>
+                    <td>{{ participant.created }}</td>
+                    <td>{{ participant.finished }}</td>
+                    <td>{{ participant.condition }}</td>
+                    <td>{{ participant.goals }}</td>
+                    <td>{{ participant.personal_goals}}</td>
+                    <td>{{ participant.items }}</td>
+                    <td>{{ participant.questions }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Abschicken">
+        </form>
+    {% else %}
+        <p>No particpants available.</p>
+    {% endif %}
+
+{% endblock %}
+
