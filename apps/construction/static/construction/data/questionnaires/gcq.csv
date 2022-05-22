@@ -1,0 +1,189 @@
+Content;Content Specificity;1;;This goal has a clearly defined outcome or final state.;Inhalt;Spezifizität des Inhalts;Dieses Ziel hat ein klar definiertes Ergebnis oder einen klar definierten Endzustand.
+;;2;R;I am not sure where this goal will lead me.;;;Ich bin mir nicht sicher, wohin mich dieses Ziel führen wird.
+;;3;;This goal is related to concrete actions.;;;Dieses Ziel hängt mit konkreten Aktionen zusammen.
+;;4;R;The outcome or final state of this goal is only vaguely defined.;;;Das Ergebnis oder der Endzustand dieses Ziels ist nur vage definiert.
+;;5;R;This goal only has a broad definition of the outcome or final state.;;;Dieses Ziel hat nur eine ungefähre Definition des Ergebnisses oder des Endzustands.
+;;6;R;I cannot describe this goal precisely.;;;Ich kann dieses Ziel nicht exakt beschreiben.
+;Time Specificity;7;R;I don't have a target date for when I want to attain this goal.;;Zeitliche Spezifizität;Ich habe kein Zieldatum, an dem ich dieses Ziel erreichen möchte.
+;;8;;I have a clear deadline by which I want to attain this goal.;;;Ich habe eine klare Frist, bis zu der ich dieses Ziel erreichen möchte.
+;;9;;I intend to achieve this goal within a specific amount of time.;;;Ich beabsichtige dieses Ziel innerhalb einer bestimmten Zeitspanne zu erreichen.
+;;10;;This goal should be achieved by a specific time.;;;Dieses Ziel sollte zu einem bestimmten Zeitpunkt erreicht sein.
+;Hierarchy - High Level;11;;This goal is an overall ambition in my life.;;Hierarchie - Hoch;Bei diesem Ziel geht es um eine allgemeine Ambition in meinem Leben.
+;;12;;This goal provides guidance for my decisions and behaviors.;;;Dieses Ziel gibt Leitlinien für meine Entscheidungen und Verhaltensweisen.
+;;13;;To achieve this goal, I need to work on subgoals.;;;Um dieses Ziel zu erreichen muss ich an Teilzielen arbeiten.
+;;14;;This goal is an aspiration in my life.;;;Dieses Ziel ist ein grundlegender Antrieb in meinem Leben.
+;;15;;To reach this goal I need to reach many subgoals.;;;Um dieses Ziel zu erreichen muss ich viele Teilziele erreichen.
+;Hierarchy - Low Level;16;;This goal is a means to a higher goal.;;Hierarchie - Niedrig;Dieses Ziel ist ein Mittel zu einem höheren Ziel.
+;;17;;This goal is just a part of a plan to achieve something bigger in my life.;;;Dieses Ziel ist nur ein Teil eines Plans, um etwas Größeres in meinem Leben zu erreichen.
+;;18;;This goal is a step toward a greater goal.;;;Dieses Ziel ist ein Schritt in Richtung eines größeren Ziels.
+;;19;;To achieve a larger goal in my life, I need to achieve this one first.;;;Um ein größeres Ziel in meinem Leben zu erreichen, muss ich dieses zuerst erreichen.
+;Goal Network Congruence;20;R;This goal has no relation to my other goals.;;Kongruenz mit Zielnetzwerk;Dieses Ziel hat keinen Zusammenhang mit meinen anderen Zielen.
+;;21;;This goal is related to other goals I am currently working on in my life.;;;Dieses Ziel hängt mit anderen Zielen zusammen, an denen ich derzeit in meinem Leben arbeite.
+;;22;;This is a central goal related to many other goals that I am pursuing.;;;Dies ist ein zentrales Ziel im Zusammenhang mit vielen anderen Zielen, die ich verfolge.
+;;23;R;To work on this goal, I need to give up other goals I have.;;;Um an diesem Ziel zu arbeiten, muss ich andere Ziele aufgeben, die ich habe.
+;Measurability;24;;It's easy to keep track of how far I am from achieving this goal.;;Messbarkeit;Es ist einfach zu verfolgen wie weit ich von diesem Ziel entfernt bin.
+;;25;;It's possible to maintain a record of how close I am to achieving this goal.;;;Es ist möglich aufzuzeichnen wie nahe ich dem Erreichen dieses Ziels bin.
+;;26;;My progress toward this goal can be regularly measured.;;;Mein Fortschritt in Richtung dieses Ziels kann regelmäßig gemessen werden.
+;;27;;My progress toward this goal can be tracked with objective measurements.;;;Mein Fortschritt in diesem Ziel kann mit objektiven Messungen verfolgt werden.
+;;28;;It's possible to compare my progress toward this goal over time.;;;Es ist möglich, meinen Fortschritt zu diesem Ziel über die Zeit zu vergleichen.
+Framing;Approach-Avoidance Framing;29;R;This goal is about avoiding a behavior, situation, or outcome.;Rahmung(??);Approach-Avoidance Framing;Dieses Ziel hat damit zu tun ein Verhalten, eine Situation oder ein Ergebnis zu vermeiden.
+;;30;R;This goal is about something that makes me feel bad.;;;Bei diesem Ziel geht es um etwas, bei dem ich mich schlecht fühle.
+;;31;R;This goal is all about preventing something bad from happening.;;;Bei diesem Ziel geht es darum zu verhindern, dass etwas Schlimmes passiert.
+;;32;;This goal is about something I want to do, rather than something I want to avoid.;;;Bei diesem Ziel geht es um etwas, das ich tun möchte, und nicht um etwas, das ich vermeiden möchte.
+;;33;;This goal is about something positive, rather than something I want to prevent from happening.;;;Bei diesem Ziel geht es eher um etwas Positives als um etwas, das ich verhindern möchte.
+;;34;;This goal is about aiming for a desired state, rather thwarting a negative one.;;;Bei diesem Ziel geht es um einen gewünschten Zustand, und nicht um die Vermeidung eines Negativen.
+;;35;R;This goal is about staying away from something upsetting.;;;Bei diesem Ziel geht es darum, sich von etwas Ärgerlichem fernzuhalten.
+;Maintenance-Attainment Goal;36;;This goal is about keeping things as good as they are now.;;;Bei diesem Ziel geht es darum, die Dinge so gut zu erhalten, wie sie jetzt sind.
+;;37;;This goal is about maintaing a state, rather than about achieving that state once.;;;Bei diesem Ziel geht es eher darum, einen Zustand aufrechtzuerhalten, als darum, einen Zustand einmal zu erreichen.
+;;38;;There is not exactly an end to this goal because it I will need to keep working to maintain what I achieve.;;;Dieses Ziel hat nicht wirklich ein Ende, weil ich weiter daran arbeiten muss, zu bewahren was ich erreicht habe.
+;;39;;The purpose of this goal is to ensure that something stays the way it is.;;;Mit diesem Ziel soll sichergestellt werden, dass etwas so bleibt, wie es ist.
+;;40;R;This goal is something I want to achieve once and would not have to maintain.;;;Dieses Ziel ist eher etwas, das ich einmal erreichen möchte als etwas, das ich aufrecht erhalten muss.
+;;41;R;This goal is about a one time thing: when I achieve that thing, I won't work on it anymore.;;;Bei diesem Ziel handelt es sich um eine einmalige Sache: Wenn ich diese Sache erreiche, werde ich nicht mehr daran arbeiten.
+;;42;R;This goal aims to change the current state.;;;Dieses Ziel zielt darauf ab, den aktuellen Zustand zu ändern.
+;;43;R;This goal is about moving to a different state than I am in now.;;;Bei diesem Ziel geht es darum, in einen anderen Zustand zu gelangen als den, in dem ich jetzt bin.
+;Process-Outcome Focus;44;;For this goal, the journey is the destination.;;Process-Outcome Focus;Für dieses Ziel ist der Weg das Ziel.
+;;45;;This goal is more about a process rather than a outcome.;;;Bei diesem Ziel geht es eher um einen Prozess als um ein Ergebnis.
+;;46;R;For this goal, the end justifies the means.;;;Um dieses Ziel zu erreichen, rechtfertigt der Zweck die Mittel.
+;;47;;To achieve this goal, I just have to do a certain activity regardless of its outcome.;;;Um dieses Ziel zu erreichen, muss ich nur eine bestimmte Aktivität ausführen, unabhängig von deren Ergebnis.
+;;48;R;To achieve this goal, I just have to get a certain result and it doesn't matter how I get it.;;;Um dieses Ziel zu erreichen, muss ich nur ein bestimmtes Ergebnis erzielen, und es spielt keine Rolle, wie ich es bekomme.
+;;49;R;For this goal, the end is more important than its means.;;;Für dieses Ziel ist der Ende wichtiger als der Weg..
+;;50;;For this goal, I am focusing more on the process than its outcome.;;;Für dieses Ziel konzentriere ich mich mehr auf den Prozess als auf sein Ergebnis.
+Attainabilty;Immediate Actionability;51;;I could take the first step toward this goal almost immediately.;Erreichbarkeit;Unmittelbare Ausführbarkeit;Ich könnte nahezu sofort den ersten Schritt in Richtung dieses Ziels machen.
+;;52;R;I have to wait to start working on this goal.;;;Ich muss warten, um an diesem Ziel arbeiten zu können.
+;;53;;I know exactly what the first step - to start working on this goal - will be.;;;Ich weiß genau, was der erste Schritt sein wird, um an diesem Ziel zu arbeiten.
+;;54;;I know how to start working on this goal.;;;Ich weiß, wie ich an diesem Ziel arbeiten kann.
+;;55;R;Something else needs to be done before I can start working on this goal.;;;Etwas anderes muss getan werden, bevor ich an diesem Ziel arbeiten kann.
+;;56;R;Something else has to happen before I can start working on this goal.;;;Etwas anderes muss noch passieren, bevor ich an diesem Ziel arbeiten kann.
+;Estimated Effort;57;R;I believe I can work on this goal without feeling tired, even if it's a complex task.;;Geschätzter Aufwand;Ich glaube, ich kann an diesem Ziel arbeiten, ohne mich ermüdet zu fühlen, auch wenn es eine komplexe Aufgabe ist.
+;;58;;I may be overwhelmed following this goal, no matter how easy it is.;;;Ich könnte mich überwältigt fühlen wenn ich dieses Ziel verfolge, egal wie einfach es ist.
+;;59;;I think it's exhausting to work toward this goal.;;;Ich denke es ist anstrengend auf dieses Ziel hinzuarbeiten.
+;;60;;Achieving this goal will be quite an endeavor.;;;Dieses Ziel zu erreichen wird eine ziemliche Anstrengung sein.
+;;61;;I believe I have to try really hard to achieve this goal.;;;Ich glaube, ich werde mich sehr bemühen müssen, um dieses Ziel zu erreichen.
+;Plannability;62;R;It's hard to make a plan to achieve this goal.;;Planbarkeit;Es ist schwer, einen Plan zu erstellen, um dieses Ziel zu erreichen.
+;;63;R;It's hard to foresee what my next steps toward this goal will be.;;;Es ist schwer vorherzusehen, was meine nächsten Schritte auf dieses Ziel zu sein werden.
+;;64;;It's easy to know what needs to be done to achieve this goal.;;;Es ist leicht zu erkennen, was getan werden muss, um dieses Ziel zu erreichen.
+;;65;;The steps to achieve this goal are straightforward.;;;Die Schritte zur Erreichung dieses Ziels sind naheliegend.
+;;66;R;The steps to achieve this goal are uncertain.;;;Die Schritte zur Erreichung dieses Ziels sind unklar.
+;Controllability;67;;As long as I do what it takes, I will achieve this goal.;;Kontrollierbar- keit;Solange ich tue, was nötig ist, werde ich dieses Ziel erreichen.
+;;68;;I have control over the outcome of this goal.;;;Ich habe die Kontrolle über das Ergebnis dieses Ziels.
+;;69;R;Achieving this goal depends on other people's actions.;;;Das Erreichen dieses Ziels hängt von den Handlungen anderer Personen ab.
+;;70;R;I must depend on luck to achieve this goal.;;;Ich bin auf Glück angewiesen, um dieses Ziel zu erreichen.
+;;71;R;There is nothing I can do to achieve this goal.;;;Ich kann nichts tun, um dieses Ziel zu erreichen.
+;;72;R;Whether or not I can achieve this goal depends on things beyond my control.;;;Ob ich dieses Ziel erreichen kann oder nicht, hängt von Dingen außerhalb meiner Kontrolle ab.
+;;73;R;No matter how much energy I put into this goal, I feel I have no control over the outcome.;;;Egal wie viel Energie ich in dieses Ziel stecke, habe ich das Gefühl, keine Kontrolle über das Ergebnis zu haben.
+;Challenge;74;R;Because I have done it many times before, this goal it is not that challenging.;;Herausforderung;Da ich es schon viele male zuvor getan habe habe, ist dieses Ziel nicht besonders herausfordernd.
+;;75;;This goal is challenging for me.;;;Dieses Ziel ist eine Herausforderung für mich.
+;;76;;This goal gets me outside my comfort zone.;;;Dieses Ziel bringt mich aus meiner Komfortzone.
+;;77;;I will have to perform much better than usual to achieve this goal.;;;Ich werde viel besser als sonst funktionieren müssen, um dieses Ziel zu erreichen.
+;;78;R;This goal is really easy to achieve.;;;Dieses Ziel ist wirklich leicht zu erreichen.
+;Defined Subgoals;79;R;I didn't make a plan on how to achieve this goal.;;Definierte Teilziele;Ich habe keinen Plan gemacht, um dieses Ziel zu erreichen.
+;;80;R;I am not following any systematic plan to achieve this goal.;;;Ich verfolge keinen systematischen Plan, um dieses Ziel zu erreichen.
+;;81;;I have made a detailed plan of action to work toward this goal.;;;Ich habe einen detaillierten Aktionsplan erstellt, um auf dieses Ziel hinzuarbeiten.
+;;82;;I have defined subgoals or steps towards this goal.;;;Ich habe Teilziele oder Schritte in Richtung dieses Ziels festgelegt.
+;;83;;I already know the necessary steps to achieve this goal.;;;Ich kenne bereits die notwendigen Schritte, um dieses Ziel zu erreichen.
+Resources Availability;Social Support;84;;I have people I can rely on to help me with this goal.;"Verfügbarkeit von 
+Resourcen";Soziale Unterstützung ;Ich habe Leute, auf die ich mich verlassen kann, um mir bei diesem Ziel zu helfen.
+;;85;R;Other people don't care if I am working on this goal or not.;;;Anderen Personen ist es egal, ob ich an diesem Ziel arbeite oder nicht.
+;;86;;Other people encourage me to keep going on this goal.;;;Andere Leute ermutigen mich, dieses Ziel weiter zu verfolgen.
+;;87;;People around me show interest and concern regarding what I am doing in this goal.;;;Die Menschen um mich herum zeigen Interesse und Anteilnahme daran, was ich für dieses Ziel tue.
+;Informational Support;88;R;It's hard to find information to achieve this goal.;;Informationale Unterstützung;Es ist schwierig, Informationen zu finden, um dieses Ziel zu erreichen.
+;;89;;I have enough guidelines to achieve this goal.;;;Ich habe genug Leitlinien, um dieses Ziel zu erreichen.
+;;90;R;I have no idea where to find information about how to work on this goal.;;;Ich habe keine Ahnung, wo ich Informationen darüber finden kann, wie ich an diesem Ziel arbeiten kann.
+;;91;;I know where to find information about overcoming obstacles to achieve this goal if I need it.;;;Wenn nötig, weiß ich, wo ich Informationen zur Überwindung von Hindernissen finden kann, um dieses Ziel zu erreichen.
+;;92;;I have the necessary information to work on this goal.;;;Ich habe die notwendigen Informationen um an diesem Ziel zu arbeiten.
+;;93;;It is unnecessary to look for more information to work on this goal.;;;Es ist nicht erforderlich nach weiteren Informationen zu suchen, um dieses Ziel zu erreichen.
+;;94;;If I need, I can easily find out what to learn to achieve this goal.;;;Gegebenenfalls kann ich leicht herausfinden, was ich lernen muss, um dieses Ziel zu erreichen.
+;Instrumental Support;95;;I have the materials and equipment necessary to achieve this goal.;;Instrumentelle Unterstützung;Ich habe die notwendigen Materialien und Ausrüstung, um dieses Ziel zu erreichen.
+;;96;R;It's hard to get access to the resources needed to achieve this goal.;;;Es ist schwierig, Zugang zu Ressourcen zur Erreichung dieses Ziels zu bekommen.
+;;97;R;To achieve this goal, I depend on equipment that I can't get.;;;Um dieses Ziel zu erreichen bin ich auf Ausrüstung angewiesen, die ich nicht bekommen kann.
+;;98;R;To achieve this goal, I need specific materials or equipment that I don't know how to get.;;;Um dieses Ziel zu erreichen benötige ich bestimmte Materialien oder Ausrüstung, die ich nicht bekommen kann.
+;Financial Affordance;99;;I can achieve this goal without any affect on my finances.;;Finanzierbarkeit;Ich kann dieses Ziel erreichen ohne Auswirkungen auf meine Finanzen.
+;;100;R;I depend on money I don't have to achieve this goal.;;;Ich bin auf Geld angewiesen, das ich nicht habe, um dieses Ziel zu erreichen.
+;;101;R;I have to spend a lot of money to achieve this goal.;;;Ich muss viel Geld ausgeben, um dieses Ziel zu erreichen.
+;;102;;I can financially afford the costs of working toward this goal.;;;Ich kann mir die Kosten für die Erreichung dieses Ziels finanziell leisten.
+;Visibility ;103;;Other people are aware that I am working on this goal.;;Sichtbarkeit;Anderen Personen ist bewusst, dass ich an diesem Ziel arbeite.
+;;104;;People can know if I achieve this goal or not.;;;Die Leute können wissen, ob ich dieses Ziel erreiche oder nicht.
+;;105;R;I am the only one who knows about this goal.;;;Ich bin die oder der einzige, der über dieses Ziel bescheid weiß.
+;;106;R;Nobody would be able to tell I am working on this goal. ;;;Niemand würde sagen können, dass ich an diesem Ziel arbeite.
+;;107;;My progress toward this goal is observable to others.;;;Mein Fortschritt in Richtung dieses Ziels ist für andere beobachtbar.
+;;108;R;People can only know I have this goal if I tell them.;;;Andere Personen können nur wissen, dass ich dieses Ziel habe, wenn ich es ihnen sage.
+;Time Availability;109;R;I am not sure if I have enough time to work on this goal.;;Zeitliche Resourcen;Ich bin mir nicht sicher, ob ich genug Zeit habe, um an diesem Ziel zu arbeiten.
+;;110;;I can manage my time to achieve this goal.;;;Ich kann meine Zeit so einteilen, dass ich dieses Ziel erreichen kann.
+;;111;;I have enough time to do whatever it takes to achieve this goal.;;;Ich habe genug Zeit, um alles zu tun was nötig ist, um dieses Ziel zu erreichen.
+;;112;;I have time available to work on this goal.;;;Ich habe verfügbare Zeit, um an diesem Ziel zu arbeiten.
+;Competence Adequacy;113;;I am competent to achieve this goal.;;Kompetenz- Angemessenheit;Ich bin fähig dieses Ziel zu erreichen.
+;;114;;I have all the necessary skills to achieve this goal.;;;Ich habe alle notwendigen Fertigkeiten, um dieses Ziel zu erreichen.
+;;115;R;My skills may be insufficient to achieve this goal.;;;Meine Fähigkeiten könnten nicht ausreichend, um dieses Ziel zu erreichen.
+;;116;R;This goal is beyond my competencies.;;;Dieses Ziel liegt außerhalb meiner Fähigkeiten.
+;;117;;I can achieve this goal with my current skills.;;;Ich kann dieses Ziel mit meinen derzeitigen Fähigkeiten erreichen.
+Interestingness;Self-Congruence;118;R;This goal is not exactly what I wanted to be working on.;Interessantheit;Sellbstkongruenz;Dieses Ziel ist nicht gerade das, woran ich gerne arbeiten würde.
+;;119;R;Thinking about this goal makes me feel guilty.;;;Über dieses Ziel nachzudenken führt dazu, dass ich mich schuldig fühle.
+;;120;R;I am pursuing this goal because somebody else wants me to.;;;Ich verfolge dieses Ziel, weil es jemand anderes möchte, dass ich das tue.
+;;121;;This goal is essential to who I am.;;;Dieses Ziel ist wesentlich dafür, wer ich bin.
+;;122;;This goal is congruent with my lifestyle. ;;;Dieses Ziel stimmt mit meinem Lebensgefühl überein.
+;;123;;I am not pursuing this goal entirely for its own sake.;;;Ich verfolge dieses Ziel nicht ganz um seiner selbst willen.
+;;124;;This goal is part of my identity.;;;Dieses Ziel ist Teil meiner Identität.
+;;125;R;I am really not fit for this goal.;;;Dieses Ziel passt nicht dazu wer ich bin.
+;;126;R;This goal involves doing things I dislike. ;;;Dieses Ziel beinhaltet Dinge, die ich nicht gerne tue.
+;;127;R;This goal is in conflict with my lifestyle.;;;Dieses Ziel steht im Konflikt zu meinem Lebensstil.
+;Value Congruence;128;;This goal is coherent with my beliefs.;;Wertekongruenz;Dieses Ziel stimmt mit meinen Überzeugungen überein.
+;;129;;This goal is congruent with my dreams.;;;Dieses Ziel stimmt mit meinen Träumen überein.
+;;130;;Achieving this goal is in accordance with my ideal self.;;;Dieses Ziel ist in Übereinstimmung mit meinem idealen Selbst.
+;;131;;This goal reflects my personal values.;;;Dieses Ziel spiegelt meine persönlichen Werte wider.
+;;132;R;This goal is in dissonance with my values.;;;Dieses Ziel steht im Widerspruch zu meinen Werten.
+;;133;R;To achieve this goal, I would have to engage in activities that are incongruent with my beliefs.;;;Um dieses Ziel zu erreichen müsste ich Dinge tun, die sich nicht mit meinen Überzeugungen decken.
+;;134;R;Achieving this goal would contradict my moral values.;;;Dieses Ziel zu erreichen würde meinen moralischen Werten widersprechen.
+;Importance;135;R;I seldom think about this goal.;;Wichtigkeit;Ich denke selten über dieses Ziel nach.
+;;136;R;This goal doesn't catch much of my attention.;;;Dieses Ziel zieht nicht viel von meiner Aufmerksamkeit auf sich.
+;;137;;Achieving this goal is important to me.;;;Das Erreichen dieses Ziels ist mir wichtig.
+;;138;R;I have more important goals to work on than this one.;;;Ich habe wichtigere Ziele, um daran zu arbeiten als dieses.
+;;139;R;Whether I achieve this goal or not, doesn't really matter.;;;Ob ich dieses Ziel erreiche oder nicht, spielt eigentlich keine Rolle.
+;Awareness;140;R;Apparently, part of me wants to achieve this goal for some reason I don't fully understand.;;Bewusstheit;Anscheinend möchte ein Teil von mir dieses Ziel aus einem Grund erreichen, den ich nicht vollständig verstehe.
+;;141;;I am fully aware that I am pursuing this goal.;;;Ich bin mir völlig bewusst, dass ich dieses Ziel verfolge.
+;;142;R;I didn't even know I had this goal until I was asked about my goals.;;;Ich wusste nicht einmal, dass ich dieses Ziel hatte, bevor ich gefragt wurde.
+;;143;R;I wasn't even aware that I am pursuing this goal until I was asked to think about my goals.;;;Ich war mir nicht einmal bewusst, dass ich dieses Ziel verfolge, bis ich gebeten wurde, über meine Ziele nachzudenken.
+;;144;R;I recently became aware of this goal.;;;Dieses Ziel wurde mir kürzlich erst bewusst.
+;Vitality/Vigor;145;;Thinking about this goal makes me feel alive and vital.;;Vitalität/Vigor;Wenn ich über dieses Ziel nachdenke, fühle ich mich lebendig und vital.
+;;146;R;Thinking about this goal doesn’t make me feel energetic.;;;Wenn ich über dieses Ziel nachdenke, fühle ich mich nicht energiegeladen.
+;;147;;I feel full of energy and spirit when I think about this goal.;;;Ich fühle mich voller Energie und Temperament, wenn ich über dieses Ziel nachdenke.
+;;148;;When I think about this goal, I look forward to working on it.;;;Wenn ich über dieses Ziel nachdenke, freue ich mich darauf, daran zu arbeiten.
+;;149;R;Thinking about this goal makes me feel emotionally drained.;;;Wenn ich über dieses Ziel nachdenke, fühle ich mich emotional ausgelaugt.
+;;150;R;Thinking about this goal is boring.;;;Über dieses Ziel nachzudenken ist langweilig.
+Usefulness;Long-Term Utility;151;;Achieving this goal now will be significant in the future.;Nützlichkeit;Langfristige Nützlichkeit;Das Erreichen dieses Ziels wird in Zukunft von Bedeutung sein.
+;;152;R;In the future, I probably won't care about this goal.;;;In Zukunft wird mir dieses Ziel wahrscheinlich egal sein.
+;;153;;This goal is important for my future.;;;Dieses Ziel ist wichtig für meine Zukunft.
+;;154;R;This goal won't make a huge impact in the future.;;;Dieses Ziel wird in Zukunft keine großen Auswirkungen haben.
+;;155;R;In the long-term, the effects of reaching this goal won't matter.;;;Langfristig werden die Auswirkungen des Erreichens dieses Ziels keine Rolle spielen.
+;;156;;I will benefit from this goal in the long run.;;;Ich werde langfristig von diesem Ziel profitieren.
+;;157;;Achieving this goal will give me long lasting benefits.;;;Das Erreichen dieses Ziels bringt mir lange währende Vorteile.
+;;158;N;Achieving this goal might be harmful for my future.;;;Das Erreichen dieses Ziels könnte für meine Zukunft schädlich sein.
+;;159;N;Achieving this goal also has negative consequeces in the long-term.;;;Das Erreichen dieses Ziels hat langfristig auch negative Folgen.
+;;160;N;Achieving this is goal is detrimental to my future.;;;Dieses Ziel ist nachteilig für meine Zukunft.
+;Short-Term Utility;161;R;If and when I achieve this goal, I won't have any immediate benefit.;;Kurzfristige Nützlichkeit;Wenn ich dieses Ziel erreiche, habe ich keinen unmittelbaren Nutzen.
+;;162;R;At the moment I achieve this goal, it will not directly change my life.;;;Im Moment, in dem ich dieses Ziel erreiche, würde es mein Leben nicht direkt wesentlich verändern.
+;;163;;It's important to achieve this goal right now.;;;Es ist wichtig, dieses Ziel jetzt gleich zu erreichen.
+;;164;;I will reap the benefits of this goal right after achieving it.;;;Ich werde die Vorteile dieses Ziels gleich nach Erreichen spüren.
+;;165;R;Achieving this goal won't be useful for me in the near future.;;;Das Erreichen dieses Ziels wird für mich in naher Zukunft nicht nützlich sein.
+;;166;;When I reach this goal, it will pay off immediately.;;;Wenn ich dieses Ziel erreiche, wird es sich sofort auszahlen.
+;;167;N;When I achieve this goal, it will be detrimental for a short time.;;;Wenn ich dieses Ziel erreiche, wird es für mich kurzfristig nachteilig sein.
+;;168;N;Achieving this goal has immediate negative consequeces.;;;Das Erreichen dieses Ziels hat unmittelbare negative Folgen.
+;;169;N;At the moment I achieve this goal, I will face some unwanted results.;;;In dem Moment, in dem ich dieses Ziel erreiche, werde ich mit einigen unerwünschten Ergebnissen konfrontiert sein.
+;Utility of Goal Pursuit;170;;Working on this goal is useful for me.;;Prozessorientierte Nützlichkeit;Die Arbeit an diesem Ziel ist für mich nützlich.
+;;171;;I get immediate benefits from working toward this goal.;;;Ich bekomme unmittelbar Vorteile, wenn ich auf dieses Ziel hinarbeite.
+;;172;;Regardless of the final outcome of this goal, pursuing it is still beneficial.;;;Unabhängig vom endgültigen Ergebnis dieses Ziels ist es davon unabhängig von Vorteil, es zu verfolgen.
+;;173;R;I will only benefit from this goal if I achieve it.;;;Ich werde von diesem Ziel nur profitieren, wenn ich es erreiche.
+;;174;;Even if I don't achieve this goal, it is still worthwhile to persue it.;;;Auch wenn ich dieses Ziel nicht erreiche, lohnt es sich, es zu verfolgen.
+;;175;R;If I ignore the final outcome of this goal, working on it is useless.;;;Wenn ich vom Endergebnis dieses Ziels absehe, ist es nutzlos, daran zu arbeiten.
+;;176;N;In order to pursue this goal, I have to give up something.;;;Um dieses Ziel zu verfolgen, muss ich etwas aufgeben.
+;;177;N;The proccess of pursuing this goal has disadvantages.;;;Der Prozess der Verfolgung dieses Ziels hat Nachteile.
+;;178;N;Pursuing this goal has some unpleasent consequences.;;;Die Verfolgung dieses Ziels hat unangenehme Auswirkungen.
+;Relative Utility;179;;Compared to other goals, achieving this goal will be better for me.;;Relative Nützlichkeit;Im Vergleich zu anderen Zielen wird es für mich besser sein, dieses Ziel zu erreichen.
+;;180;;I prefer this goal among the others I have.;;;Ich bevorzuge dieses Ziel unter den anderen, die ich habe.
+;;181;R;There is probably a better goal that I could be pursuing.;;;Es gibt wahrscheinlich ein besseres Ziel, das ich jetzt verfolgen könnte.
+;;182;;This goal is more valuable than the other goals I thought about pursuing.;;;Dieses Ziel ist wertvoller als die anderen Ziele, die zu verfolgen ich überlegt habe.
+;;183;;This goal has more benefits than my other goals.;;;Dieses Ziel hat mehr Nutzen als meine anderen Zielen.
+;"Self-
+Improvement Utility";184;;In the process of working toward this goal I will learn many useful things.;;Nützlichkeit für Persönliches Wachstum;Während ich auf dieses Ziel hinarbeite, werde ich viele nützliche Dinge lernen.
+;;185;R;This goal probably won't improve my weaknesses much.;;;Dieses Ziel wird an meinen Schwächen wahrscheinlich nicht viel ändern.
+;;186;;This goal will help me grow as a person.;;;Dieses Ziel wird mir helfen, als Person zu wachsen.
+;;187;;While working on this goal I can learn valuable lessons.;;;Während ich an diesem Ziel arbeite, kann ich wertvolle Lektionen lernen.

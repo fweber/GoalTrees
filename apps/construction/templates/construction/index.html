@@ -3,24 +3,19 @@
 {% block content %}
 
     <body>
-    <h1>Willkommen!</h1>
-    <p> Vielen Dank für deine Teilnahme an unserer Studie!
-        Uns interessiert welche Ziele bzw. Zielsysteme
-        Studierende haben. Vor allem geht es darum,
-        was dir wirklich wichtig ist; vielleicht hast du
-        Vorsätze für das Jahr? Was möchtest du im
-        Studium erreichen? Was sind deine Ziele?
-        Möchtest du einen bestimmten Abschluss
-        machen, ins Ausland gehen, oder eine
-        Fremdsprache lernen? Interessierst du dich für
-        ein bestimmtes Themengebiet?
-        Insgesamt wird die Bearbeitung des
-        Fragebogens ungefähr 1 Stunde in Anspruch
-        nehmen. Versuche so wenig Pausen wie möglich
-        zu machen.
+    <h1>Willkommen bei GoalTrees!</h1>
+    <p>Welche Ziele verfolgst Du mit Deinem Studium und im Leben?
+        <br>
+        Viele Studierende können diese Frage ad-hoc nicht beantworten, obwohl es motivierend und sinnstiftend sein kann
+        sich über die eigenen Bildungsziele im Klaren zu sein. Hier gibt es die Möglichkeit an wissenschaftlichen Studien
+        teilzunehmen, dabei klare Ziele zu entwickeln, konkrete Handlungen abzuleiten und Feedback zu den Zielen zu bekommen.
+        Dabei können auch Versuchspersonenstunden erworben werden.
     </p>
-    <a href="#">Zurück</a>
-    <a href="#">Weiter</a>
-
+    Aktuell stehen folgende Studien zur Auswahl:
+    <ul>
+        {% for study in studies %}
+            <li><a href={% url 'study' study.name %}>{{ study.description }}, Dauer ca. {{ study.duration }}h</a></li>
+        {% endfor %}
+    </ul>
     </body>
 {% endblock %}

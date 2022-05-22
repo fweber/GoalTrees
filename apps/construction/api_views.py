@@ -29,8 +29,8 @@ def previous_view(request, offset=1):
     :return:
     """
     study = models.Study.get_current_study(request)
-    study.set_sequence_position(request, study.get_sequence_position(request)-offset)
-    return redirect("/"+study.get_current_view(request))
+    study.set_sequence_position(request, study.get_sequence_position(request) - offset)
+    return redirect("/" + study.get_current_view(request))
 
 
 @xframe_options_exempt
@@ -72,13 +72,17 @@ def answer_questionnaire(request):
             if item["item_text"] == item_text:
                 stored_item = models.Item.objects.create(
                     questionnaire=questionnaire,
-                    code=item["code"] if "code" not in study_context else study_context["code"], # use code in study context if exists
-                    text=item["item_text"] if "item_text" not in study_context else study_context["item_text"], # goal items have only one item_text
+                    code=item["code"] if "code" not in study_context else study_context["code"],
+                    # use code in study context if exists
+                    text=item["item_text"] if "item_text" not in study_context else study_context["item_text"],
+                    # goal items have only one item_text
                     answers=item["answers"] if "answers" in item else study_context["answers"],
                     participant=participant,
                     given_answer=answer,
-                    reverse_coded=item.get("reverse_coded", False) if "reverse_coded" not in study_context else study_context["reverse_coded"], # use reverse_coded in study context if exists
-                    latent_variable=item.get("latent_variable", "") if "latent_variable" not in study_context else study_context["latent_variable"], # use latent_variable in study context if exists
+                    reverse_coded=item.get("reverse_coded", False) if "reverse_coded" not in study_context else
+                    study_context["reverse_coded"],  # use reverse_coded in study context if exists
+                    latent_variable=item.get("latent_variable", "") if "latent_variable" not in study_context else
+                    study_context["latent_variable"],  # use latent_variable in study context if exists
                     personal_goal=item["personal_goal"] if "personal_goal" in item else None,
                     goal=item["goal"] if "goal" in item else None,
                 )
@@ -285,7 +289,6 @@ def answer_nasa_tlx(request):
 
     items = ["{}    {}".format(item["deutsch"][0], item["deutsch"][1]) for item in nasa_tlx]
 
-
     participant = models.Participant.get_current_participant(request)
 
     for key in post.keys():
@@ -321,7 +324,7 @@ def new_tree(request, title="Mein Studienziel", replicated_tree_id=None):
     models.Goal.create_new_tree(request, title, replicated_tree_id)
     participant = models.Participant.get_current_participant(request)
 
-    return redirect("/"+participant.study.get_next_view(request))
+    return redirect("/" + participant.study.get_next_view(request))
 
 
 @xframe_options_exempt
@@ -376,7 +379,7 @@ def answer_open_questions(request):
         # remaining questions exist
         remaining_questions_indices = request.session.get("remaining_questions_indices", [])
         if len(remaining_questions_indices) > 0:
-            response = redirect("open_questions/"+open_questions)
+            response = redirect("open_questions/" + open_questions)
         else:
             request.session.pop("remaining_questions_indices")
             response = redirect(participant.study.get_next_view(request))
@@ -450,7 +453,7 @@ def process_personal_goals(request):
 
     if len(remaining_conditions) < 4 and participant.study.get_current_view(request) == "process_personal_goals":
         # if remaining conditions available go three views back
-        participant.study.set_sequence_position(request, study.get_sequence_position(request)-3)
+        participant.study.set_sequence_position(request, study.get_sequence_position(request) - 3)
 
     # pick random condition
     tree_condition = random.choice(remaining_conditions)
@@ -463,7 +466,7 @@ def process_personal_goals(request):
     personal_goals = models.PersonalGoal.objects.filter(participant=participant).order_by("created")
     root_title = personal_goals[goal_index].name
     # increment goal index
-    request.session["personal_goal_index"] = goal_index+1
+    request.session["personal_goal_index"] = goal_index + 1
 
     # create new tree and save condition on root node
     tree = models.Goal.create_new_tree(request, root_title)
@@ -471,7 +474,8 @@ def process_personal_goals(request):
     tree.save()
     request.session["current_tree"] = tree.tree_id
 
-    return redirect(participant.study.get_next_view(request)+"/"+tree_condition+"/personal_goals_tree_construction")
+    return redirect(
+        participant.study.get_next_view(request) + "/" + tree_condition + "/personal_goals_tree_construction")
 
 
 def random_views(request):
@@ -495,11 +499,46 @@ def random_views(request):
     if len(remaining_views) > 0:
         next_view = remaining_views.pop(0)
         request.session["remaining_views"] = remaining_views
-        study.set_sequence_position(request, study.get_sequence_position(request)-1)
-        return redirect("/"+next_view)
+        study.set_sequence_position(request, study.get_sequence_position(request) - 1)
+        return redirect("/" + next_view)
     else:
         # remove remaining views from session
         request.session.pop("remaining_views")
 
     return redirect(study.get_next_view(request))
 
+
+@xframe_options_exempt
+def filter_participants(request):
+    post = request.POST
+    for x in post.keys():
+        print(x)
+        if x[:12] == "participant_":
+            p_id = x[12:]
+            participant = models.Participant.objects.get(pk=p_id)
+            participant.exclude_from_analyses = True
+            participant.save()
+
+    return views.participants(request)
+
+
+@xframe_options_exempt
+def filter_trees(request):
+
+    post = request.POST
+    for x in post.keys():
+        print(x)
+        if x[:16] == "tree_is_example_":
+            tree_id = x[16:]
+            goals = models.Goal.objects.filter(tree_id=tree_id)
+            for goal in goals:
+                goal.is_example = True
+                goal.save()
+        elif x[:15] == "tree_discarded_":
+            tree_id = x[15:]
+            goals = models.Goal.objects.filter(tree_id=tree_id)
+            for goal in goals:
+                goal.discarded = True
+                goal.save()
+
+    return views.trees(request)

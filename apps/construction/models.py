@@ -12,7 +12,10 @@ from django.db.models import Max, JSONField
 
 class Study(models.Model):
     id = models.AutoField(primary_key=True)
+    active = models.BooleanField(default=True)
     name = models.CharField(max_length=512, unique=True)
+    description = models.CharField(max_length=512, unique=True, null=True)
+    duration = models.FloatField(null=True)
     sequence = ArrayField(models.CharField(max_length=128), default=list)
     classname = models.CharField(max_length=256)
     conditions = ArrayField(models.IntegerField(), default=list)
@@ -27,6 +30,7 @@ class Study(models.Model):
 
         request.session["study_name"] = study_name
         return study
+
 
     def get_current_study(request):
         # if no study is set in session
@@ -89,7 +93,10 @@ class Study(models.Model):
         return request.session["sequence_position"]
 
     def get_valid_tree_ids(self):
-        goals = Goal.objects.filter(participant__study=self, discarded=False)
+        goals = Goal.objects.filter(participant__study=self,
+                                    discarded=False,
+                                    is_example=False,
+                                    )
         valid_tree_ids=[]
         for goal in goals:
             # if there are less than 3 goals in the tree
@@ -98,14 +105,49 @@ class Study(models.Model):
                     valid_tree_ids.append(goal.tree_id)
         return valid_tree_ids
 
+
+    def get_valid_tree_ids(cls):
+        goals = Goal.objects.filter(discarded=False,
+                                    is_example=False,)
+        valid_tree_ids=[]
+        for goal in goals:
+            # if there are less than 3 goals in the tree
+            if len(goals.filter(tree_id=goal.tree_id))>2:
+                if goal.tree_id not in valid_tree_ids:
+                    valid_tree_ids.append(goal.tree_id)
+        return valid_tree_ids
+
+
     def get_goals_from_valid_trees(self):
-        goals = Goal.objects.filter(participant__study=self, discarded=False)
+        """ Returns a list of goals from a study that are not discarded and part of a tree with size > 3."""
+        goals = Goal.objects.filter(participant__study=self,
+                                    discarded=False,
+                                    is_example=False,)
         to_exclude=[]
         for goal in goals:
             # if there are less than 3 goals in the tree
             if len(goals.filter(tree_id=goal.tree_id, discarded=False))<3:
                 to_exclude.append(goal.tree_id)
-        goals = Goal.objects.filter(participant__study=self, discarded=False).exclude(tree_id__in=to_exclude)
+        goals = Goal.objects.filter(participant__study=self,
+                                    discarded=False,
+                                    is_example=False,
+                                    ).exclude(tree_id__in=to_exclude)
+        return goals
+
+    @classmethod
+    def get_goals_from_valid_trees(cls):
+        """ Returns a list of goals from ALL studies that are not discarded and part of a tree with size > 3."""
+        goals = Goal.objects.filter(discarded=False,
+                                    is_example=False,
+                                    )
+        to_exclude=[]
+        for goal in goals:
+            # if there are less than 3 goals in the tree
+            if len(goals.filter(tree_id=goal.tree_id, discarded=False))<3:
+                to_exclude.append(goal.tree_id)
+        goals = Goal.objects.filter(discarded=False,
+                                    is_example=False,
+                                    ).exclude(tree_id__in=to_exclude)
         return goals
 
     def get_previous_and_next_tree(self,tree_id):
@@ -125,9 +167,11 @@ class Study(models.Model):
         }
         return prev_next
 
+
     def get_previous_and_next_study(self):
+        """Returns dictionary with previous and next study ID."""
         studies = Study.objects.all().order_by("id")
-        if len(studies)==1:
+        if len(studies) == 1:
             return {'last_study_id': self.id,
                     'next_study_id': self.id,
             }
@@ -146,7 +190,22 @@ class Study(models.Model):
         }
         return prev_next
 
+
+    def get_previous_and_next_study(cls):
+        """Returns dictionary with previous and next study ID."""
+        studies = Study.objects.all().order_by("id")
+        next_study_id=studies[0]
+        studies = Study.objects.all().order_by("-id")
+        last_study_id = studies[0]
+        return {'last_study_id': last_study_id,
+                    'next_study_id': next_study_id,
+        }
+
+
+
+
     def summarize(self):
+        """Calculates descriptive statistics for study."""
         study_properties=[]
 
         goals=self.get_goals_from_valid_trees()
@@ -181,7 +240,7 @@ class Study(models.Model):
             # if goal is not a parent itself, it is a leaf node
             if not goals.filter(parent_id=goal.id).exists():
                 actions += 1
-                depth = 0
+                depth = 1
                 parent = goal
                 # probably a node is deleted
                 while parent.parent_id is not None and goals.filter(id=parent.parent_id).exists():
@@ -200,7 +259,7 @@ class Study(models.Model):
 
         average_depth = "%.2f" % average_depth
 
-        if len(parents.values())==0:
+        if len(parents.values()) == 0:
             min_branching = 0
             max_branching = 0
             average_branching = 0
@@ -222,12 +281,129 @@ class Study(models.Model):
         study_properties.append({'name': 'nodes', "value": len(parents.keys()),"nodes":parents.values() })
         study_properties.append({'name': 'branches', "value": len(branch_depths),"branches":branch_depths })
         study_properties.append({'name': 'trees', "value": len(trees.keys()), "tree_sizes": trees.values()})
-        print(parents.keys())
 
         return study_properties
 
+
+    def summarize(cls):
+        """Calculates descriptive statistics for ALL studies."""
+        study_properties = []
+
+        goals = Study.get_goals_from_valid_trees()
+
+        studies = Study.objects.all()
+
+        participants = len(goals.order_by().values('participant').distinct())
+
+        study_properties.append({"name": "studies", "value": len(studies)})
+        study_properties.append({"name": "participants", "value": participants},)
+        study_properties.append({"name": "goal systems", "value": len(goals.order_by().values('tree_id')
+                                                                         .distinct())},)
+        study_properties.append({"name": "goals", "value": len(goals)}, )
+
+
+        branch_depths = []
+        parents = {}
+        trees = {}
+        actions = 0
+        roots = 0
+        for goal in goals:
+
+            # tree-size counter
+            if goal.tree_id in trees.keys():
+                trees[goal.tree_id] += 1
+            else:
+                trees[goal.tree_id] = 1
+
+            # root goal counter
+            if goal.parent_id is None:
+                roots += 1
+            elif goal.parent_id in parents.keys():
+                parents[goal.parent_id] += 1
+            else:
+                parents[goal.parent_id] = 1
+
+            # leaf node counter
+            if not goals.filter(parent_id=goal.id).exists():
+                actions += 1
+                depth = 1
+                parent = goal
+
+                while parent.parent_id is not None and goals.filter(id=parent.parent_id).exists():
+                    parent = goals.get(id=parent.parent_id)
+                    depth += 1
+                # branch depth counter
+                branch_depths.append(depth)
+
+        if len(branch_depths) == 0:
+            max_depth = 0
+            min_depth = 0
+            average_depth = 0
+        else:
+            max_depth = max(branch_depths)
+            min_depth = min(branch_depths)
+            average_depth = "{:.2f}".format(statistics.mean(branch_depths))
+            SD_depth = "{:.2f}".format(statistics.stdev(branch_depths))
+
+
+        if len(parents.values()) == 0:
+            min_branching = 0
+            max_branching = 0
+            average_branching = 0
+        else:
+            min_branching = min(parents.values())
+            max_branching = max(parents.values())
+            average_branching = "{:.2f}".format(statistics.mean(parents.values()))
+            SD_branching = "{:.2f}".format(statistics.stdev(parents.values()))
+
+        study_properties.append({'name': 'branches', "value": len(branch_depths), })
+
+        study_properties.append({'name': 'root goals', "value": roots, })
+        study_properties.append({'name': 'intermediate goals', "value": len(goals)-roots-actions, })
+        study_properties.append({'name': 'leaf goals', "value": actions, })
+
+        study_properties.append({'name': 'min. depth', "value": min_depth, })
+        study_properties.append({'name': 'max. depth', "value": max_depth, })
+        study_properties.append({'name': 'av. depth', "value": average_depth, })
+        study_properties.append({'name': 'SD depth', "value": SD_depth, })
+
+        study_properties.append({'name': 'min branching', "value": min_branching, })
+        study_properties.append({'name': 'max. branching', "value": max_branching, })
+        study_properties.append({'name': 'av. branching', "value": average_branching, })
+        study_properties.append({'name': 'SD branching', "value": SD_branching,})
+
+        study_properties.append(
+            {'name': 'min. size', "value": min(trees.values()), })
+        study_properties.append(
+            {'name': 'max. size', "value": max(trees.values()),})
+        study_properties.append({'name': 'av. size', "value": "{:.2f}".format(statistics.mean(trees.values())), })
+        study_properties.append({'name': 'SD size', "value": "{:.2f}".format(statistics.stdev(trees.values())), })
+
+        study_properties[0]["nodes"] = parents.values()
+        study_properties[0]["branches"] = branch_depths
+        study_properties[0]["tree_sizes"] = trees.values()
+
+        return study_properties
+
+
     def get_tree_data(self):
         tree_ids = self.get_valid_tree_ids()
+        tree_data={}
+        for tree_id in tree_ids:
+            tree_properties = Goal.get_tree_properties(tree_id)
+            for tree_property in tree_properties:
+                if tree_property["name"] in tree_data.keys():
+
+                    tree_data[tree_property["name"]].append(float(tree_property["value"]))
+                else:
+
+                    tree_data[tree_property["name"]]=[float(tree_property["value"])]
+
+        return tree_data
+
+
+    def get_tree_data(cls):
+        tree_ids = cls.get_valid_tree_ids()
         tree_data={}
         for tree_id in tree_ids:
             tree_properties = Goal.get_tree_properties(tree_id)
@@ -277,6 +453,7 @@ class Participant(models.Model):
     operating_system = models.CharField(max_length=256, null=True)
     browser_language = models.CharField(max_length=128, null=True)
     siddata_user_id = models.CharField(max_length=256, null=True)
+    exclude_from_analyses = models.BooleanField(default=False)
 
     def __str__(self):
         return "{}".format(self.id)
@@ -363,7 +540,8 @@ class Goal(models.Model):
         :param goal_id:
         :return:
         """
-        children = Goal.objects.filter(parent_id=goal_id, discarded=False)
+        children = Goal.objects.filter(parent_id=goal_id,
+                                       discarded=False)
         root = Goal.objects.get(id=goal_id)
         if len(children) == 0:
             return {'name': root.title, 'done': root.done, 'size': 1000}
@@ -422,13 +600,17 @@ class Goal(models.Model):
     def get_gcq_goal(request):
         # todo: Improve the choice mechanism
         participant = Participant.get_current_participant(request)
-        return Goal.objects.filter(participant=participant)[0]
+        return Goal.objects.filter(participant=participant,
+                                   discarded=False,
+                                   is_example=False,
+                                   )[0]
 
     def get_tree_properties(tree_id):
         # Tree Data
         goals_in_tree=Goal.get_tree_goals(tree_id)
         goals_n=len(goals_in_tree)
-        discarded_goals_n=len(Goal.objects.filter(tree_id=tree_id, discarded=True))
+        discarded_goals_n=len(Goal.objects.filter(tree_id=tree_id,
+                                                  discarded=True))
         branch_depths=[]
         parents={}
         for goal in goals_in_tree:
@@ -438,7 +620,7 @@ class Goal(models.Model):
                 parents[goal.parent_id]=1
             # if goal is not a parent itself, it is a leaf node
             if not goals_in_tree.filter(parent_id=goal.id).exists():
-                depth=0
+                depth=1
                 parent=goal
                 while parent.parent_id is not None and goals_in_tree.filter(id=parent.parent_id).exists():
                     parent=goals_in_tree.get(id=parent.parent_id)
@@ -466,6 +648,60 @@ class Goal(models.Model):
                 {'name':'average_branching',"value": average_branching,},
             ]
         return tree_properties
+
+
+    def get_depth(self):
+        """Calculates depth in tree"""
+
+        tree_goals = Goal.objects.filter(tree_id=self.tree_id,
+                                         discarded=False,)
+
+        root = Goal.objects.get(tree_id=self.tree_id,
+                                           parent_id=None)
+
+        level_from_root = 0
+
+        current = self
+        while current.parent_id:
+            current = Goal.objects.get(pk=current.parent_id)
+            level_from_root += 1
+
+        if level_from_root==0:
+            return 0
+
+        subgoals = list(Goal.objects.filter(parent_id=self.pk,
+                                            discarded=False))
+        if len(subgoals)==0:
+            return 1
+
+        leaves = []
+
+        while len(subgoals)>0:
+                sg = subgoals[0]
+                if Goal.objects.filter(parent_id=sg.pk,
+                                       discarded=False).exists():
+                    new_subgoals=Goal.objects.filter(parent_id=sg.pk,
+                                                     discarded=False,)
+                    for nsg in new_subgoals:
+                        subgoals.append(nsg)
+                else:
+                    leaves.append(sg)
+                subgoals.remove(sg)
+
+        depths=[]
+        if len(leaves)==0:
+            return 1
+
+        for l in leaves:
+            current = l
+            level_to_leaf=0
+            while current.pk != self.pk:
+                current = Goal.objects.get(pk=current.parent_id)
+                level_to_leaf+=1
+            depths.append(level_from_root/(level_from_root+level_to_leaf))
+
+        return sum(depths)/len(depths)
+
 
     def discard_goal(goal_id):
         """
@@ -595,7 +831,6 @@ class Item(models.Model):
 
     # todo: deprecated, remove when studies done
     def get_gcq_items(file="gcq.csv", language="de"):
-        print('{}/apps/construction/static/construction/data/questionnaires/{}'.format(settings.BASE_DIR, file))
         with open(
                 '{}/apps/construction/static/construction/data/questionnaires/{}'.format(settings.BASE_DIR, file),
                 'r',
@@ -782,7 +1017,8 @@ class Item(models.Model):
                     "goal": first_child,
                 }
             )
-            children.extend(Goal.objects.filter(parent_id=first_child.id, discarded=False).order_by("title"))
+            children.extend(Goal.objects.filter(parent_id=first_child.id,
+                                                discarded=False).order_by("title"))
         return goal_items
 
     def get_goal_scores(participant, latent_variable, tree_id, min, max):

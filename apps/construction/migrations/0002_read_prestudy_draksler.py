@@ -27,7 +27,6 @@ def read_data(apps, schema_editor):
         reader = csv.reader(file, delimiter=";")
 
         for row in reader:
-            print(row)
             # skip header row
             if row[0] == "Participant":
                 continue
@@ -50,7 +49,7 @@ def read_data(apps, schema_editor):
         reader = csv.reader(file, delimiter=";")
 
         for row in reader:
-            print(row)
+
             # skip header row
             if row[0] == "id":
                 continue
@@ -72,7 +71,7 @@ def read_data(apps, schema_editor):
         reader = csv.reader(file, delimiter=";")
 
         for row in reader:
-            print(row)
+
             # skip header row
             if row[0] == "id":
                 continue
@@ -96,7 +95,6 @@ def read_data(apps, schema_editor):
         reader = csv.reader(file, delimiter=";")
 
         for row in reader:
-            print(row)
             # skip header row
             if row[0] == "id":
                 continue
