@@ -135,6 +135,9 @@ STATIC_URL = '/static/'
 # Use manage.py collectstatic to copy all static files to this folder.
 STATIC_ROOT = os.path.join('{}/collected_apache_static/'.format(BASE_DIR))
 
+# Path to static questionnaire files
+QUESTIONNAIRE_DIR = os.path.join(BASE_DIR, 'apps/construction/static/construction/data/questionnaires')
+
 # enable session and csrf cookies from other sites (e.g. in frames)
 SESSION_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SECURE = True
