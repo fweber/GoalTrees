@@ -1,0 +1,121 @@
+;participant_id;age;gender;semester;subject;degree;screen_size;operating_system;browser_language;ranking condition: 1;ranking condition: 2;ranking condition: 3;ranking condition: 4
+22;22;20.0;female;2.0;Cognitive Science;;1366x768;Linux x86_64;de;2;1;4;3
+27;27;20.0;female;2.0;Cognitive Science;;1280x720;Win32;it-US;4;3;2;1
+30;30;20.0;female;6.0;Cognitive Science;;1200x800;Win32;de;3;4;1;2
+33;33;25.0;male;6.0;Cognitive Science;;2560x1440;Win32;de-DE;3;1;2;4
+29;29;23.0;female;8.0;Cognitive Science;;1536x864;Win32;de-DE;2;1;3;4
+35;35;21.0;female;3.0;Cognitive Science;;1707x960;Win32;de-DE;2;1;4;3
+36;36;21.0;male;6.0;Cognitive Science;;1680x1050;Win32;de-DE;3;2;1;4
+38;38;23.0;male;6.0;Coxi Science;;1920x1080;Win32;en-US;4;3;1;2
+48;48;19.0;male;2.0;Psychologie;;1280x800;MacIntel;de-de;1;3;2;4
+44;44;20.0;female;2.0;Psychologie;;1536x864;Win32;en-US;2;4;1;3
+53;53;22.0;male;10.0;Psychologie;;1536x864;Win32;de;4;3;2;1
+45;45;22.0;male;6.0;Cognitive Science;;1536x864;Win32;en-US;4;3;1;2
+49;49;24.0;female;2.0;Psychologie;;1368x912;Win32;de-DE;3;4;1;2
+55;55;22.0;male;6.0;Psychologie;;1920x1080;Win32;de-DE;3;4;1;2
+50;50;19.0;male;2.0;Cognitive Science;;1920x1080;Win32;de;3;4;1;2
+54;54;22.0;female;2.0;Psychologie ;;820x1180;MacIntel;de-de;2;4;3;1
+57;57;20.0;female;1.0;Psychologie;;1024x819;Win32;de;4;1;2;3
+59;59;20.0;female;2.0;Cognitive Science;;1280x720;Win32;de;3;4;2;1
+61;61;22.0;female;2.0;Psychologie;;1664x1110;Win32;de-DE;4;2;1;3
+63;63;23.0;female;6.0;Biologie, Spanisch;;1368x912;Win32;de;2;4;1;3
+76;76;34.0;female;3.0;Medieninformatik;;1920x1080;Win32;de;3;1;2;4
+69;69;20.0;female;2.0;Psychologie;;1536x864;Win32;de-DE;4;2;1;3
+72;72;20.0;female;2.0;Cognitive Science;;1575x886;Win32;de-DE;4;2;3;1
+70;70;16.0;male;4.0;Psychologie;;1920x1080;Win32;de;2;4;1;3
+73;73;23.0;female;4.0;Cognitive Science;;1280x800;MacIntel;de-de;4;3;1;2
+74;74;32.0;female;6.0;Cognitive Science;;1368x912;Win32;de-DE;3;4;1;2
+78;78;21.0;female;4.0;Cognitive Science;;1368x912;Win32;de;4;3;1;2
+79;79;20.0;female;2.0;Cognitive Science;;1280x800;MacIntel;en;4;3;2;1
+85;85;23.0;male;6.0;Cognitive Science;;1920x1080;Win32;de;2;4;1;3
+107;107;19.0;female;2.0;Psychologie;;1280x720;Win32;de;2;1;4;3
+83;83;20.0;female;4.0;Cognitive Science;;1536x864;Win32;de;4;3;1;2
+100;100;23.0;female;6.0;Cognitive Science;;1280x800;MacIntel;de-DE;1;3;2;4
+91;91;23.0;female;2.0;Cognitive Science;;1536x864;Win32;de;1;4;3;2
+94;94;20.0;female;4.0;cognitive science ;;1280x720;Win32;de-DE;1;3;4;2
+93;93;19.0;female;2.0;Cognitive Science;;1440x900;MacIntel;de-de;4;1;2;3
+98;98;25.0;female;12.0;Cognitive Science;;1920x1080;Win32;de-DE;2;4;1;3
+96;96;27.0;male;8.0;Cogsci;;2560x1440;Win32;de;1;2;3;4
+88;88;24.0;male;12.0;Cognitive Science;;1536x864;Win32;en-US;2;4;1;3
+103;103;23.0;male;2.0;Cognitive Science;;1368x912;Win32;en;1;4;2;3
+101;101;22.0;male;6.0;Cognitive Science;;1280x720;Win32;en-US;3;4;1;2
+104;104;30.0;female;2.0;Cognitive Science;;1920x1080;Win32;de-DE;2;4;1;3
+106;106;21.0;female;2.0;Cognitive Science;;1600x900;Win32;de-DE;2;3;1;4
+116;116;23.0;female;1.0;Psychologie;;1280x720;Win32;de;3;2;1;4
+109;109;22.0;female;6.0;Cognitive Science;;1440x900;MacIntel;de;3;1;2;4
+112;112;20.0;female;2.0;psychologie;;1366x768;Win32;de-DE;4;3;1;2
+114;114;20.0;female;2.0;Psychologie;;834x1194;MacIntel;en-gb;2;4;1;3
+119;119;23.0;male;6.0;Cognitive Science;;2560x1440;Win32;de-DE;4;3;2;1
+124;124;19.0;female;2.0;Cognitive Science;;1280x720;Win32;de;2;4;1;3
+128;128;19.0;female;2.0;Cognitive Science;;1536x864;Win32;de-DE;1;4;2;3
+130;130;19.0;female;2.0;Cognitive Science;;1440x810;Linux x86_64;en-GB;4;3;1;2
+135;135;31.0;female;14.0;Cognitive Science;;1920x1080;Win32;de;2;4;3;1
+139;139;21.0;female;2.0;Cognitive science;;1536x864;Win32;de-DE;4;2;3;1
+143;143;23.0;female;6.0;Psychologie;;1440x900;MacIntel;en-gb;3;1;4;2
+142;142;23.0;male;8.0;Cognitive Science;;1536x864;Win32;de;3;2;4;1
+140;140;30.0;male;8.0;Cognitive Science;;1366x768;Win32;de-DE;4;2;1;3
+144;144;24.0;female;2.0;Psychologie;;1280x720;Win32;de-DE;2;3;1;4
+150;150;24.0;female;11.0;International Business ;;1440x900;MacIntel;de-de;2;3;1;4
+152;152;17.0;male;1.0;Politikwissenschaft;;1600x900;Win32;de;2;4;1;3
+153;153;22.0;female;2.0;B.Sc. Life Science;;810x1080;MacIntel;de-de;3;4;1;2
+157;157;24.0;male;7.0;Maschinenbau Wirtschaft und Management;;1440x900;MacIntel;de-DE;4;2;3;1
+158;158;58.0;male;10.0;keines;;1280x800;MacIntel;de;2;4;1;3
+159;159;57.0;female;20.0;Architektur;;1366x768;Win32;de;4;3;1;2
+162;162;20.0;female;4.0;Cognitive Science;;1440x900;MacIntel;de-de;2;4;1;3
+164;164;21.0;female;2.0;Psychologie;;1280x720;Win32;de-DE;2;4;1;3
+168;168;22.0;male;8.0;Psychologie;;1280x720;Win32;de;1;3;4;2
+165;165;22.0;female;6.0;Cognitive Science;;1920x1080;Win32;de;4;2;1;3
+170;170;25.0;female;4.0;Psychologie;;1440x900;MacIntel;de;2;3;1;4
+172;172;22.0;female;6.0;Ev. Theologie/ Politik-Wirtschaft und DaF auf Gymnasiallehramt;;1366x768;Win32;de-DE;1;4;3;2
+171;171;24.0;female;7.0;Rechtswissenschaft ;;375x812;iPhone;de-de;4;3;2;1
+177;177;28.0;male;10.0;Cognitive Science;;1440x900;MacIntel;en-us;2;3;1;4
+176;176;21.0;male;4.0;Cognitive Science;;1280x720;Win32;en-GB;2;4;1;3
+178;178;22.0;female;6.0;Pädagogik der Kindheit;;1536x864;Win32;de;2;4;1;3
+180;180;22.0;male;6.0;Cognitive Science;;2560x1440;Win32;de-DE;2;4;1;3
+182;182;24.0;female;2.0;Psychologie;;1536x864;Win32;de-DE;3;4;1;2
+213;213;22.0;male;8.0;Cognitive Science;;1680x1050;MacIntel;de-DE;2;1;3;4
+233;233;26.0;male;12.0;Cognitive Science;;1920x1080;Linux x86_64;de-DE;3;2;1;4
+234;234;22.0;male;6.0;Cognitive Science;;1280x720;Linux x86_64;en-US;3;4;1;2
+237;237;22.0;female;6.0;Cognitive Science;;1366x768;Win32;de-DE;1;2;3;4
+238;238;23.0;female;8.0;Cognitive Science;;1920x1080;Linux x86_64;en-US;4;3;1;2
+239;239;25.0;male;7.0;Cognitive Science;;2560x1440;Win32;de-DE;3;1;2;4
+247;247;27.0;male;4.0;Cognitive Science;;1600x900;Win32;de-DE;3;4;2;1
+251;251;24.0;female;11.0;International Business ;;1440x900;MacIntel;de-de;3;4;1;2
+253;253;22.0;male;10.0;Psychologie;;1536x864;Win32;de;4;2;1;3
+256;256;23.0;female;2.0;Psychologie;;1280x720;Win32;de;2;3;1;4
+263;263;39.0;female;8.0;Psychologie;;1366x768;Win32;de;3;4;2;1
+276;276;20.0;female;5.0;Psychologie;;1536x864;Win32;de;3;4;1;2
+286;286;19.0;female;3.0;Cognitive Science;;1440x900;MacIntel;en-GB;3;2;1;4
+281;281;21.0;female;2.0;Lehramt;;1280x720;Win32;de;2;1;4;3
+309;309;21.0;male;6.0;Psychologie;;1440x900;MacIntel;de-DE;3;1;2;4
+300;300;22.0;female;3.0;Psychologie ;;1536x864;Win32;de;4;2;1;3
+307;307;24.0;male;8.0;Cogntive Science;;3440x1440;Win32;en-US;4;1;2;3
+283;283;21.0;female;2.0;Anglistik und katholische Theologie;;414x896;iPhone;de-de;3;4;1;2
+345;345;26.0;female;12.0;;;360x740;Linux armv8l;de-DE;4;2;1;3
+330;330;21.0;female;4.0;Cognitive Science;;1368x912;Win32;de;4;1;3;2
+323;323;26.0;male;4.0;cognitive science;;2048x1152;Win32;de-DE;4;3;2;1
+339;339;23.0;male;6.0;Cognitive Science;;1920x1080;Linux x86_64;en-US;3;2;1;4
+364;364;23.0;female;6.0;Cognitive Science;;1920x1200;Win32;de;3;1;2;4
+357;357;19.0;female;2.0;Cognitive Science;;1280x720;Win32;de;1;4;2;3
+362;362;22.0;female;4.0;Betriebswirtschaftslehre;;1366x768;Win32;de;3;2;1;4
+371;371;21.0;female;5.0;Psychologie;;1536x864;Win32;de-DE;1;3;4;2
+374;374;24.0;male;9.0;Maschinenbau;;393x851;Linux armv8l;de;3;2;1;4
+377;377;23.0;female;9.0;Psychologie;;1440x900;MacIntel;de-de;1;2;3;4
+391;391;24.0;male;2.0;Maschinenbau;;1920x1080;Win32;de;3;2;4;1
+388;388;24.0;female;2.0;Psychologie;;1280x720;Win32;de-DE;2;4;1;3
+393;393;23.0;female;4.0;Cognitive Science;;1280x800;MacIntel;de-de;2;1;4;3
+407;407;24.0;male;5.0;Politik;;1600x900;Win32;de;3;4;1;2
+411;411;24.0;female;2.0;Cognitive Science;;1500x1000;Win32;de-DE;4;3;1;2
+421;421;20.0;female;2.0;Cognitive Science;;1368x912;Win32;de-DE;3;4;1;2
+415;415;20.0;male;2.0;Cognitive Science;;1920x1080;Win32;de;1;4;2;3
+431;431;23.0;male;8.0;Psychologie;;1920x1080;Win32;de;4;1;2;3
+450;450;22.0;female;5.0;Cognitive Science;;1500x1000;Win32;de-DE;4;3;1;2
+453;453;22.0;female;2.0;Psychologie;;1280x720;Win32;de;4;3;1;2
+433;433;25.0;male;12.0;Cognitive Science;;1920x1080;Win32;de;4;1;2;3
+477;477;58.0;male;4.0;Cogsci;;1366x768;Linux x86_64;de;3;4;1;2
+460;460;;female;;;;1366x768;Win32;de;4;3;1;2
+484;484;19.0;female;3.0;Cognitive Science ;;1205x753;Linux armv8l;de-DE;1;4;2;3
+521;521;27.0;male;;Cognitive Science;;1920x1080;Win32;de-DE;4;1;2;3
+529;529;30.0;male;10.0;Psychologie;;1920x1080;MacIntel;de-DE;3;1;2;4
+536;536;20.0;female;3.0;Cognitive Science;;1536x864;Win32;de-DE;2;3;1;4
+542;542;19.0;female;3.0;Psychologie;;1536x864;Win32;de;3;1;2;4

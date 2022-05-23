@@ -5,6 +5,7 @@ from django.urls import path, include
 
 from . import api_views
 from . import views
+from . import data_views
 urlpatterns = [
 
                   # ADMINISTRATION
@@ -66,30 +67,13 @@ urlpatterns = [
                   path('filter_participants', api_views.filter_participants, name='filter_participants'),
                   path('filter_trees', api_views.filter_trees, name='filter_trees'),
 
-                  # Data views
-                  path('<int:tree_id>/explore_trees', views.explore_trees, name='explore_trees'),
-                  path('<int:study_id>/explore_studies', views.explore_studies, name='explore_studies'),
-                  path('<str:study_id>/export_csv', views.export_csv, name='export_csv'),
-                  path('<str:study_id>/export_csv/<str:export_name>', views.export_csv, name='export_csv'),
-                  path('participants', views.participants, name='participants'),
-                  path('trees', views.trees, name='trees'),
+                  # DATA ANALYSES VIEWS
+                  path('<int:tree_id>/explore_trees', data_views.explore_trees, name='explore_trees'),
+                  path('<int:study_id>/explore_studies', data_views.explore_studies, name='explore_studies'),
+                  path('<str:study_id>/export_csv', data_views.export_csv, name='export_csv'),
+                  path('<str:study_id>/export_csv/<str:export_name>', data_views.export_csv, name='export_csv'),
+                  path('participants', data_views.participants, name='participants'),
+                  path('trees', data_views.trees, name='trees'),
 
-                  # path('cse_pre',views.cse_pre, name='cse_pre'),
-                  # path('cse_post', views.cse_post, name='cse_post'),
-                  # path('nasa_tlx', views.nasa_tlx, name='nasa_tlx'),
-
-                  # path('condition1', views.condition1, name='condition1'),
-                  # path('condition2', views.condition2, name='condition2'),
-                  # path('condition3', views.condition3, name='condition3'),
-                  # path('condition4', views.condition4, name='condition4'),
-                  # path('condition5', views.condition5, name='condition5'),
-                  # path('condition6', views.condition6, name='condition6'),
-                  # path('<int:tree_id>/explore_trees', views.explore_trees, name='explore_trees'),
-                  #
-                  # path('answer_questionnaire', api_views.answer_questionnaire, name='answer_questionnaire'),
-                  #
-                  # path('write_feedback', api_views.write_feedback, name='write_feedback'),
-                  # path('write_root', api_views.write_root, name='write_root'),
-                  # path('write_goal', api_views.write_goal, name='write_goal'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

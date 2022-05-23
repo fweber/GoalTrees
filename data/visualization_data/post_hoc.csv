@@ -1,0 +1,7 @@
+;visu 1;visu 2;first;second;t-test_statistic;t-test_p
+condition 1condition 2;sunburst;treemap;0.49166667;0.50833333;-0.15725180;0.87531291
+condition 1condition 3;sunburst;dendrogram;0.22500000;0.77500000;7.03757779;0.00000000
+condition 1condition 4;sunburst;circlepacking;0.50833333;0.49166667;0.60300936;0.54764999
+condition 2condition 3;treemap;dendrogram;0.28333333;0.71666667;6.41563779;0.00000000
+condition 2condition 4;treemap;circlepacking;0.40833333;0.59166667;0.72442753;0.47022520
+condition 3condition 4;dendrogram;circlepacking;0.76666667;0.23333333;-6.84075588;0.00000000

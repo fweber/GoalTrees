@@ -1,0 +1,5 @@
+;visualization;R 1;R 2;R 3;R 4;rank sum;average;SD;z score
+sunburst;sunburst;12%;28%;30%;30%;333;2.77;1.02;8.881784197001253e-17
+treemap;treemap;19%;18%;26%;37%;336;2.80;1.13;1.403969533223896e-16
+dendrogram;dendrogram;55%;25%;11%;9%;209;1.74;0.98;0.0
+circlepacking;circlepacking;13%;29%;33%;24%;322;2.68;0.99;2.2019423321732272e-16

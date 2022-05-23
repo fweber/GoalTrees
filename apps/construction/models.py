@@ -39,6 +39,7 @@ class Study(models.Model):
             request.session["study_name"] = "prestudy"
         return Study.objects.get(name=request.session["study_name"])
 
+
     def get_next_view(self, request, position=None):
         """
         Returns the next view in sequence
@@ -48,9 +49,12 @@ class Study(models.Model):
         :return:
         """
         self.set_sequence_position(request, position)
+        print("sequence position is now: {}".format(position))
 
+        print("study sequence is: {}".format(self.sequence))
         # if no sequence available
         if not self.sequence:
+            print("no sequence available")
             # return to default url
             return "/"
 
