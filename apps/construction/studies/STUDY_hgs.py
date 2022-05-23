@@ -27,6 +27,7 @@ class STUDY_hgs(STUDY_BASE):
             },
         )[0]
 
+
     def init_contexts(self):
         self.sequence.append("welcome")
         StudyContext.objects.update_or_create(study=self.study, view="welcome",
@@ -47,7 +48,7 @@ class STUDY_hgs(STUDY_BASE):
                    störungsfreie Atmosphäre (Handy aus, E-Mail Postfach zu, nur diesen Tab im Browser öffnen) und wählst einen Zeitraum, in dem du 
                    dich ganz auf die Übung konzentrieren kannst.     
                     </p>""",
-                   "iframe": True,
+                   #"iframe": True,
                    "show_progress": False,
                    "progress_value": 1,
                }

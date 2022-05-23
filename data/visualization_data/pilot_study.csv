@@ -1,0 +1,298 @@
+;participant_id;age;gender;semester;subject;degree;screen_size;operating_system;browser_language;Nenne bitte 3 bis 5 Eigenschaften, die Dir bei dieser Zielsystem-Visualisierung besonders gelungen zu sein scheinen.;Nenne bitte 3 bis 5 Eigenschaften, die Dir bei dieser Zielsystem-Visualisierung nicht gelungen zu sein scheinen.;Was würdest Du bei der visuellen Darstellung des Zielsystems verbessern?;Ist Dir bezüglich der Zielsystem-Visualisierung sonst etwas positiv oder negativ aufgefallen?;Welche der verwenden Zielsysteme scheint Dir am intuitivsten zu sein? Bitte ordne hierzu die visuellen Darstellungen entsprechend (1 = am wenigsten intuitiv, 4 = besonders intuitiv). Die Auswahl muss eindeutig sein und wird bei einer Mehrfachauswahl automatisch korrigiert., condition: 1;Welche der verwenden Zielsysteme scheint Dir am intuitivsten zu sein? Bitte ordne hierzu die visuellen Darstellungen entsprechend (1 = am wenigsten intuitiv, 4 = besonders intuitiv). Die Auswahl muss eindeutig sein und wird bei einer Mehrfachauswahl automatisch korrigiert., condition: 2;Welche der verwenden Zielsysteme scheint Dir am intuitivsten zu sein? Bitte ordne hierzu die visuellen Darstellungen entsprechend (1 = am wenigsten intuitiv, 4 = besonders intuitiv). Die Auswahl muss eindeutig sein und wird bei einer Mehrfachauswahl automatisch korrigiert., condition: 3;Welche der verwenden Zielsysteme scheint Dir am intuitivsten zu sein? Bitte ordne hierzu die visuellen Darstellungen entsprechend (1 = am wenigsten intuitiv, 4 = besonders intuitiv). Die Auswahl muss eindeutig sein und wird bei einer Mehrfachauswahl automatisch korrigiert., condition: 4
+22;22;20;female;2;Cognitive Science;;1366x768;Linux x86_64;de;"Umsetzung der Aufgabenstellung
+Verstehen des Systems, z.B. Korrigieren von falsch kreierten Teilen
+Übertragen des gegebenen Diagramms auf das eigene";"Ich habe einige Zeit gebraucht, letztendlich die Aufgabenstellung zu verstehen.
+Das System habe ich nicht auf anhieb perfekt genutzt, da ich zu Beginn Elemente gelöscht und neu geschrieben habe, als sie einfach umzubenennen.";Mit leichten Farben für z.b. größere und kleinere Ziele oder einzelne Themengruppen wirkt das System vielleicht bisschen ansprechender und strukturierer;Nein, im Grunde finde ich es so gut.;3;4;1;2
+27;27;20;female;2;Cognitive Science;;1280x720;Win32;it-US;"Man kann einfach und schnell Ziele und Unterziele hinzufügen.
+Die visuelle  Darstellung.
+Intuitive und schnelle Löschung von Zielen.";"Die schon erstellten Ziele zu vertauschen.
+Die Umbenennung der Ziele war teilweise verwirrend.
+Die verschiedenen Ziele haben je nach Anzahl der Unterpunkte die Seiten getauscht.";Man könnte noch mit verschiedenen Farben arbeiten, sowie andere Formen und Symbole hinzufügen (Pfeile etc).;-;1;2;3;4
+30;30;20;female;6;Cognitive Science;;1200x800;Win32;de;"Eingaben sind klar und direkt visuell ersichtlich;
+das System hebt die simple Struktur in den Vordergrund, wodurch auf den ersten Blick das Wichtigste erfasst werden kann;
+die Bedienung ist extrem einfach und intuitiv;
+";"die Auswahl der Überknoten könnte noch selbst geordnet sein anstatt dass man sch durch die gesamte Liste durchscrollen muss;
+je mehr Punkte eingegeben werden, desto unübersichtlicher wird das Ganze;
+es gibt keine Möglichkeit zwischen Elementen auf den verschiedenen Pfade zu verweisen, eventuell müssten dann Elemente doppelt eingefügt werden was die ganze Übersichtlichkeit hindert";vielleicht könnten Farben oder andere simple visuelle Details die generelle Attraktivität der Darstellung steigern;;2;1;4;3
+33;33;25;male;6;Cognitive Science;;2560x1440;Win32;de-DE;"Die unmittelbare Visualisierung macht das System sehr leicht erlernbar durch trial-and-error.
+Das dynamische dropdown-menü erleichtert die Bedienung ebenfalls.
+";"Dass die Visualisierung nicht interaktiv ist, ist schade.
+Man hat keine direkte Möglichkeit die Anordnung der verschiedenen Punkte zu beeinflussen.";"Visualisierte Ansicht auch interaktiv nutzbar machen:
+- Drag-and-drop um Unterpunkte anzuordnen oder nachträglich einem Oberthema zuzuordnen
+- Doppelklick in Oberthema um neuen Unterpunkt zu erzeugen";;2;4;3;1
+29;29;23;female;8;Cognitive Science;;1536x864;Win32;de-DE;Einfach zu lernen, die Größe der Felder wurde automatisch angepasst, die Schrift ist gut lesbar, übersichtliches Ergebnis;Man konnte die Anordnung der Elemente nicht bestimmen, die Schriftgröße kann nicht angepasst werden (schlecht für Sehbehinderte/ Ältere), Visuelle Hierarchie könnte deutlicher sein;"- Ordung der Elemente mit drag and drop ändern
+- verschiedene Modelle erstellen, sodass der User das Beste auswählen kann
+- Optionen für Farben, Schriftgröße, fett, kursiv
+- optional: Möglichkeit, bereits erledigte Schritte auszublenden";;3;4;2;1
+35;35;21;female;3;Cognitive Science;;1707x960;Win32;de-DE;"super überschaubares Design der Graphik
+einfaches umbenennen und hinzufügen (löschen habe ich nicht ausprobiert)
+sehr intuitiv, keine Einarbeitungszeit ";"Auswahl der auszuwählenden Punkte, beim hinzufügen musste ich trotz alphabetischer Sortierung lange nach dem gewünschten Punkt suchen
+Kreise ändern ihre Position, ich war kurz verwirrt und musste nach meinem Kreis suchen
+
+
+";"zeigen, wenn die Kreise ihren Ort ändern
+Kreise tauschen, verschieben
+bessere Ordnung der zu erstellenden/ umbenennenden punkte im Menü  ";tolles klares design;3;4;1;2
+36;36;21;male;6;Cognitive Science;;1680x1050;Win32;de-DE;"Fehlerarmes arbeiten; schnelles zurechtfinden; Effizienter Nutzung";"Die Reihenfolge nachzuahmen; Systematisches Vorgehen; Effizientes arbeiten";Nicht als (teil) Kreis, sondern als Balken, die von oben nach unten spezifischer werden. Die Auswahl des neuen Oberziels könnte halachisch sortiert sein.;Nein;2;3;4;1
+38;38;23;male;6;Coxi Science;;1920x1080;Win32;en-US;"Einfachheit
+Transparenz 
+Linearität";"Perfektion
+Verbesserung
+Veränderung";"Farbe einbringen
+Linientypen anbieten";Ich finde es nützlich.;1;2;4;3
+48;48;19;male;2;Psychologie;;1280x800;MacIntel;de-de;"Multiperspektivität
+Ausgleich (Freizeit Bildung)
+Realistisch";"Objektivität (?)
+Wunschvorstellung
+noch nicht ausgeführt, praktische Umsetzbarkeit
+Langzeiteffekt";"Farben um es ansprechender zu gestalten 
+andere mögliche Darstellungsoptionen (als Baumdiagramm, andere Diagrammart)";-;4;2;3;1
+44;44;20;female;2;Psychologie;;1536x864;Win32;en-US;"Struktur der Ziele
+Übersichtlichkeit
+Schlichtheit";"keine Möglichkeit, die Feldergröße selbst zu ändern
+überlappende Schriftzüge
+erster Eindruck leicht chaotisch";"Einführung von Farbcodierung
+Textgröße/Textposition den Feldern anpassen";die erste Verwirrung dauerte ganz kurz - man findet sich schnell im System zurecht;3;1;4;2
+53;53;22;male;10;Psychologie;;1536x864;Win32;de;- keine Ablenkung;"- Übersichtlichkeit
+- keine Klarheit, um welche hierarchische Stufe es sich handelt";- eindeutigere Darstellung;;1;2;3;4
+45;45;22;male;6;Cognitive Science;;1536x864;Win32;en-US;Ich fand die Bedienung sehr intuitiv und verständlich. Es war für mich einfach nachzuvollziehen, wie die verschiedenen Bereiche unterteilt waren und dementsprechend nicht schwierig diese zu visualisieren. Wenn ich mich nicht irre, habe ich die originale Darstellung eins zu eins wiedergegeben. ;"Ich hatte Probleme mit der Reihenfolge der Bereiche. Vor allem bei dem Bereich Fächer war die Reihenfolge der drei Unterbereiche nicht ganz ersichtlich aus der Darstellung. Ob nun ""Schriftliche Prüfung"" oder ""Wahlbereich"" der zweite Bereich war, war leider nicht zu erkennen und nur durch eigenständiges Herumprobieren feststellbar. Auch habe ich aus Versehen ab und zu nicht in meinen neu erstellten Bereich neue Bereiche erstellt, sondern in dem übergeordneten Bereich, weshalb ich ab und zu Bereiche löschen musste.";Ich würde mich über eine Funktion freuen, mit der man die erstellten Kästchen verschieben oder vertauschen könnte, wenn man sie nicht in der richtigen Reihenfolge angelegt hat. Beispielsweise beim Wahlbereich und der Schriftlichen Prüfung habe ich leider die Reihenfolge vertauscht und es wurde nicht korrekt visualisiert, also wie auf dem Original. Deshalb musste ich dann beide Bereiche nochmal löschen und herumprobieren, welchen von den beiden Bereichen ich zuerst anlegen muss, damit sie in der richtige Reihenfolge angezeigt werden.;Ich finde das Programm ist leicht und ohne große Erklärungen zu bedienen und gut verständlich. Der einzige Verbesserungsvorschlag wäre der bereits genannte Vorschlag, dass man die Reihenfolge der Unterbereiche besser darstellen könnte, damit sich die Kategorien nicht falsch verschieben und plötzlich die Positionen nicht mehr stimmen. Ansonsten gefällt mir das Programm sehr gut, weiter so!;1;2;4;3
+49;49;24;female;2;Psychologie;;1368x912;Win32;de-DE;"Die Anordnung
+Die Einteilung
+Die Handhabung";"Die Abgrenzung von Ober- und Unterpunkten
+Hervorheben der Oberpunkte
+Die Übersicht könnte man besser gestalten (ich habe das Gefühl, wenn man das erste mal drauf schaut, kann es etwas verwirrend aussehen)
+";"Ich würde Oberpunkte mehr hervorheben
+ich würde klarere Grenzen ziehen zwischen den verschiedenen Ober- und Unterpunkten";;2;1;4;3
+55;55;22;male;6;Psychologie;;1920x1080;Win32;de-DE;"-Verständlichkeit
+-Handhabbarkeit
+-einfach zu benutzen";"-Unterscheidung der Wichtigkeit von Zielen
+-Übersichtlichkeit
+-kein Nutzen über strukturierte Liste hinaus";Mehr Kontrolle über Größe der Kreise;Nein;2;1;4;3
+50;50;19;male;2;Cognitive Science;;1920x1080;Win32;de;"Kompakt, wenig umfangreich.
+Übersichtliche grafische Darstellung, wenn man sein Zielsystem denn mal aufgebaut hat.
+Die hierarchische Darstellung zeigt einem die Zusammenhänge zwischen Zwischenzielen und Zielen.";Die Beschreibung ist total unübersichtlich. Um das System überhaupt  nutzen zu können, muss man sich erstmal eine halbe Seite Text merken. Das schaft kein Mensch einfach so. So ist das System schwierig zu nutzen und man hat auch von vornherein überhaupt keine Lust dazu, weil nicht direkt ersichtlich ist, was einem das System überhaupt bringen sollte.;"Mehrfarbige Darstellung statt Schwarz-weiß.
+Pop-up-Erklärschilder, wenn man mit der Maus einen Bestandteil des Diagramms berührt.
+Möglichkeit die Module mit der Maus zu erstellen, statt über das externe Kästchen.";;2;1;4;3
+54;54;22;female;2;Psychologie ;;820x1180;MacIntel;de-de;Ordnung, Fokus, roter Faden ;Gute Formulierung, universelle Bezeichnung, Spezialisierung ;Optionen vorschlagen, wenn man gerade ein Unterziel eingeben möchte ;;3;1;2;4
+57;57;20;female;1;Psychologie;;1024x819;Win32;de;"- Einbettung von Untergruppen unter ein Ziel 
+- gleichrangige Ziele haben auch gleich viel Platz/gleich große Flächen
+- Auswahlliste für Oberziele und zu löschendem Ziel (aus den bestehenden Zielen)
+- Oberziel bleibt ausgewählt; man muss nicht jedes mal neu auswählen, wenn man zum gleichen Ziel ein Unterziel hinzufügen möchte";"- man kann Ziele nicht auswählen und/oder löschen, indem man auf sie in der Darstellung klickt
+- Auswahlliste für neue Unterziele eher störend als hilfreich
+- ich konnte nicht gut unterscheiden, ob ""Wahlbereich"" unter ""Fächer"" oder unter ""Schriftliche Prüfungen"" fällt
+- ""Mündliche Prüfung"" war über den Rand hinausgeschrieben und der Kasten dafür sehr schmal";"- farbliche Codierung der Ziele; die Katgeorien ""Schriftliche Prüfungen"", ""Wahlbereich"", ""Mündliche Prüfung"" und ""Notenverbesserung"" insgesamt (mit Unterzielen) in verschiedenen Farben hinterlegen; dadurch wird deutlich, dass sie gleichrangig sind und man kann sie schneller optisch trennen
+- Ziele in der Gesamtdarstellung auswählen (beim Draufklicken Fokus + als Oberziel eintragen), löschen (mittels Entf oder Löschtaste) und ""umschieben"" (z.B. neben ein anderes Ziel statt unter das Ziel schieben) können
+- Auswahlliste für neue Unterziele weglassen";Ich konnte nicht gut nachvollziehen, wie das Programm entscheidet, ob es gleichrangige Ziele nebeneinander oder untereinander anordnet. Der Platz durch die Unterziele scheint eine Rolle zu spielen, allerdings erschien es mir nicht konsistent, die Reihenfolge der Eingabe hat auch einen Unterschied gemacht.;1;4;3;2
+59;59;20;female;2;Cognitive Science;;1280x720;Win32;de;"- klare Hierachie
+- schnell visuell zu erfassen
+- gliedert einfach in Teilschritte";"- räumlich nicht verschiebbar
+- Ebenen nicht schnell zu wechseln
+- Farbmöglichkeit zur Übersicht";"- Farben
+- räumliche Verschiebbarkeit";;2;1;3;4
+61;61;22;female;2;Psychologie;;1664x1110;Win32;de-DE;"Ich habe das zweite Teilziel vom Ziel ""Abitur"" schnell visualisiert.
+Ich habe die Teilziele vom Teilziel ""Schriftliche Prüfung"" schnell visualisiert.
+Ich habe das Prinzip gut und schnell verstanden.";"Ich habe etwas länger gebraucht, um die drei Teilziele des Teilziels ""Fächer"" richtig zu visualisieren.
+Ich habe zuerst das Teilziel ""Wahlbereich"" dem Teilziel ""Abitur"" untergeordnet.
+Ich habe die Teilziele des Teilziels ""Nachhilfeunterricht"" zuerst in der falschen Reihenfolge eingetragen.";Ich würde mit Farben arbeiten und einen Platz für Notizen schaffen.;Es kam vor, dass sich die Reihenfolge (wie die Teilziele neben- oder untereinander erschienen sind) geändert hat, wenn ich zwei Teilziele eingegeben, diese dann gelöscht und noch einmal in der entsprechend anderen Reihenfolge eingetragen habe.;1;3;4;2
+63;63;23;female;6;Biologie, Spanisch;;1368x912;Win32;de;"neues einfügen
+Tempo
+";"Beginn
+Reihenfolge
+Umtauschen";farbliche Darstellung;sehr einfach zu bedienen;3;1;4;2
+76;76;34;female;3;Medieninformatik;;1920x1080;Win32;de;Man kann auf den ersten Blick sehen welche Unterziele zu welchem Oberziel gehören. Das große, übergeordnete Ziel steht in der Mitte, rückt damit in den Mittelpunkt.;"Lange Wörter ""schneiden"" in die Zielkreise der Unter-/Oberziele ein. Es ist nicht direkt ersichtlich in welcher Reihenfolge die Ziele hinzugefügt werden, auch eine ""Priorisierung"" der Ziele ist nicht erkennbar.";Evenutelle eine Arbeit mit einem Farbsystem, zum Beispiel Schattierungen um Zusammengehörige Bereiche zu kennzeichnen oder Farben für eine Dringlichkeit/Höhe Priorität zuzuordnen.;;2;4;3;1
+69;69;20;female;2;Psychologie;;1536x864;Win32;de-DE;"- flexible Darstellung
+- passt gut auf z.B. eine Din-A4-Seite (kompaktes Format)
+- in die einzelnen Kästchen können Aufgaben zum Erreichen des Ziels geschrieben werden";"- Hierarchie ist nicht so gut zu erkennen (weil nicht alle Ziele in ihrer hierarchischen Reihenfolge von oben nach unten stehen, sondern auch höher geordnete Themen unter niedriger geordneten stehen können)
+- viele Kästchen schachteln sich ineinander, das erzeugt sehr viele Rahmen
+- wenn man die Hierarchie nicht kennt, ist es schwer, sie intuitiv zu erfassen";"Vielleicht eher wie ein Baumdiagramm darstellen, damit die Hierarchie deutlicher wird; oder mit Farben arbeiten";;1;3;4;2
+72;72;20;female;2;Cognitive Science;;1575x886;Win32;de-DE;"1. Man sieht alles auf einen Blick (schön kompakt)
+2. Man erkennt Zusammenhänge gut: man sieht sofort welches Oberthema welche Unterthemen hat und, dass die Unterthemen gleichrangig sind
+3. das Ziel Abitur im Mittelpunkt springt einem immer zuerst ins Auge und ist der Punkt , an dem man sich beim Bauen des Systems orientiert";"1. die Schrift ist sehr klein auf sehr großer Fläche und so eher schlecht zu erkennen
+2. alles sieht ähnlich aus durch gleiche Schriftgröße und -farbe
+3. manchmal überschneiden sich Linien und Schrift";Um die Zugehörigkeit von Unterthemen zu einem bestimmten Oberthema hervorzuheben, könnte man jeden Zweig mit einer Hintergrundfarbe färben, die je nach Hierarchie des Themas blasser wird. Dazu könnte man auch der Linien- oder Schriftstärke erhöhen.;Dadurch dass man durch Klicken neue Unterthemen einfügen kann, bekommt man Lust etwas mit dem System herumzuspielen und zu schauen, wo das nächste Unterthema entsteht.;1;3;2;4
+70;70;16;male;4;Psychologie;;1920x1080;Win32;de;Übersichtlichkeit, Intuitivität, Dynamik, Einfachheit;Schönheit, Farbgestaltung, Detailliertheit;Nutzung von Farben, Erläuterungsbereich zu den Einzelpunkten, Drag-and-Drop Funktionalität;Auto-Vervollständigung der Begriffe war praktisch;3;1;4;2
+73;73;23;female;4;Cognitive Science;;1280x800;MacIntel;de-de;"Hierarchische Anordnung
+Automatische Anpassung nach Größe der Visualisierung
+";"Stärkere (farbliche) Abgrenzung der einzelnen Bereiche
+Bei der Umbenennung ändert das zuletzt bearbeitete Objekt seinen Ort";Verschieben - Tauschen von Objekten in der gleichen Ebene ermöglichen;;1;2;4;3
+74;74;32;female;6;Cognitive Science;;1368x912;Win32;de-DE;Ich hab relativ schnell verstanden wie das Schaubild mit dem Drop Down Menü erstellt wird und konnte dann zügig das Schaubild nachbilden. Ich habe die Anordnung der schriftlichen Prüfungen so geordnet, wie ich sie persönlich ansprechender finde.;Spontan fällt mir nichts ein was mir nicht so recht gelungen ist.;Ich persönlich mag Color-coding gerne für Planungen. Man könnte eine Option einbauen durch die der Nutzer selbst entscheiden kann, ob und wie er Color Coding benutzt.;Ich fand es gut, dass das Schaubild sich sofort aktualisiert wurde, so kann man evtl. Fehler sofort beheben.;2;1;4;3
+78;78;21;female;4;Cognitive Science;;1368x912;Win32;de;hierarchische Struktur, leichte Nutzung, klare Visualisierung der einzelnen Aspekte und deren Zusammenhang, Visualisierung verschafft guten Überlick über einzelne unter- und übergeordnete Ziele;Wenn zwei Oberziele die selben Vorraussetzungen haben konnte man die Gemeinsamkeiten nicht visuell darstellen, da die Unterpunkte (Vorraussetzungen) nur einem Oberziel zugeordnet werden können.;gleiche Aspekte farblich hervorheben, da die Hierarchie es nicht erlaubt ;-;1;2;4;3
+79;79;20;female;2;Cognitive Science;;1280x800;MacIntel;en;Die Zielsystem-Visualisierung scheint mir ihre Aufgabe vollständig zu erfüllen insofern als sie ein schriftlich angefertigtes System, was teilweise nicht sehr durchzublicken ist, prägnant und klar veranschaulicht. ;Rein aus dem Beispiel ist mir nicht so ersichtlich, wie man den eigenen Fortschritt dokumentieren kann.;"Um den eigenen Fortschritt zu dokumentieren, vielleicht könnte man mit dem Diagramm parallel eine Checkliste führen, einfach um einen etwas detaillierten Plan zu ermöglichen. Je nachdem, wie viele Unterpunkte aus der Checkliste, die zu den jeweiligen Zielen aus dem Diagramm zugeordnet sind, abgehakt worden sind, kann man dies in der Zielsystem-Darstellung durch eine ""piechart""-ähnliche veranschaulichen (so und so viel Prozent der Unterpunkte bspw. zum Ziel ""schriftliche Prüfung"" wurden erreicht etc.)";Das war's schon.;1;2;3;4
+85;85;23;male;6;Cognitive Science;;1920x1080;Win32;de;geringe Komplexität, intuitive Darstellung der Hierarchien, einfache Eingabe;Unübersichtlichkeit durch die feinen Linien, schlechte Nutzung von vorhandenem Platz, unklare Festlegung der Reihenfolge von Elementen in ein und derselben Stufe in der Hierarchie;Lesbarkeit verbessern durch das Auflösen der strengen rechteckigen Struktur;;3;1;4;2
+107;107;19;female;2;Psychologie;;1280x720;Win32;de;"gute Visualisierung von Ober- und Unterkategorien
+übergeordnete Ziele sind größer dargestellt als untergeordnete, was auf größere und kleinere Ziele bezogen werden kann
+gute Strukturierung der Ziele, sodass ein Anhaltspunkt entsteht, wie man beginnen kann
+man kann es sich immer wieder anschauen und sich so wieder auf das Wesentliche konzentrieren";"Verknüpfungen zwischen verschiedenen Unterkategorien sind nicht möglich
+eine Unterkategorie kann sich nicht auf mehrere Oberkategorien beziehen
+durch die Kreisform aller Komponenten bleibt viel Platz leer, gleichzeitig sind die in der Hierarchie niedrigsten Kreise sehr klein
+es sieht recht monoton aus und motiviert damit nicht unbedingt, sein Ziel zu verfolgen";"eventuell farbliche Hervorhebung der verschiedenen Kategorien um direkt zu sehen woran man im Moment arbeitet
+Möglichkeit mit verschiedenen Formen zu arbeiten, wenn vom Nutzer als hilfreich angesehen";Ich persönlich habe bisher noch nicht den Antrieb, das System für eigene Zwecke zu benutzen, weil es mir scheint als würde der Aufwand des Erstellens, den Nutzen den ich daraus ziehen könnte, übersteigen.;3;4;1;2
+83;83;20;female;4;Cognitive Science;;1536x864;Win32;de;Simple, strukturiert, übersichtlich;"Verschieben der Teilziele(Kreise)  nur durch löschen oder ggf. umbenennen falls möglich --> ggf. ziehen der Teilziele mit der Maus ermöglichen / anbieten als option;   Schlicht --> ggf. farbliche (nicht zu aufdringlich) Untermalung / Indikationen der Hierachien, ...";Farben einfügen;nein;1;2;4;3
+100;100;23;female;6;Cognitive Science;;1280x800;MacIntel;de-DE;Grobe Umsetzung des vorgegebenen Zielsystem (ohne gravierende Fehler);Die Fächer alle in der richtigen Reihenfolge anzugeben war nicht immer möglich und ist daher bei z.B. den Nachhilfe Fächern nicht korrekt. ;Die Funktion einzelne Bausteine mit der Maus an die richtige Stelle zu ziehen oder in der Abbildung selbst noch vertauschen zu können. ;Leichte Bedienung. ;4;2;3;1
+91;91;23;female;2;Cognitive Science;;1536x864;Win32;de;"Die Darstellung in Kreisen.
+Das Auswählen der zuvor eingegebenen Unterpunkte.
+Die Größendarstellung der einzelnen Bereiche.";"Die Größen sollten nach Wichtigkeit individuell verstellbar sein.
+Die Anordnung sollte im Nachhinein noch verändert werden können.
+Man muss das ganze Unterziel löschen, wenn man weiter oben in der Hierarchie einen Fehler gemacht hat. ";Der Nutzer sollte die Darstellung zusätzlich direkt bearbeiten können (wie zuvor beschrieben).;Das System ist leicht verständlich und schön visualisiert, sehr übersichtlich.;4;1;2;3
+94;94;20;female;4;cognitive science ;;1280x720;Win32;de-DE;"Einfache Bedienung
+Klarer Aufbau 
+Nutzerfreundlich";"Keine Farben 
+einfache Schriftart ohne Veränderungs Möglichkeiten 
+sehr eintönige optik
+
+
+";Integrierte to-do liste ;Wirklich sehr einfache Nutzung ;4;2;1;3
+93;93;19;female;2;Cognitive Science;;1440x900;MacIntel;de-de;"- einfache Handhabung beim Einfügen, Löschen und Umbenennen
+- Teilziele übersichtlich nebeneinander
+- leicht zu verstehen";"- ""Tiefe"" eines Unterziels teilweise schwer zu erkennen (Gehört es zu Fächer oder Abitur)
+- Teilziele mal nebeneinander, mal untereinander
+- Umsortierung schwierig (Reihenfolge nur durch löschen und neu einfügen zu ändern)";"-Tiefe klarer darstellen (eventuell farbig)
+- Möglichkeit zur umsoriterung einfügen";"Zeichen in der Bezeichnung sind limitiert (könnte zu Problemen führen)
+";1;4;3;2
+98;98;25;female;12;Cognitive Science;;1920x1080;Win32;de-DE;"-intuitiv
+-schnell zu lernen
+- klare Struktur";Mir fallen keine ein;Das man einzelne Ziele direkt mit der Maus anklicken kann;Nein;3;1;4;2
+96;96;27;male;8;Cogsci;;2560x1440;Win32;de;"Geschwindigkeit
+Zielgerichtetheit, dank Vorgabe
+Fehlerfreiheit bei Erstellung";"exakte Nachbildung, Segment für Segment
+hätte schneller gehen können
+musste nachkontrollieren, ob alles richtig übernommen wurde";"Farben
+Bearbeitbarkeit direkt innerhalb der Visualisierung
+Breite der Segmente ist nur abhängig von der Anzahl der Segmente in der selben Hierarchieebene, statt einen tatsächlichen Aufwand zu signalisieren";;4;3;2;1
+88;88;24;male;12;Cognitive Science;;1536x864;Win32;en-US;"- hierarchien waren klar abgetrennt
+- die ziele waren gut lesbar
+- die größe es zieles hat mit der anzahl der unterziele korrespondiert";"- durch die kreisförmige darstellung ist man schnell irritiert. pyramide o.ä ist intutiver
+- eventuell zusammenhängende ziele auf einer ebene können nicht abgebildet werden
+- ich glaube ich würde das nicht verstehen hätte ich es nicht selbst erstellt
+";- ich würde eine intuitive form wählen;nein;3;1;4;2
+103;103;23;male;2;Cognitive Science;;1368x912;Win32;en;"- übersichtliche Hierarchie
+- einfache Benutzung
+- einfache Visualisierung";"- Namen sind sehr klein und überlappen manchmal
+- es wird viel Platz verschwendet
+- Bei Namensänderung muss man alles neuschreiben";"- Mehrzeilige Namen
+- Dicke Namen
+- Shortkeys
+";;4;1;3;2
+101;101;22;male;6;Cognitive Science;;1280x720;Win32;en-US;"Macht auf den ersten Blick einen geordneten, sauberen Eindruck.
+Keine ablenkenden unnötige Komponenten.
+Vermittelt Strukturiertheit.
+";"Durch die sehr dünnen Randlinien und den sehr geringen Abständen zwischen den Linien, war es zum Teil schwierig zu erkennen, auf welcher Unterebene sich Elemente befinden.
+Leute mit Ordnungswahn könnte es stören, dass Elemente eventuell nicht in der ""richtigen"" Reihenfolge (Wahlfach 1 -> 2 -> 3) angeordnet und dargestellt werden und man diese Reihenfolge im Nachhinein nicht mehr ändern kann ohne Elemente wieder zu entfernen.
+Zum Teil ragten die Beschriftungen der Elemente über ihre Kästen hinaus.
+";"Eventuell eine Farbcodierung für die einzelnen Unterebenen einfügen.
+Die Beschriftungen je nach Level in ihrer Font Size anpassen.
+Mehr Platz zwischen den Begrenzungen lassen.";;2;1;4;3
+104;104;30;female;2;Cognitive Science;;1920x1080;Win32;de-DE;"gut verständlicher Aufbau
+einfache Bedienung
+";hat nicht die Reihenfolge angenommen, die man gewählt hat;Eine Art Baum oder Diagramm wäre vielleicht auch eine gute Art das darzustellen, aber ansonsten ist der Kreis eine gute Darstellung;;3;1;4;2
+106;106;21;female;2;Cognitive Science;;1600x900;Win32;de-DE;"-die ""Wege"" ans Ziel zu kommen sind gut visualisiert
+-es ist eine einfache Übersicht
+-es ist einfach, neue Unterziele einzutragen";"-irgendwann wird es wahrscheinlich zu viel mit den Unterzielen, falls man noch einzelne Aufgaben hinzufügen möchte
+-dass es von links nach rechts dargestellt ist
+-man kann nicht einzelne Unterpunkte tauschen durch Ziehen mit der Maus etc.";-es vielleicht vertikal darstellen, d.h. das oberste Ziel nach ganz oben;-negativ: nur Schwarz-Weiß, keine bunten Farben/Unterstriche/weiterer SchnickSchnack;3;2;4;1
+116;116;23;female;1;Psychologie;;1280x720;Win32;de;"zugeordnet
+strukturiert
+nachvollziehen ";"übersichtlich 
+Überblick 
+schnell zu entschlüsseln
+";Durch die kreisförmige Anordnung fällt es etwas schwer, direkt auf den ersten Blick die zusammengehörigen Kategorien zu verstehen bzw. zu sehen, auf welcher Ebene jetzt welche Kategorien stehen. ;Ich finde die kreisförmige Anordnung eigentlich sehr ästhetisch und deshalb ansprechend.;2;3;4;1
+109;109;22;female;6;Cognitive Science;;1440x900;MacIntel;de;"-automatische Verschachtelung
+-übersichtliches Design
+-einfaches Thema
+";"-Verunsicherung bei der Einführung von ""Notenverbesserung""
+-Thema für mich persönlich irrelevant
+-nicht farblich hervorgehoben";"-Visualisierung einzelner Unterkategorien
+";-Nein;2;4;3;1
+112;112;20;female;2;psychologie;;1366x768;Win32;de-DE;überblick über alle aufgaben?;übersichtlichkeit, reduktion der komplexität;übersichtlichkeit;;1;2;4;3
+114;114;20;female;2;Psychologie;;834x1194;MacIntel;en-gb;Merken der einzutippenden Wörter, Abgleich der Systeme, intuitives Handeln;Verständnis der ausführlichen Instruktion auf Anhieb, detaillierte Verinnerlichung des Zielsystems, Schnelligkeit;Hausaufgaben mit auf Höhe der Nachhilfe setzen;Mündliche und Schriftliche Prüfung standen nicht direkt übereinander, Wahlfächer vielleicht  besser nicht dazwischen sondern danach oder davor schreiben;3;1;4;2
+119;119;23;male;6;Cognitive Science;;2560x1440;Win32;de-DE;"- Einfachheit
+- Verständlichkeit
+- Schnelles aktualisieren der Grafik ";"- Das Dropdown Menü hätte besser geordnet sein können, z.B.
+Abitur
+  Fächer
+    Wahlfächer
+       Wahlfach 1
+    Mündliche Prüfung
+- Ich habe es leider nicht probiert, aber es wäre gut, wenn man einen Kreis anklicken könnte, um damit das Thema als Oberthema wählt, um so das Dropdown Menü zu umgehen. (Wenn das tatsächlich geht, dann kann das zu den positiven Eigenschaften gezählt werden)
+";Dropdown Menü ;Nein;1;2;3;4
+124;124;19;female;2;Cognitive Science;;1280x720;Win32;de;"Gut aufgebaut
+Anwendung intuitiv (x im nächsten) 
+schöne visualisierung
+schön, dass man die Überkategorien mit allen Unterkategorien gleichzeitig löschen kann";"nicht vollkommen nachvollziehbar, wann wo die neue Unterkategorie sein werden (x)
+vielleicht ansprechender mit farben
+etwas langweilig";"Farben
+eine Erklärung, dass die Unterkategorien gegen den Uhrzeigersinn angezeit werden... 
+";"nicht wirklich
+Der Name einer Unterkategorie hat nicht perfekt in sein Feld gepasst....";3;1;4;2
+128;128;19;female;2;Cognitive Science;;1536x864;Win32;de-DE;"Zusammenhänge zwischen den einzelnen Fächern werden übersichtlich dargestellt.
+Automatische Skalierung der Anteile im Kreis, wenn neue Ziele hinzugefügt werden.";"Reihenfolge der Elemente kann nur durch Löschen und erneutes Erstellen oder Umbenennen geändert werden.
+Text manchmal nicht gut lesbar, wenn er durch verschiedene Bildschirmgrößen auf/über die Kreisränder ragt.";"Würde es skalierbar machen, sodass es für Laptops, Tablets und sogar Handys benutzerfreundlich ist.
+Der Einsatz von Farbe würde vor allem bei größeren Systemen bessere Übersichtlichkeit ermöglichen.
+Funktion zum Tauschen von zwei Zielen (egal welche Ebene) mit ihren Unterzielen; dies ist vor allem wenn man gegen Ende seine Ziele anders anordnen will hilfreich.";Oberes Menü zum Erstellen und Löschen ohne irgendwelche Hilfestellung, Funktionen müssen intuitiv ausprobiert werden, kann positive wie negativ eNutzererfahrungen erzeugen.;4;1;3;2
+130;130;19;female;2;Cognitive Science;;1440x810;Linux x86_64;en-GB;"Die Visualisierung der Struktur
+Die einfache Eingabemöglichkeit
+Die Hierarchie der Elemente wird sehr gut deutlich ";"Zum Löschen und Umbennen muss aus einer eher unübersichlichen Liste aus gewählt werden
+Die Bearbeitung der Hierarchie kann nicht direkt an der Hierarchie selbst vorgenommen werden
+Individuelle Sortierung der Elemente nur sehr möglich";"Per Drag and Drop Ziele verschieben zu können
+Löschen und Umbennen per Mausklick auf das Ziel";Man musste nach der Eingabe runter scrollen um die Hierarchie zu sehen;1;2;4;3
+135;135;31;female;14;Cognitive Science;;1920x1080;Win32;de;"bei diesem Bsp:
+übersichtlich;
+leicht verständlich;";"unübersichtlich für komplexere Ziele;
+langweilig;
+nicht genug Gestaltungsfreiheiten";Farbe und mehr Möglichkeiten für die Organisation innerhalb der Gruppierungen. zB Untergruppe per Drag & Drop verschieben, per Mausrad die Größe von Untergruppen ändern;"man versteht sofort was von einem erwartet wird, man kann es auch leicht umsetzen; auch der Inhalt dieser Visualisierung war leicht verständlich;
+
+die Anpassbarkeit einzelner Elemente könnte noch etwas intuitiver von der Hand gehen (hab mich einmal verschrieben und wollte es anpassen, war nicht schwer aber ungewohnt umständlich)";3;1;2;4
+139;139;21;female;2;Cognitive science;;1536x864;Win32;de-DE;"Erst auf das Große und dann auf das Kleinere blicken
+systematisch vorgehen
+Erst einen überblick verschaffen";"die gleiche Anordnung wie im vorgegebenen Beispiel zu erreichen, z.B. Fach 1 vor Fach 2 zu setzten und nicht umgekehrt
+";"Mehr mit Farben arbeiten um die Übersichtlichkeit zu verbessern
+
+ ";"Guter und schneller überblick
+Das nachträgliche verändern von Elementen ist recht aufwändig deshalb wäre ein Drag and Drop hilfreich um nachträglich statt Elemente erst löschen und dann wieder erneut eintragen zu müssen, diese einfach nur mit der Maus verschieben zu können
+";1;3;2;4
+143;143;23;female;6;Psychologie;;1440x900;MacIntel;en-gb;Ich habe es direkt verstanden.;Ich glaube dass die Bläschen nicht alle an der gleichen Stelle waren. Ich habe mich ein paar mal vertippt und musste die Felder dann umbenennen.;Ich fände es besser, wenn man nich Farben etc auswählen könnte.;Nicht wirklich.;2;4;1;3
+142;142;23;male;8;Cognitive Science;;1536x864;Win32;de;"- Ich habe das Zielsystem gut nachgebaut.
+- Ich habe Depth first das System nachgebaut und dadurch Zeit gespart 
+- Ich habe ";"- Ich habe die Reihenfolge nicht akurat eingehalten
+- Ich habe nur drch das nachbauen, das System nicht vertieft
+- ";"Vlt. gibt es Ziele mit mehr als einem Urpsrung.
+";;2;3;1;4
+140;140;30;male;8;Cognitive Science;;1366x768;Win32;de-DE;minimalistisch;Das gesamte System mit den Dropdown Menüs(anstelle von Drag & Drop) und dem dadurch notwendigen Wechseln zwischen: schreiben, löschen & umbenennen ist extrem nutzerunfreundlich.;Es schien mir nicht sonderlich intuitiv zu sein, dass das Ober-Ziel, auf das alles andere hinausläuft, links steht.;Das Beispiel selber schien mir nicht gut zu sein um den Nutzen wirklich sehen zu können.;1;3;4;2
+144;144;24;female;2;Psychologie;;1280x720;Win32;de-DE;Sehr gelungen waren die Übersichtlichkeit, einfache Bedienung und Strukturierung. Zudem sind die Tools sehr benutzerfreundlich.;Anschaulicher könnte das System trotzdem sein, vielleicht mit Farbauswahl und zusätzlicher Symbolauswahl, zudem wäre es schön, wenn mit der Maus die einzelnen Begriffe in gewünschte Positionen bewegt werden könnten.;"Wie oben erwähnt, dass die Begriffe bewegbar sind, sowie Farbauswahl und Symbolauswahl. Vielleicht auch die Möglichkeit Unterbegriffe ""zuzuklappen"" mit einem Klick auf Oberbegriffe.";;3;2;4;1
+162;162;20;female;4;Cognitive Science;;1440x900;MacIntel;de-de;"viele Unterziele
+gute Visualisierung
+übersichtlich";keine Anmerkungen ;keine Anmerkungen;keine Anmerkungen;3;1;4;2
+164;164;21;female;2;Psychologie;;1280x720;Win32;de-DE;"Einfügen der Namen
+Struktur verstehen
+musste nichts löschen";"Verwirrung in Liste, wenn man mehrere Möglichkeiten vorgeschlagen bekommen hat
+schlechter Überblick, je mehr sich Diagramm gefüllt hat
+";Möglichkeit zur Farbcodierung zum Überblick;;3;1;4;2
+168;168;22;male;8;Psychologie;;1280x720;Win32;de;"-das Design ist einfach gehalten und somit sehr übersichtlich
+-die Strukturierung von innen nach außen ist intuitiv und verdeutlicht die Hierarchie effektiv
+-die Bearbeitung ist einfach";"-die Schrift passt bei zu langen Ausdrücken nicht in die Felder, wodurch sie sich mit anderen Überlappt und schwer lesbar wird
+-bei komplexeren Hierarchien könnte es unübersichtlich werden
+-die unterschiedlichen Hierarchieebenen und ""Pfade"" könnten sich noch deutlicher voneinander abheben";"-Größere Schrift bei hierarchisch höheren Zielen
+-automatische Absätze bei zu langen Ausdrücken für das entsprechende Feld
+-farbliche Trennung der Teilziele ";nein;4;2;1;3
+165;165;22;female;6;Cognitive Science;;1920x1080;Win32;de;"Dass es am Ende genauso aussah wie das vorgegebene System
+Dass ich wenig Zeit dafür gebraucht habe
+Dass ich keine Fehler gemacht habe";Keine Ahnung;"Mit Farben arbeiten, jedem Unterziel eine Priorität zuweisen, Unterziele auf- und zuklappen können, Infos zu einzelnen Punkten erscheinen lassen 
+Mehr Funktionen wie die von Freeplane einarbeiten ";"Positiv: es ist schlicht
+Negativ: es könnte unübersichtlich werden, wenn es mehr Unterziele gibt";1;3;4;2
+170;170;25;female;4;Psychologie;;1440x900;MacIntel;de;"- sehr intuitiv
+- schnelle Erstellung
+- Optisch ansprechend";- den Text unten habe ich erst ganz zu Schluss gesehen, daher hatte er auch keinen Mehrwert mehr;evtl. (unaufdringliche) Farben verwenden ;;3;2;4;1
+177;177;28;male;10;Cognitive Science;;1440x900;MacIntel;en-us;Die Abstände der Knoten finde ich gut. Auch die Hierarchische Struktur ist gut dargestellt.;Hier zu fällt mir nichts ein;Darstellung fand ich gut und mir fallen keine Verbesserungen ein.;Siehe oben.;3;2;4;1
+176;176;21;male;4;Cognitive Science;;1280x720;Win32;en-GB;"- übersichtlichkeit
+- intuitiv zu erlernen
+- fühlt sich an wie ein Spiel
+- macht teilweise spaß";"- Nutzen (was habe ich wirklich von dieser hierachischen darstellung, was mir nicht auch eine simple Tabelle liefert?)
+- Fehlen von Farbkoordination (kann helfen die bereiche zu unterscheiden)
+- generelles Design (Design ""macht nicht viel her"", regt nicht zum experimentieren an)";"Farben in das System einbeziehen.
+""Benutzeroberfläche"" (der kreis) ansprechender designen
+Weitere nützliche Funktionen einbeziehen, die einen Nutzen über den Nutzen einer simplen Tabelle rechtfertigen.";"- bereits genannte fehlende farben
+
++ einfachheit, Sim­p­li­zi­tät";3;1;4;2
+180;180;22;male;6;Cognitive Science;;2560x1440;Win32;de-DE;Die Nachbildung der Hierarchie, die Korrektur von fehlerhaft eingetragenen Unterzielen, die grobe Nachbildung der visuellen Hierarchie.;"Die identische Nachbildung der Zielfigur war nicht intuitiv möglich (da nicht ersichtlich ist, in welcher Reihenfolge die einzelnen Unterpunkte ""angeheftet"" werden).";Die Auswahlmöglichkeit von Farben, Schriftgröße, etc. um eine visuell stärkere Abgrenzung der einzelnen Ziele zu erzeugen. Ebenfalls eine Abschwächung des Farbverlaufen nach außen hin (schwächere Farben für Unterziele) wären eine gute Erweiterung.;Die Darstellung der einzelnen Unterziele in der Auswahlleiste sollten idealerweise die gleiche Hierarchie aufweisen wie in der visualisierten Struktur, so dass Abitur ganz oben zu finden ist und darunter dann Fächer/Notenverbesserung mit ihren jeweiligen Unterzielen.;3;1;4;2
+182;182;24;female;2;Psychologie;;1536x864;Win32;de-DE;man bekommt gute übersicht über seine Ziele und Aufgaben. Gute visualisierung. nicht zu komplex, versteht man auch, wenn man nach längerer Zeit nochmal drauf schaut.;nichts... könnte nur zu komplex werden, wenn man komplexe dinge ausgestalten will.;mit farben und schriftgrößen arbeiten;nein;2;1;4;3
+213;213;22;male;8;Cognitive Science;;1680x1050;MacIntel;de-DE;Die finale Visualisierung ist übersichtlich, verständlich und minimalistisch.;Das hinzufügen neuer Knoten könnte intuitiver sein. Das Umbenennen eines bestimmten Knoten hat nicht in jeden Fall geklappt. Es war bis zum Schluss unklar ob die gewünschte Struktur tatsächlich erreicht wird.;Farbliche Kodierung der Ebenen.;Nein;3;4;2;1
