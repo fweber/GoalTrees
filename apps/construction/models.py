@@ -754,7 +754,7 @@ class Item(models.Model):
 
     def get_big_five_items():
         with open(
-                '{}/apps/construction/static/construction/data/questionnaires/big_five.csv'.format(settings.BASE_DIR),
+                '{}/big_five.csv'.format(settings.QUESTIONNAIRE_DIR),
                 'r',
                 encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")
@@ -790,7 +790,7 @@ class Item(models.Model):
                      "Wähle immer die Antwortoption ganz links."]
 
 
-        gcq_file='{}/apps/construction/static/construction/data/questionnaires/2022_GCQ_full_goaltrees.csv'.format(settings.BASE_DIR)
+        gcq_file='{}/2022_GCQ_full_goaltrees.csv'.format(settings.QUESTIONNAIRE_DIR)
 
         df_items=pd.read_csv(filepath_or_buffer=gcq_file,
                              sep=";",
@@ -836,7 +836,7 @@ class Item(models.Model):
     # todo: deprecated, remove when studies done
     def get_gcq_items(file="gcq.csv", language="de"):
         with open(
-                '{}/apps/construction/static/construction/data/questionnaires/{}'.format(settings.BASE_DIR, file),
+                '{}/{}'.format(settings.QUESTIONNAIRE_DIR, file),
                 'r',
                 encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")
@@ -866,7 +866,7 @@ class Item(models.Model):
     # todo: deprecated, remove when studies done
     def get_gcq_short_items():
         with open(
-                '{}/apps/construction/static/construction/data/questionnaires/gcq_short.csv'.format(settings.BASE_DIR),
+                '{}/gcq_short.csv'.format(settings.QUESTIONNAIRE_DIR),
                 'r',
                 encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")
