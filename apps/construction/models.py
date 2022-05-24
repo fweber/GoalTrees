@@ -770,7 +770,7 @@ class Item(models.Model):
 
 
 
-    def get_gcq(n_items=3, language="en", version="V3", attention_checks=False, exclude_dimensions=[]):
+    def get_gcq(n_items=10, language="en", version="V3", attention_checks=False, exclude_dimensions=['Content Specificity', 'Time Specificity', 'Network Congruence', 'Measurability', 'Immediate Actionability','Estimated Effort','Plannability', 'Controllability','Challenge','Defined Subgoals', 'Social Support', 'Informational Support','Instrumental Support','Financial Affordance','Visibility','Time Availability', 'Competence Adequacy', 'Long-Term Utility', 'Short-Term Utility', 'Relative Utility','Self- Improvement Utility', 'Negative Utility']):
         """
         Returns a list of dictionaries with GCQ items.
         @param n_items: Number of items per dimension to be returned
