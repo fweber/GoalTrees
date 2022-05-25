@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseServerError
 
+import goaltrees.settings
 from apps.construction.studies import study_functions
 from apps.construction import models
 
@@ -100,7 +101,6 @@ def export_csv(request, study_id, export_name="default"):
     try:
         study_class = study_functions.create_study_by_classname(study.classname)
     except:
-        print("class instantiation failed for {}".format(study.classname))
         return HttpResponseServerError("Study can not be found.")
 
     csv_dataframe = study_class.get_csv_dataframe(export_name)
@@ -121,6 +121,7 @@ def goal_list(request):
 
     return render(request, 'construction/goals.html', context)
 
+
 @login_required
 def explore_studies(request, study_id):
     """
@@ -130,29 +131,33 @@ def explore_studies(request, study_id):
     """
 
     if study_id == 0:
-        study_properties = models.Study.summarize(models.Study)
 
-        prev_next = models.Study.get_previous_and_next_study()
+        study_properties = models.Study.get_study_properties()
 
-        tree_data = models.Study.get_tree_data()
+        prev_next = models.Study.get_previous_and_next_study(study_id=0)
+
+        #tree_data = models.Study.get_tree_data()
 
 
     else:
 
         study = models.Study.objects.get(id=study_id)
 
-        prev_next = study.get_previous_and_next_study()
+        prev_next = models.Study.get_previous_and_next_study(study_id=study.id)
 
-        study_properties = study.summarize()
+        study_properties = study.get_study_properties(study)
 
-        tree_data = study.get_tree_data()
+        #tree_data = study.get_tree_data(study)
 
     context = {
         'branching': list(study_properties[0]["nodes"]),
         'depths': list(study_properties[0]["branches"]),
         'tree_sizes': list(study_properties[0]["tree_sizes"]),
         'study_properties': study_properties,
-        'tree_data': tree_data,
+        #'tree_data': tree_data,
+        'last_study_id':prev_next['last_study_id'],
+        'next_study_id': prev_next['next_study_id'],
+        'root_url' : goaltrees.settings.ROOT_URL,
     }
     context.update(prev_next)
     return render(request, 'construction/explore_studies.html', context)
@@ -167,16 +172,12 @@ def explore_trees(request, tree_id):
 
     root_goal = models.Goal.objects.get(tree_id=tree_id, parent_id__isnull=True)
     tree = models.Goal.get_children(root_goal.id)
-    study = root_goal.participant.study
 
-    prev_next = study.get_previous_and_next_tree(tree_id)
-
-    study_properties = study.summarize()
+    prev_next = models.Goal.get_previous_and_next_tree(tree_id)
 
     tree_properties = models.Goal.get_tree_properties(tree_id)
     context = {
         'tree_properties': tree_properties,
-        'study_properties': study_properties,
         'tree_id': tree_id,
         'tree': json.dumps(tree),
     }

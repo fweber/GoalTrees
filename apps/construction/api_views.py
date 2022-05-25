@@ -207,7 +207,7 @@ def write_goal(request):
     g.save()
     tree = models.Goal.get_tree(tree_id)
     models.UserInteraction.create_interaction(request, "write goal", g)
-    goals = models.Goal.get_tree_goals(tree_id).order_by("title")
+    goals = models.Goal.objects.filter(tree_id=tree_id, discarded=False).order_by("title")
     response = {
         "tree": json.dumps(tree),
         "goals": [goal.serialize() for goal in goals],
@@ -227,7 +227,7 @@ def edit_goal(request):
     g.save()
     tree = models.Goal.get_tree(g.tree_id)
     models.UserInteraction.create_interaction(request, "edit goal", g)
-    goals = models.Goal.get_tree_goals(g.tree_id).order_by("title")
+    goals = models.Goal.objects.filter(tree_id=g.tree_id, discarded=False).order_by("title")
     response = {
         "tree": json.dumps(tree),
         "goals": [goal.serialize() for goal in goals],
@@ -243,7 +243,7 @@ def discard_goal(request):
     models.UserInteraction.create_interaction(request, "discard goal", g)
     models.Goal.discard_goal(g.id)
     tree = models.Goal.get_tree(tree_id)
-    goals = models.Goal.get_tree_goals(tree_id).order_by("title")
+    goals = models.Goal.objects.filter(tree_id=tree_id, discarded=False).order_by("title")
     response = {
         "tree": json.dumps(tree),
         "goals": [goal.serialize() for goal in goals],
@@ -259,7 +259,7 @@ def mark_goal(request):
     tree_id = g.tree_id
     models.UserInteraction.create_interaction(request, "mark goal", g)
     tree = models.Goal.get_tree(tree_id)
-    goals = models.Goal.get_tree_goals(tree_id).order_by("title")
+    goals = models.Goal.objects.filter(tree_id=tree_id, discarded=False).order_by("title")
     response = {
         "tree": json.dumps(tree),
         "goals": [goal.serialize() for goal in goals],

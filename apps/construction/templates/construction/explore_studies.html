@@ -34,7 +34,7 @@ table, th, td {
         </tr>
         <tr>
             <td>
-                <table>
+                <table style="border: None">
                     {% for property in study_properties %}
                         <tr>
                             <td> {{ property.name }}</td>
@@ -62,10 +62,11 @@ table, th, td {
 
     <div class="ignore-css">
         <INPUT Type="BUTTON" Value="<<"
-               Onclick="window.location.href='http://localhost:8000/{{ last_study_id }}/explore_studies'">
+               Onclick="window.location.href='{{ root_url }}/{{ last_study_id }}/explore_studies'">
         <label>{{ tree_id }}</label>
         <INPUT Type="BUTTON" Value=">>"
-               Onclick="window.location.href='http://localhost:8000/{{ next_study_id }}/explore_studies'">
+               Onclick="window.location.href='{{ root_url }}/{{ next_study_id }}/explore_studies'">
+
     </div>
 
     <script>
