@@ -458,7 +458,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq(n_items=10, language="en", version="V3", attention_checks=False, exclude_dimensions=['Content Specificity', 'Time Specificity', 'Network Congruence', 'Measurability', 'Immediate Actionability',
+        gcq_items = Item.get_gcq(n_items=1, language="en", version="V3", attention_checks=False, exclude_dimensions=['Content Specificity', 'Time Specificity', 'Network Congruence', 'Measurability', 'Immediate Actionability',
          'Estimated Effort', 'Plannability', 'Controllability', 'Challenge', 'Defined Subgoals', 'Social Support',
          'Informational Support', 'Instrumental Support', 'Financial Affordance', 'Visibility', 'Time Availability',
          'Competence Adequacy', 'Long-Term Utility', 'Short-Term Utility', 'Relative Utility',
