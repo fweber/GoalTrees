@@ -20,26 +20,28 @@
 <style>
 table, th, td {
   border: 1px solid black;
-  border-collapse: collapse;
 }
 </style>
 
     <h2>Study Characteristics</h2>
-    <table >
-        <tr>
-            <td>properties</td>
-            <td>branching</td>
-            <td>tree size</td>
-            <td>depths</td>
+    <br>
+    <br>
+    <table style="border: None">
+        <tr style="border: None">
+            <td style="border: None; text-align: center;"><b>statistics</b></td>
+            <td style="border: None; text-align: center;"><b>branching</b></td>
+            <td style="border: None; text-align: center;"><b>tree size</b></td>
+            <td style="border: None; text-align: center;"><b>depths</b></td>
         </tr>
         <tr>
             <td>
                 <table style="border: None">
                     {% for property in study_properties %}
-                        <tr>
-                            <td> {{ property.name }}</td>
-                            <td>{{ property.value }}</td>
+                        <tr style="border: None">
+                            <td style="border: None"> {{ property.name }}</td>
+                            <td style="border: None"> {{ property.value }}</td>
                         </tr>
+
                     {% endfor %}
                 </table>
             </td>

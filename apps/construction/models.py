@@ -162,10 +162,10 @@ class Study(models.Model):
 
         if include_sequence:
             study_properties.append({"name": "Sequence", "value": study.sequence})
-        study_properties.append({"name": "Number of participants", "value": participants}, )
+        study_properties.append({"name": "participants", "value": participants}, )
         study_properties.append(
             {"name": "Number of trees", "value": len(goals.order_by().values('tree_id').distinct())}, )
-        study_properties.append({"name": "Number of goals", "value": len(goals)}, )
+        study_properties.append({"name": "goals", "value": len(goals)}, )
 
         branch_depths = []
         parents = {}
@@ -219,19 +219,19 @@ class Study(models.Model):
             max_branching = max(parents.values())
             average_branching = "%.2f" % statistics.mean(parents.values())
 
-        study_properties.append({'name': 'minimal depth', "value": min_depth, })
-        study_properties.append({'name': 'maximal depth', "value": max_depth, })
-        study_properties.append({'name': 'average depth', "value": average_depth, })
-        study_properties.append({'name': 'minimal branching', "value": min_branching, })
-        study_properties.append({'name': 'maximal branching', "value": max_branching, })
-        study_properties.append({'name': 'average branching', "value": average_branching, })
-        study_properties.append({'name': 'actions', "value": actions, })
+        study_properties.append({'name': 'min. depth', "value": min_depth, })
+        study_properties.append({'name': 'max. depth', "value": max_depth, })
+        study_properties.append({'name': 'av. depth', "value": average_depth, })
+        study_properties.append({'name': 'min. branching', "value": min_branching, })
+        study_properties.append({'name': 'max. branching', "value": max_branching, })
+        study_properties.append({'name': 'av. branching', "value": average_branching, })
+        study_properties.append({'name': 'leaf goals', "value": actions, })
         study_properties.append({'name': 'intermediate goals', "value": len(goals) - roots - actions, })
         study_properties.append({'name': 'root goals', "value": roots, })
 
         study_properties.append({'name': 'nodes', "value": len(parents.keys()), "nodes": parents.values()})
         study_properties.append({'name': 'branches', "value": len(branch_depths), "branches": branch_depths})
-        study_properties.append({'name': 'trees', "value": len(trees.keys()), "tree_sizes": trees.values()})
+        #study_properties.append({'name': 'trees', "value": len(trees.keys()), "tree_sizes": trees.values()})
 
         study_properties[0]["nodes"] = parents.values()
         study_properties[0]["branches"] = branch_depths
@@ -907,6 +907,8 @@ class Item(models.Model):
 
         return goal_scores
 
+
+    @staticmethod
     def get_scale_value(items):
         """
         transfer the value of likert scale from words into numbers
@@ -942,39 +944,92 @@ class Item(models.Model):
         else:
             return "no scale for {}".format(items)
 
-    def get_likert_scale(items):
+
+    @staticmethod
+    def get_likert_scale(items=5,
+                         language="de",
+                         ):
 
         if items == 4:
-            likert_scale_answers_4 = [
-                "trifft nicht zu",
-                "trifft eher nicht zu",
-                "trifft eher zu",
-                "trifft zu"]
+            if language=="de":
+                likert_scale_answers_4 = [
+                    "trifft nicht zu",
+                    "trifft eher nicht zu",
+                    "trifft eher zu",
+                    "trifft zu"]
+            elif language == "en":
+                likert_scale_answers_4 = [
+                    "Disagree",
+                    "Slightly disagree",
+                    "Slightly agree",
+                    "Agree"]
             return likert_scale_answers_4
 
+
         elif items == 5:
-            likert_scale_answers_5 = [
-                "trifft nicht zu",
-                "trifft eher nicht zu",
-                "teils - teils",
-                "trifft eher zu",
-                "trifft zu"]
+            if language == "de":
+                likert_scale_answers_5 = [
+                    "trifft nicht zu",
+                    "trifft eher nicht zu",
+                    "teils - teils",
+                    "trifft eher zu",
+                    "trifft zu"]
+            elif language == "en":
+                likert_scale_answers_5 = [
+                    "Disagree",
+                    "Slightly disagree",
+                    "Neither agree or disagree",
+                    "Slightly agree",
+                    "Agree",
+                    ]
             return likert_scale_answers_5
 
+        elif items == 6:
+            if language == "de":
+                likert_scale_answers_6 = [
+                    "trifft überhaupt nicht zu",
+                    "trifft wenig zu",
+                    "trifft eher nicht zu",
+                    "trifft eher zu",
+                    "trifft viel zu",
+                    "trifft vollständig zu"]
+            elif language == "en":
+                likert_scale_answers_6 = [
+                    "Strongly disagree",
+                    "Disagree",
+                    "Slightly disagree",
+                    "Slightly agree",
+                    "Agree",
+                    "Strongly agree"]
+            return likert_scale_answers_6
+
         elif items == 7:
-            likert_scale_answers_7 = [
-                "trifft überhaupt nicht zu",
-                "trifft wenig zu",
-                "trifft eher nicht zu",
-                "teils teils",
-                "trifft eher zu",
-                "trifft viel zu",
-                "trifft vollständig zu"]
+            if language == "de":
+                likert_scale_answers_7 = [
+                    "trifft überhaupt nicht zu",
+                    "trifft wenig zu",
+                    "trifft eher nicht zu",
+                    "teils teils",
+                    "trifft eher zu",
+                    "trifft viel zu",
+                    "trifft vollständig zu"]
+            elif language == "en":
+                likert_scale_answers_7 = [
+                    "Strongly disagree",
+                    "Disagree",
+                    "Slightly disagree",
+                    "Neither agree or disagree",
+                    "Slightly agree",
+                    "Agree",
+                    "Strongly agree"]
             return likert_scale_answers_7
+
+
 
         else:
             return "no scale for {}".format(items)
 
+    @staticmethod
     def get_next_view(questionnaire):
         """
         provides the redirection views for the different questionnaires
