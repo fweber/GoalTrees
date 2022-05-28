@@ -458,11 +458,7 @@ class STUDY_goal_setting_study(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq(n_items=10, language="en", version="V3", attention_checks=False, exclude_dimensions=['Content Specificity', 'Time Specificity', 'Network Congruence', 'Measurability', 'Immediate Actionability',
-         'Estimated Effort', 'Plannability', 'Controllability', 'Challenge', 'Defined Subgoals', 'Social Support',
-         'Informational Support', 'Instrumental Support', 'Financial Affordance', 'Visibility', 'Time Availability',
-         'Competence Adequacy', 'Long-Term Utility', 'Short-Term Utility', 'Relative Utility',
-         'Self- Improvement Utility', 'Negative Utility'])
+        gcq_items = Item.get_gcq(n_items=3, language="en", version="V3", attention_checks=False, exclude_dimensions=[])
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_"+str(i+1))
