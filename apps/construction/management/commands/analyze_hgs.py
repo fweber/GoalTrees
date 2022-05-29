@@ -150,7 +150,6 @@ def analyze_pre_post():
         personal_goals = models.PersonalGoal.objects.filter(participant=p)
 
         for pg in personal_goals:
-            print("pg_name:{}".format(pg.name))
             goals = models.Goal.objects.filter(participant=p,
                                                title=pg.name, )
             if len(goals) == 1:
@@ -364,7 +363,7 @@ def create_gcq_matrix(df_goals):
 def plot_correlations(df_gcq_matrix):
     print("Creating correlation plots...")
     variables = [
-        # 'depth',
+        'depth',
         'Content Specificity ',
         'Time Specificity',
         'Hierarchy - High Level',
@@ -399,12 +398,21 @@ def plot_correlations(df_gcq_matrix):
         'Negative Utility',
     ]
 
-    sns_plot = sns.boxplot(x="variable", y="value", data=pd.melt(df_gcq_matrix[variables]))
+    plt.clf()
+
+    sns_plot = sns.boxplot(x="variable",
+                           y="value",
+                           data=pd.melt(df_gcq_matrix[variables]))
+
+
     plt.xticks(rotation=90)
     plt.tight_layout()
+
+    sns_plot.set(title='Distributions of Goal Characteristics')
+
     fig = sns_plot.get_figure()
     fig.savefig("{}/whiskerplot.png".format(PLOTS_PATH))
-    plt.clf()
+    fig.clf()
 
     for i in range(0, len(variables)):
         x = variables[i]
@@ -419,20 +427,27 @@ def plot_correlations(df_gcq_matrix):
             sns_plot = sns.scatterplot(data=df_gcq_matrix,
                                        x=x,
                                        y=y)
+
             fig = sns_plot.get_figure()
+
             fig.savefig("{}/scatterplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel))
-            plt.clf()
+            fig.clf()
+
 
             sns_plot = sns.violinplot(data=df_gcq_matrix,
                                       x=x,
-                                      y=y)
-            fig = sns_plot.get_figure()
-            fig.savefig("{}/violinplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel))
-            plt.clf()
+                                      y=y,
+                                      )
 
-    print("here")
+            fig = sns_plot.get_figure()
+
+            fig.savefig("{}/violinplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel))
+
+            fig.clf()
+
+
     df_corr = df_gcq_matrix[variables].corr()
-    print("there")
+
     df_corr.to_csv(path_or_buf="{}/correlation_matrix.csv".format(EXPORT_PATH), sep=";")
     plot_correlation_heatmap(df_corr)
 
@@ -475,7 +490,7 @@ def plot_correlation_heatmap(corr):
     plt.rcdefaults()
 
     plt.savefig("{}/correlation_heatmap_plot.png".format(PLOTS_PATH), bbox_inches="tight")
-
+    plt.clf()
 
 def extract_large_tree_data(size):
     """Extracts all trees with more than n goals and saves them in a csv file.
@@ -485,15 +500,11 @@ def extract_large_tree_data(size):
     max_tree_id = models.Goal.objects.all().aggregate(Max('tree_id'))['tree_id__max']
 
     data = {'tree_id': [], "size": []}
-    for i in range(max_tree_id):
-        goals = models.Goal.objects.filter(tree_id=i,
-                                           discarded=False, )
 
     for i in range(max_tree_id):
         goals = models.Goal.objects.filter(tree_id=i,
                                            discarded=False, )
         if len(goals) > size:
-            print("TREE: {} SIZE: {}".format(i, len(goals)))
             data["tree_id"].append(i)
             data['size'].append(len(goals))
 
@@ -506,24 +517,21 @@ def extract_large_tree_data(size):
 
 def create_descriptive_plots_hgs_study():
     """Create plots for descriptive statistics."""
-
+    print("Create descriptive plots for HGS study...")
     max_tree_id = models.Goal.objects.all().aggregate(Max('tree_id'))['tree_id__max']
-
-    print(len(models.Goal.objects.filter(
-        participant__study__name="hgs_study", )))
-
 
     hgs_trees = []
     for i in range(1, max_tree_id):
-        if models.Goal.objects.filter(tree_id=i,
+        tree_goals=models.Goal.objects.filter(tree_id=i,
                                       discarded=False,
                                       is_example=False,
-                                      participant__study__name="hgs_study", ).exists():
+                                      participant__study__name="hgs_study", )
+        if len(tree_goals) > 2:
             hgs_trees.append(i)
 
     ### DEPTH ###
-    print(hgs_trees)
     size_data = {}
+    valid_hgs = 0
     for i in hgs_trees:
         goals = models.Goal.objects.filter(tree_id=i,
                                            discarded=False,
@@ -532,13 +540,13 @@ def create_descriptive_plots_hgs_study():
 
         if len(goals) < 2:
             continue
-        size = len(goals)
-        if size in size_data.keys():
-            size_data[size] += 1
         else:
-            size_data[size] = 1
-
-    print(size_data)
+            size = len(goals)
+            valid_hgs += 1
+            if size in size_data.keys():
+                size_data[size] += 1
+            else:
+                size_data[size] = 1
 
     new_data = {"size": [],
                 "trees": [],
@@ -548,12 +556,21 @@ def create_descriptive_plots_hgs_study():
         new_data["size"].append(i)
         new_data["trees"].append(size_data[i])
 
-    plt.clf()
 
-    ax = sns.barplot(x="size", y="trees", data=new_data,
-                     color="cornflowerblue")
+    ax = sns.barplot(x="size",
+                     y="trees",
+                     data=new_data,
+                     color="cornflowerblue",
+                     )
+
+    xlabel = "size"
+    ylabel = "n trees"
+
+    ax.set(xlabel=xlabel, ylabel=ylabel)
+    ax.set(title='number of HGS per size (n={})'.format(valid_hgs))
 
     plt.savefig("{}/HGS_sizes.png".format(PLOTS_PATH), bbox_inches="tight")
+    plt.clf()
 
     ### BRANCHING ###
 
@@ -562,10 +579,12 @@ def create_descriptive_plots_hgs_study():
                                        is_example=False,
                                        participant__study__name="hgs_study", )
     counter = {}
+    non_leaves=0
     for g in goals:
         descendants = models.Goal.objects.filter(parent_id=g.id)
         branching = len(descendants)
         if branching > 0:
+            non_leaves += 1
             if branching in counter.keys():
                 counter[branching] += 1
             else:
@@ -581,31 +600,46 @@ def create_descriptive_plots_hgs_study():
 
     plt.clf()
 
-    ax = sns.barplot(x="branching_factor", y="nodes", data=branching_data,
-                     color="cornflowerblue")
+    ax = sns.barplot(x="branching_factor",
+                     y="nodes",
+                     data=branching_data,
+                     color="cornflowerblue",
+                     )
 
-    plt.savefig("{}/HGS_branching.png".format(PLOTS_PATH), bbox_inches="tight")
+    xlabel = "branching"
+    ylabel = "n nodes"
 
+    ax.set(xlabel=xlabel, ylabel=ylabel)
+    ax.set(title='number of branches per non-leaf goal (n={})'.format(non_leaves))
+
+    plt.savefig("{}/HGS_branching.png".format(PLOTS_PATH),
+                bbox_inches="tight")
+    plt.clf()
 
     ### DEPTH ###
 
-    counter={}
+
+    print("HGS trees {}".format(len(hgs_trees)))
+    counter = {}
+    valid_hgs=0
     for t_id in hgs_trees:
-        tree_properties=models.Goal.get_tree_properties(t_id)
+        print("tree_id {}".format(t_id))
+        tree_properties = models.Goal.get_tree_properties(t_id)
         for p in tree_properties:
-            if p["name"]=="maximal_depth":
+            if p["name"] == "maximal depth":
                 depth = p["value"]
                 break
 
         if depth > 0:
+            valid_hgs+=1
             if depth in counter.keys():
                 counter[depth] += 1
             else:
                 counter[depth] = 1
 
     depth_data = {"depth": [],
-                      "n": [],
-                      }
+                  "n": [],
+                  }
     keylist = counter.keys()
     for i in sorted(keylist):
         depth_data["depth"].append(i)
@@ -613,42 +647,56 @@ def create_descriptive_plots_hgs_study():
 
     plt.clf()
 
-    ax = sns.barplot(x="depth", y="n", data=depth_data,
-                     color="cornflowerblue")
+    ax = sns.barplot(x="depth",
+                     y="n",
+                     data=depth_data,
+                     color="cornflowerblue",)
+
+    xlabel = "depth"
+    ylabel = "n trees"
+
+    ax.set(xlabel=xlabel, ylabel=ylabel)
+    ax.set(title='number of HGS per depth (n={})'.format(valid_hgs))
 
     plt.savefig("{}/HGS_depths.png".format(PLOTS_PATH), bbox_inches="tight")
+    plt.clf()
+
 
 
 def create_descriptive_plots():
     """Create plots for descriptive statistics."""
-
+    print("Create descriptive plots...")
     max_tree_id = models.Goal.objects.all().aggregate(Max('tree_id'))['tree_id__max']
 
     hgs_trees = []
     for i in range(1, max_tree_id):
-        goals= models.Goal.objects.filter(tree_id=i,
-                                      discarded=False,
-                                      is_example=False,
-                                      participant__exclude_from_analyses=False )
+        goals = models.Goal.objects.filter(tree_id=i,
+                                           discarded=False,
+                                           is_example=False,
+                                           participant__exclude_from_analyses=False)
         if len(goals) > 2:
             hgs_trees.append(i)
+
 
     ### SIZES ###
 
     size_data = {}
+    valid_hgs = 0
     for i in hgs_trees:
         goals = models.Goal.objects.filter(tree_id=i,
                                            discarded=False,
                                            is_example=False,
-                                           participant__exclude_from_analyses=False,)
+                                           participant__exclude_from_analyses=False, )
 
         if len(goals) < 2:
             continue
-        size = len(goals)
-        if size in size_data.keys():
-            size_data[size] += 1
         else:
-            size_data[size] = 1
+            valid_hgs += 1
+            size = len(goals)
+            if size in size_data.keys():
+                size_data[size] += 1
+            else:
+                size_data[size] = 1
 
     new_data = {"size": [],
                 "trees": [],
@@ -660,23 +708,34 @@ def create_descriptive_plots():
 
     plt.clf()
 
-    ax = sns.barplot(x="size", y="trees", data=new_data,
-                     color="cornflowerblue")
+    ax = sns.barplot(x="size",
+                     y="trees",
+                     data=new_data,
+                     color="cornflowerblue",
+                     )
+
+    xlabel = "size"
+    ylabel = "n trees"
+
+    ax.set(xlabel=xlabel, ylabel=ylabel)
+    ax.set(title='number of HGS per size (n={})'.format(valid_hgs))
 
     plt.savefig("{}/ALL_sizes.png".format(PLOTS_PATH), bbox_inches="tight")
+    plt.clf()
 
     ### BRANCHING ###
-
 
     goals = models.Goal.objects.filter(discarded=False,
                                        is_example=False,
                                        participant__exclude_from_analyses=False,
                                        )
     counter = {}
+    nodes = 0
     for g in goals:
         descendants = models.Goal.objects.filter(parent_id=g.id)
         branching = len(descendants)
         if branching > 0:
+            nodes += 1
             if branching in counter.keys():
                 counter[branching] += 1
             else:
@@ -685,6 +744,8 @@ def create_descriptive_plots():
     branching_data = {"branching_factor": [],
                       "nodes": [],
                       }
+
+
     keylist = counter.keys()
     for i in sorted(keylist):
         branching_data["branching_factor"].append(i)
@@ -692,30 +753,44 @@ def create_descriptive_plots():
 
     plt.clf()
 
-    ax = sns.barplot(x="branching_factor", y="nodes", data=branching_data,
-                     color="cornflowerblue")
+    ax = sns.barplot(x="branching_factor",
+                     y="nodes",
+                     data=branching_data,
+                     color="cornflowerblue",
+                     )
+
+    xlabel = "branching"
+    ylabel = "n nodes"
+
+    ax.set(xlabel=xlabel, ylabel=ylabel)
+    ax.set(title='branching per non-leaf goal (n={})'.format(nodes))
 
     plt.savefig("{}/ALL_branching.png".format(PLOTS_PATH), bbox_inches="tight")
+    plt.clf()
+
 
     ### DEPTH ###
 
-    counter={}
+    counter = {}
+    valid_hgs=0
     for t_id in hgs_trees:
-        tree_properties=models.Goal.get_tree_properties(t_id)
+        tree_properties = models.Goal.get_tree_properties(t_id)
         for p in tree_properties:
-            if p["name"]=="maximal_depth":
+            if p["name"] == "maximal depth":
                 depth = p["value"]
                 break
 
         if depth > 0:
+            valid_hgs+=1
             if depth in counter.keys():
                 counter[depth] += 1
             else:
                 counter[depth] = 1
 
+
     depth_data = {"depth": [],
-                      "n": [],
-                      }
+                  "n": [],
+                  }
     keylist = counter.keys()
     for i in sorted(keylist):
         depth_data["depth"].append(i)
@@ -723,16 +798,27 @@ def create_descriptive_plots():
 
     plt.clf()
 
-    ax = sns.barplot(x="depth", y="n", data=depth_data,
-                     color="cornflowerblue")
+    ax = sns.barplot(x="depth",
+                     y="n",
+                     data=depth_data,
+                     color="cornflowerblue",)
+
+    xlabel = "depth"
+    ylabel = "n trees"
+
+    ax.set(xlabel=xlabel, ylabel=ylabel)
+    ax.set(title='number of HGS per depth (n={})'.format(valid_hgs))
 
     plt.savefig("{}/ALL_depths.png".format(PLOTS_PATH), bbox_inches="tight")
+    plt.clf()
+
 
 
 class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
 
     def handle(self, *args, **kwargs):
+        create_descriptive_plots_hgs_study()
         create_descriptive_plots()
 
         extract_large_tree_data(12)
@@ -742,9 +828,9 @@ class Command(BaseCommand):
         df_items = extract_items()
         df_personal_goals = extract_personal_goals()
 
-        analyze_pre_post()
+        # analyze_pre_post()
 
         gcq_matrix = create_gcq_matrix(df_goals)
         plot_correlations(gcq_matrix)
-
         create_descriptive_plots()
+        print("Analyses completed!")

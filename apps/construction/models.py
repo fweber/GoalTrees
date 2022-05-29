@@ -520,7 +520,7 @@ class Goal(models.Model):
         parents = {}
         for goal in goals_in_tree:
             if goal.parent_id:
-                print(goal.parent_id)
+                print("parent is: {}".format(goal.parent_id))
                 if goal.parent_id in parents.keys():
                     parents[goal.parent_id] += 1
                 else:
@@ -534,10 +534,15 @@ class Goal(models.Model):
                     depth += 1
                 branch_depths.append(depth)
 
-        max_depth = max(branch_depths)
-        min_depth = min(branch_depths)
-        average_depth = statistics.mean(branch_depths)
-        average_depth = "%.2f" % average_depth
+        if len(branch_depths) > 0:
+            max_depth = max(branch_depths)
+            min_depth = min(branch_depths)
+            average_depth = statistics.mean(branch_depths)
+            average_depth = "%.2f" % average_depth
+        else:
+            max_depth = 0
+            min_depth = 0
+            average_depth = 0
 
         min_branching = min(parents.values())
         max_branching = max(parents.values())
