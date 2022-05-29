@@ -291,7 +291,6 @@ class StudyContext(models.Model):
             return {}
 
 
-# Create your models here.
 class Participant(models.Model):
     id = models.AutoField(primary_key=True)
     age = models.IntegerField(null=True)
@@ -311,6 +310,8 @@ class Participant(models.Model):
     browser_language = models.CharField(max_length=128, null=True)
     siddata_user_id = models.CharField(max_length=256, null=True)
     exclude_from_analyses = models.BooleanField(default=False)
+    origin = models.CharField(default=settings.SERVERNAME, max_length=64)
+    origin_id = models.CharField(null=True, max_length=64)
 
     def __str__(self):
         return "{}".format(self.id)
@@ -520,7 +521,6 @@ class Goal(models.Model):
         parents = {}
         for goal in goals_in_tree:
             if goal.parent_id:
-                print("parent is: {}".format(goal.parent_id))
                 if goal.parent_id in parents.keys():
                     parents[goal.parent_id] += 1
                 else:
@@ -1121,3 +1121,5 @@ class UserInteraction(models.Model):
             action.duration = delta.total_seconds() * 1000
         action.save()
         return action
+
+

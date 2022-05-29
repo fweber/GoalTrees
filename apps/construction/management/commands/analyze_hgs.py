@@ -362,6 +362,7 @@ def create_gcq_matrix(df_goals):
 
 def plot_correlations(df_gcq_matrix):
     print("Creating correlation plots...")
+    df_gcq_matrix.describe()
     variables = [
         'depth',
         'Content Specificity ',
@@ -411,7 +412,7 @@ def plot_correlations(df_gcq_matrix):
     sns_plot.set(title='Distributions of Goal Characteristics')
 
     fig = sns_plot.get_figure()
-    fig.savefig("{}/whiskerplot.png".format(PLOTS_PATH))
+    fig.savefig("{}/ALL_characteristics.png".format(PLOTS_PATH), bbox_inches="tight")
     fig.clf()
 
     for i in range(0, len(variables)):
@@ -441,7 +442,7 @@ def plot_correlations(df_gcq_matrix):
 
             fig = sns_plot.get_figure()
 
-            fig.savefig("{}/violinplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel))
+            fig.savefig("{}/violinplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel), bbox_inches="tight")
 
             fig.clf()
 
@@ -461,18 +462,19 @@ def plot_correlation_heatmap(corr):
     plt.clf()
 
     sns.set(style='white')
+
     mask = np.zeros_like(corr, dtype=np.bool)
     mask[np.triu_indices_from(mask)] = True
 
-    f, ax = plt.subplots(figsize=(11, 13))
+    f, ax = plt.subplots(figsize=(20, 20))
     cmap = sns.diverging_palette(220, 10, as_cmap=True)
 
-    akws = {"size": 6, }
+    akws = {"size": 10, }
 
     sns.heatmap(corr,
                 mask=mask,
                 cmap=cmap,
-                vmax=0.7,
+                vmax=1.0,
                 center=0,
                 square=True,
                 linewidths=.5,
@@ -480,14 +482,16 @@ def plot_correlation_heatmap(corr):
                 annot=True,
                 annot_kws=akws,
                 fmt=".2f",
+                xticklabels=True,
+                yticklabels=True,
                 )
 
-    ax.set_title('Goal Characteristics correlation matrix')
+    ax.set_title('Goal Characteristics Correlation Matrix')
 
-    plt.xticks(rotation=90, horizontalalignment='center', rotation_mode='anchor')
+    plt.xticks(rotation=90, horizontalalignment='right', rotation_mode='anchor')
     plt.yticks(rotation=0)
     plt.tight_layout()
-    plt.rcdefaults()
+    #plt.rcdefaults()
 
     plt.savefig("{}/correlation_heatmap_plot.png".format(PLOTS_PATH), bbox_inches="tight")
     plt.clf()
@@ -619,11 +623,9 @@ def create_descriptive_plots_hgs_study():
     ### DEPTH ###
 
 
-    print("HGS trees {}".format(len(hgs_trees)))
     counter = {}
     valid_hgs=0
     for t_id in hgs_trees:
-        print("tree_id {}".format(t_id))
         tree_properties = models.Goal.get_tree_properties(t_id)
         for p in tree_properties:
             if p["name"] == "maximal depth":
@@ -818,6 +820,10 @@ class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
 
     def handle(self, *args, **kwargs):
+        df_goals = extract_goals()
+        gcq_matrix = create_gcq_matrix(df_goals)
+        plot_correlations(gcq_matrix)
+        sys.exit()
         create_descriptive_plots_hgs_study()
         create_descriptive_plots()
 
@@ -830,7 +836,5 @@ class Command(BaseCommand):
 
         # analyze_pre_post()
 
-        gcq_matrix = create_gcq_matrix(df_goals)
-        plot_correlations(gcq_matrix)
-        create_descriptive_plots()
+
         print("Analyses completed!")
