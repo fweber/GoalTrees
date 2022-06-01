@@ -148,7 +148,9 @@ class Study(models.Model):
 
     @staticmethod
     def get_study_properties(study=None, include_sequence=False):
-        """Calculates descriptive statistics for study."""
+        """
+        Calculates descriptive statistics for study.
+        """
 
         study_properties = []
 
@@ -231,7 +233,6 @@ class Study(models.Model):
 
         study_properties.append({'name': 'nodes', "value": len(parents.keys()), "nodes": parents.values()})
         study_properties.append({'name': 'branches', "value": len(branch_depths), "branches": branch_depths})
-        #study_properties.append({'name': 'trees', "value": len(trees.keys()), "tree_sizes": trees.values()})
 
         study_properties[0]["nodes"] = parents.values()
         study_properties[0]["branches"] = branch_depths
@@ -1121,5 +1122,3 @@ class UserInteraction(models.Model):
             action.duration = delta.total_seconds() * 1000
         action.save()
         return action
-
-

@@ -1,3 +1,5 @@
+import copy
+
 from django.core.management.base import BaseCommand
 from apps.construction import models
 import matplotlib.pyplot as plt
@@ -16,7 +18,98 @@ from django.db.models import Max
 EXPORT_PATH = "{}/data/hgs_data".format(os.getcwd())
 PLOTS_PATH = "{}/plots".format(EXPORT_PATH)
 
+VARIABLES = [
+    'Depth',
+    'Content Specificity ',
+    'Time Specificity',
+    'Hierarchy - High Level',
+    'Hierarchy - Low Level',
+    'Network Congruence',
+    'Measurability',
+    'Approach/ Avoidance Framing',
+    'Process Focus',
+    'Outcome Focus',
+    'Immediate Actionability',
+    'Estimated Effort',
+    'Plannability',
+    'Controllability',
+    'Challenge',
+    'Defined Subgoals',
+    'Social Support',
+    'Informational Support',
+    'Instrumental Support',
+    'Financial Affordance',
+    'Visibility',
+    'Time Availability',
+    'Competence Adequacy',
+    'Self-Congruence',
+    'Value Congruence',
+    'Importance',
+    'Awareness',
+    'Vitality',
+    'Long-Term Utility',
+    'Short-Term Utility',
+    'Relative Utility',
+    'Self- Improvement Utility',
+    'Negative Utility',
+]
 
+GCQ_SUBSCALES = [{"scale":"Structural Subscale",
+                  "dimensions":[
+                        'Content Specificity ',
+                        'Time Specificity',
+                        'Hierarchy - High Level',
+                        'Hierarchy - Low Level',
+                        'Network Congruence',
+                        'Measurability',]
+                  },
+                  {"scale":"Framing Subscale",
+                  "dimensions":[
+                        'Approach/ Avoidance Framing',
+                        'Process Focus',
+                        'Outcome Focus',
+                      ]
+                  },
+                  {"scale":"Attainability Subscale",
+                  "dimensions":[
+                        'Immediate Actionability',
+                        'Estimated Effort',
+                        'Plannability',
+                        'Controllability',
+                        'Challenge',
+                        'Defined Subgoals',
+                  ]
+                   },
+                 {"scale": "Resources Availability Subscale",
+                  "dimensions": [
+                        'Social Support',
+                        'Informational Support',
+                        'Instrumental Support',
+                        'Financial Affordance',
+                        'Visibility',
+                        'Time Availability',
+                        'Competence Adequacy',
+                  ]
+                  },
+                 {"scale": "Interestingness Subscale",
+                  "dimensions": [
+                        'Self-Congruence',
+                        'Value Congruence',
+                        'Importance',
+                        'Awareness',
+                        'Vitality',
+                                  ]
+                  },
+                 {"scale": "Interestingness Subscale",
+                  "dimensions": [
+                        'Long-Term Utility',
+                        'Short-Term Utility',
+                        'Relative Utility',
+                        'Self- Improvement Utility',
+                        'Negative Utility',
+                ]
+            }
+        ]
 def extract_participants():
     """Extracts demographic data"""
 
@@ -256,6 +349,7 @@ def create_gcq_matrix(df_goals):
     gcq_data = models.Item.get_gcq(n_items=2)
 
     gcq_dictionary = {}
+    gcq_items = []
     for gcq_item in gcq_data:
 
         if gcq_item["latent_variable"] not in gcq_dictionary.keys():
@@ -265,9 +359,14 @@ def create_gcq_matrix(df_goals):
             gcq_dictionary[gcq_item["latent_variable"]].append({"code": gcq_item["code"],
                                                                 "reverse_coded": gcq_item["reverse_coded"]})
 
+        gcq_items.append("{}_{}_reverse_corrected".format(gcq_item["latent_variable"], gcq_item["code"]))
+
+    print(gcq_dictionary.keys())
+
     data = {}
-    columns = ["participant_id", "goal_id", "goal", "tree_id", "depth"]
+    columns = ["participant_id", "goal_id", "goal", "tree_id", "Depth"]
     columns.extend(gcq_dictionary.keys())
+    columns.extend(gcq_items)
 
     for index, row in df_goals.iterrows():
 
@@ -279,7 +378,7 @@ def create_gcq_matrix(df_goals):
                                 "goal_id": row["goal_id"],
                                 "goal": row["goal"],
                                 "tree_id": row["tree_id"],
-                                "depth": row["depth"]}
+                                "Depth": row["depth"]}
 
         for dimension in gcq_dictionary.keys():
 
@@ -335,8 +434,6 @@ def create_gcq_matrix(df_goals):
                     print("Unknown value for reverse_coded (boolean expected): {}".format(
                         gcq_dictionary[dimension][0]["reverse_coded"]))
 
-                data[row["goal_id"]][dimension] = (first + second) / 2
-
             except Exception as e:
                 print("error for second")
                 if type(row[gcq_dictionary[dimension][1]["code"]]) == list:
@@ -348,7 +445,14 @@ def create_gcq_matrix(df_goals):
                             second = float(row[gcq_dictionary[dimension][1]["code"]][0])
                             print("FIXED")
 
+            # write average score for factor
             data[row["goal_id"]][dimension] = (first + second) / 2
+
+            firstcode = gcq_dictionary[dimension][0]["code"]
+            secondcode = gcq_dictionary[dimension][1]["code"]
+
+            data[row["goal_id"]]["{}_{}_reverse_corrected".format(dimension, firstcode)] = first
+            data[row["goal_id"]]["{}_{}_reverse_corrected".format(dimension, secondcode)] = second
 
     df_gcq_matrix = pd.DataFrame.from_dict(data=data,
                                            orient="index",
@@ -362,119 +466,170 @@ def create_gcq_matrix(df_goals):
 
 def plot_correlations(df_gcq_matrix):
     print("Creating correlation plots...")
+
     df_gcq_matrix.describe()
-    variables = [
-        'depth',
-        'Content Specificity ',
-        'Time Specificity',
-        'Hierarchy - High Level',
-        'Hierarchy - Low Level',
-        'Network Congruence',
-        'Measurability',
-        'Approach/ Avoidance Framing',
-        'Process Focus',
-        'Outcome Focus',
-        'Immediate Actionability',
-        'Estimated Effort',
-        'Plannability',
-        'Controllability',
-        'Challenge',
-        'Defined Subgoals',
-        'Social Support',
-        'Informational Support',
-        'Instrumental Support',
-        'Financial Affordance',
-        'Visibility',
-        'Time Availability',
-        'Competence Adequacy',
-        'Self-Congruence',
-        'Value Congruence',
-        'Importance',
-        'Awareness',
-        'Vitality',
-        'Long-Term Utility',
-        'Short-Term Utility',
-        'Relative Utility',
-        'Self- Improvement Utility',
-        'Negative Utility',
-    ]
 
     plt.clf()
 
     sns_plot = sns.boxplot(x="variable",
                            y="value",
-                           data=pd.melt(df_gcq_matrix[variables]))
-
+                           data=pd.melt(df_gcq_matrix[VARIABLES]))
 
     plt.xticks(rotation=90)
-    plt.tight_layout()
 
     sns_plot.set(title='Distributions of Goal Characteristics')
 
     fig = sns_plot.get_figure()
+    plt.tight_layout()
+
     fig.savefig("{}/ALL_characteristics.png".format(PLOTS_PATH), bbox_inches="tight")
     fig.clf()
 
-    for i in range(0, len(variables)):
-        x = variables[i]
-        for j in range(i + 1, len(variables)):
-            y = variables[j]
+    for i in range(0, len(VARIABLES)):
+        x = VARIABLES[i]
+        for j in range(i + 1, len(VARIABLES)):
+            y = VARIABLES[j]
 
             xlabel = x
             ylabel = y
             xlabel = xlabel.replace("/", "").replace(" ", "")
             ylabel = ylabel.replace("/", "").replace(" ", "")
 
+            plt.figure(figsize=(6, 6))
+
             sns_plot = sns.scatterplot(data=df_gcq_matrix,
                                        x=x,
-                                       y=y)
+                                       y=y,
+                                       )
 
             fig = sns_plot.get_figure()
 
             fig.savefig("{}/scatterplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel))
             fig.clf()
 
+        sns_plot = sns.violinplot(data=df_gcq_matrix,
+                                  x=x,
+                                  cut=0,
+                                  )
 
-            sns_plot = sns.violinplot(data=df_gcq_matrix,
-                                      x=x,
-                                      y=y,
-                                      )
+        fig = sns_plot.get_figure()
 
-            fig = sns_plot.get_figure()
+        fig.savefig("{}/violinplot_{}.png".format(PLOTS_PATH, xlabel), bbox_inches="tight", )
 
-            fig.savefig("{}/violinplot_{}_{}.png".format(PLOTS_PATH, xlabel, ylabel), bbox_inches="tight")
+        fig.clf()
+
+
+def plot_scatterplot_matrices(df_gcq_matrix=None, ):
+    if not df_gcq_matrix:
+        df_gcq_matrix = pd.read_csv(filepath_or_buffer="{}/gcq_matrix.csv".format(EXPORT_PATH),
+                                    sep=";")
+
+    df_gcq_matrix[VARIABLES].describe()
+
+
+    for v in VARIABLES:
+        variables=copy.deepcopy(VARIABLES)
+        variables.remove(v)
+        i=1
+        for x in range(0, len(variables), 4):
+            if x + 4 > len(variables):
+                variables_plot = variables[x:]
+            else:
+                variables_plot = variables[x:x + 4]
+            variables_plot = [v]+variables_plot
+            dataset = df_gcq_matrix[variables_plot]
+            sns_plot = sns.PairGrid(dataset)
+            sns_plot.map_diag(plt.hist)
+            sns_plot.map_upper(plt.scatter)
+            sns_plot.map_lower(sns.kdeplot)
+
+            fig = sns_plot.fig
+
+            fig.savefig("{}/correlations_{}_{}.png".format(PLOTS_PATH, v.replace("/"," ").replace(" ","").replace("-",""), i), bbox_inches="tight", )
+            fig.savefig(
+                "{}/pngs/correlations_{}_{}.png".format(PLOTS_PATH, v.replace("/", " ").replace(" ", "").replace("-", ""),
+                                                   i), bbox_inches="tight", )
+            i += 1
 
             fig.clf()
 
+def create_latex():
+    for variable in VARIABLES:
+        variable_original=variable
+        variable_original=variable_original.replace("/","")
+        variable = variable.replace("/", " ").replace(" ", "").replace("-", "")
+        for i in range(1,9):
+            print("\\begin{figure}[h]")
+            print("\\centering")
+            print("\\includegraphics[width=15cm]{{Figures/Appendix_figures/correlations_{}_{}.pdf}}".format(variable,i))
+            print("\\caption{{Correlations and KDE for variable {} matrix {}.}}".format(variable_original,i))
+            print("\\label{{fig:Corr_and_KDE_{}_{}}}".format(variable,i))
+            print("\\end{figure}")
+            print("")
 
-    df_corr = df_gcq_matrix[variables].corr()
 
-    df_corr.to_csv(path_or_buf="{}/correlation_matrix.csv".format(EXPORT_PATH), sep=";")
-    plot_correlation_heatmap(df_corr)
+def plot_violinplot_matrix(df_gcq_matrix=None,):
+
+    if not df_gcq_matrix:
+        df_gcq_matrix = pd.read_csv(filepath_or_buffer="{}/gcq_matrix.csv".format(EXPORT_PATH),
+                                    sep=";")
 
 
-def plot_correlation_heatmap(corr):
+    df_gcq_matrix[VARIABLES]
+
+    for scale in GCQ_SUBSCALES:
+        name=scale["scale"]
+        dimensions=scale["dimensions"]
+
+        fig = plt.figure(figsize=(len(dimensions)*2, 6))
+        gs = fig.add_gridspec(1, len(dimensions))
+
+        i = 0
+        for dimension in dimensions:
+
+
+            ax = fig.add_subplot(gs[0, i])
+            sns.violinplot(data=df_gcq_matrix[dimension])
+            ax.set_xlabel(dimension)
+
+            i += 1
+        fig.tight_layout()
+
+        fig.savefig("{}/violinplots_{}.png".format(PLOTS_PATH, name))
+
+        fig.clf()
+
+
+def plot_correlation_heatmap(df_gcq_matrix):
     """
     Creates a correlation matrix and saves it as png plot.
     """
     print("Saving heatmap plots as .png files... ")
 
+    df_corr = df_gcq_matrix[VARIABLES].corr()
+
+    df_corr.to_csv(path_or_buf="{}/correlation_matrix.csv".format(EXPORT_PATH), sep=";")
+    plot_correlation_heatmap(df_corr)
+
     plt.clf()
+
+    fontsize = 12
 
     sns.set(style='white')
 
-    mask = np.zeros_like(corr, dtype=np.bool)
+    mask = np.zeros_like(df_corr, dtype=np.bool)
     mask[np.triu_indices_from(mask)] = True
 
     f, ax = plt.subplots(figsize=(20, 20))
     cmap = sns.diverging_palette(220, 10, as_cmap=True)
 
-    akws = {"size": 10, }
+    akws = {"size": fontsize, }
 
-    sns.heatmap(corr,
+    sns.heatmap(df_corr,
                 mask=mask,
                 cmap=cmap,
-                vmax=1.0,
+                vmax=0.75,
+                vmin=-0.75,
                 center=0,
                 square=True,
                 linewidths=.5,
@@ -486,15 +641,23 @@ def plot_correlation_heatmap(corr):
                 yticklabels=True,
                 )
 
-    ax.set_title('Goal Characteristics Correlation Matrix')
+    ax.set_title('Goal Characteristics Correlation Matrix',
+                 size=20,
+                 )
 
-    plt.xticks(rotation=90, horizontalalignment='right', rotation_mode='anchor')
-    plt.yticks(rotation=0)
+    plt.xticks(rotation=90,
+               horizontalalignment='right',
+               rotation_mode='anchor',
+               size=fontsize,
+               )
+    plt.yticks(rotation=0,
+               size=fontsize,
+               )
     plt.tight_layout()
-    #plt.rcdefaults()
 
     plt.savefig("{}/correlation_heatmap_plot.png".format(PLOTS_PATH), bbox_inches="tight")
     plt.clf()
+
 
 def extract_large_tree_data(size):
     """Extracts all trees with more than n goals and saves them in a csv file.
@@ -526,10 +689,10 @@ def create_descriptive_plots_hgs_study():
 
     hgs_trees = []
     for i in range(1, max_tree_id):
-        tree_goals=models.Goal.objects.filter(tree_id=i,
-                                      discarded=False,
-                                      is_example=False,
-                                      participant__study__name="hgs_study", )
+        tree_goals = models.Goal.objects.filter(tree_id=i,
+                                                discarded=False,
+                                                is_example=False,
+                                                participant__study__name="hgs_study", )
         if len(tree_goals) > 2:
             hgs_trees.append(i)
 
@@ -560,7 +723,6 @@ def create_descriptive_plots_hgs_study():
         new_data["size"].append(i)
         new_data["trees"].append(size_data[i])
 
-
     ax = sns.barplot(x="size",
                      y="trees",
                      data=new_data,
@@ -583,7 +745,7 @@ def create_descriptive_plots_hgs_study():
                                        is_example=False,
                                        participant__study__name="hgs_study", )
     counter = {}
-    non_leaves=0
+    non_leaves = 0
     for g in goals:
         descendants = models.Goal.objects.filter(parent_id=g.id)
         branching = len(descendants)
@@ -622,9 +784,8 @@ def create_descriptive_plots_hgs_study():
 
     ### DEPTH ###
 
-
     counter = {}
-    valid_hgs=0
+    valid_hgs = 0
     for t_id in hgs_trees:
         tree_properties = models.Goal.get_tree_properties(t_id)
         for p in tree_properties:
@@ -633,7 +794,7 @@ def create_descriptive_plots_hgs_study():
                 break
 
         if depth > 0:
-            valid_hgs+=1
+            valid_hgs += 1
             if depth in counter.keys():
                 counter[depth] += 1
             else:
@@ -652,7 +813,7 @@ def create_descriptive_plots_hgs_study():
     ax = sns.barplot(x="depth",
                      y="n",
                      data=depth_data,
-                     color="cornflowerblue",)
+                     color="cornflowerblue", )
 
     xlabel = "depth"
     ylabel = "n trees"
@@ -662,7 +823,6 @@ def create_descriptive_plots_hgs_study():
 
     plt.savefig("{}/HGS_depths.png".format(PLOTS_PATH), bbox_inches="tight")
     plt.clf()
-
 
 
 def create_descriptive_plots():
@@ -678,7 +838,6 @@ def create_descriptive_plots():
                                            participant__exclude_from_analyses=False)
         if len(goals) > 2:
             hgs_trees.append(i)
-
 
     ### SIZES ###
 
@@ -747,7 +906,6 @@ def create_descriptive_plots():
                       "nodes": [],
                       }
 
-
     keylist = counter.keys()
     for i in sorted(keylist):
         branching_data["branching_factor"].append(i)
@@ -770,11 +928,10 @@ def create_descriptive_plots():
     plt.savefig("{}/ALL_branching.png".format(PLOTS_PATH), bbox_inches="tight")
     plt.clf()
 
-
     ### DEPTH ###
 
     counter = {}
-    valid_hgs=0
+    valid_hgs = 0
     for t_id in hgs_trees:
         tree_properties = models.Goal.get_tree_properties(t_id)
         for p in tree_properties:
@@ -783,12 +940,11 @@ def create_descriptive_plots():
                 break
 
         if depth > 0:
-            valid_hgs+=1
+            valid_hgs += 1
             if depth in counter.keys():
                 counter[depth] += 1
             else:
                 counter[depth] = 1
-
 
     depth_data = {"depth": [],
                   "n": [],
@@ -803,7 +959,7 @@ def create_descriptive_plots():
     ax = sns.barplot(x="depth",
                      y="n",
                      data=depth_data,
-                     color="cornflowerblue",)
+                     color="cornflowerblue", )
 
     xlabel = "depth"
     ylabel = "n trees"
@@ -815,15 +971,30 @@ def create_descriptive_plots():
     plt.clf()
 
 
-
 class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
 
     def handle(self, *args, **kwargs):
-        df_goals = extract_goals()
-        gcq_matrix = create_gcq_matrix(df_goals)
-        plot_correlations(gcq_matrix)
+        plot_scatterplot_matrices()
         sys.exit()
+
+        create_latex()
+        sys.exit()
+
+        plot_violinplot_matrix()
+        sys.exit()
+
+        create_latex()
+        sys.exit()
+
+
+
+        df_goals = extract_goals()
+        df_gcq_matrix = create_gcq_matrix(df_goals)
+
+        plot_correlations(df_gcq_matrix)
+        plot_correlation_heatmap(df_gcq_matrix)
+
         create_descriptive_plots_hgs_study()
         create_descriptive_plots()
 
@@ -835,6 +1006,7 @@ class Command(BaseCommand):
         df_personal_goals = extract_personal_goals()
 
         # analyze_pre_post()
+
 
 
         print("Analyses completed!")
