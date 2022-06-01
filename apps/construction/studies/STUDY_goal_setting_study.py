@@ -458,7 +458,44 @@ class STUDY_goal_setting_study(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq_items(file="gcq_goalsetting.csv", language="en")
+        gcq_items = Item.get_gcq(n_items=6,
+                                 exclude_dimensions=[
+                                        'Content Specificity ',
+                                        'Time Specificity',
+                                        #'Hierarchy - High Level',
+                                        #'Hierarchy - Low Level',
+                                        'Network Congruence',
+                                        'Measurability',
+                                        #'Approach/ Avoidance Framing',
+                                        #'Process Focus',
+                                        #'Outcome Focus',
+                                        'Immediate Actionability',
+                                        'Estimated Effort',
+                                        'Plannability',
+                                        'Controllability',
+                                        'Challenge',
+                                        'Defined Subgoals',
+                                        'Social Support',
+                                        'Informational Support',
+                                        'Instrumental Support',
+                                        'Financial Affordance',
+                                        'Visibility',
+                                        'Time Availability',
+                                        'Competence Adequacy',
+                                        #'Self-Congruence',
+                                        #'Value Congruence',
+                                        #'Importance',
+                                        #'Awareness',
+                                        #'Vitality',
+                                        'Long-Term Utility',
+                                        'Short-Term Utility',
+                                        'Relative Utility',
+                                        'Self- Improvement Utility',
+                                        'Negative Utility',
+                                    ],
+                                 )
+
+
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_" + str(i + 1))
