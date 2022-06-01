@@ -458,32 +458,36 @@ class STUDY_goal_setting_study(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq(n_items=1, language="en", version="V3", attention_checks=False, exclude_dimensions=['Content Specificity', 'Time Specificity', 'Network Congruence', 'Measurability', 'Immediate Actionability',
-         'Estimated Effort', 'Plannability', 'Controllability', 'Challenge', 'Defined Subgoals', 'Social Support',
-         'Informational Support', 'Instrumental Support', 'Financial Affordance', 'Visibility', 'Time Availability',
-         'Competence Adequacy', 'Long-Term Utility', 'Short-Term Utility', 'Relative Utility',
-         'Self- Improvement Utility', 'Negative Utility'])
+        gcq_items = Item.get_gcq_items(file="gcq_goalsetting.csv", language="en")
         for i in range(len(gcq_items)):
             item = gcq_items[i]
-            self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_"+str(i+1))
-            StudyContext.objects.update_or_create(study=self.study, view="goal_characteristics_questionnaire_item_"+str(i+1),
-                defaults={
-                    "context": {
-                        "personal_goal_items": True,
-                        "item_text": """<p style='font-weight: bold;font-size: x-large;'>{}</p>""".format(item.get("item_text", "")), # overrides the item text of the goal item
-                        "code": item.get("code", ""),                                   # overrides the item code of the goal item
-                        "latent_variable": item.get("latent_variable", ""),             # overrides the item latent_variable of the goal item
-                        "reverse_coded": item.get("reverse_coded", ""),                 # overrides the item reverse_coded
-                        "answers": Item.get_likert_scale(6, "en"),
-                        "type": "slider",
-                        "slider_min": 0,                # minimum slider value
-                        "slider_max": 100,              # maximum slider value
-                        "slider_step": 1,            # slider step length
-                        "show_values": True,
-                        "required": True,
-                    }
-                }
-            )
+            self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_" + str(i + 1))
+            StudyContext.objects.update_or_create(study=self.study,
+                                                  view="goal_characteristics_questionnaire_item_" + str(i + 1),
+                                                  defaults={
+                                                      "context": {
+                                                          "personal_goal_items": True,
+                                                          "item_text": """<p style='font-weight: bold;font-size: x-large;'>{}</p>""".format(
+                                                              item.get("item_text", "")),
+                                                          # overrides the item text of the goal item
+                                                          "code": item.get("code", ""),
+                                                          # overrides the item code of the goal item
+                                                          "latent_variable": item.get("latent_variable", ""),
+                                                          # overrides the item latent_variable of the goal item
+                                                          "reverse_coded": item.get("reverse_coded", ""),
+                                                          # overrides the item reverse_coded
+                                                          "answers": ["Strongly disagree", "Disagree",
+                                                                      "Slightly disagree", "Slightly agree", "Agree",
+                                                                      "Strongly agree"],
+                                                          "type": "slider",
+                                                          "slider_min": 0,  # minimum slider value
+                                                          "slider_max": 100,  # maximum slider value
+                                                          "slider_step": 1,  # slider step length
+                                                          "show_values": True,
+                                                          "required": True,
+                                                      }
+                                                  }
+                                              )
 
         self.sequence.append("instructions/debriefing")
         StudyContext.objects.update_or_create(study=self.study, view="debriefing",
