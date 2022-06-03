@@ -270,9 +270,11 @@ def open_questions(request, open_questions="open_questions"):
     study_context = models.StudyContext.get_context(study=study, view=open_questions)
 
     # tree ranking
-    tree_id = models.Goal.objects.get(id=request.session["current_root"])
-    tree = models.Goal.get_tree(tree_id)
-
+    if "current_root" in request.session.keys():
+        tree_id = models.Goal.objects.get(id=request.session["current_root"])
+        tree = models.Goal.get_tree(tree_id)
+    else:
+        tree = {}
     # single view
     if study_context.get("single_view", False):
         if "remaining_questions_indices" not in request.session or len(

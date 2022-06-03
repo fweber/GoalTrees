@@ -545,7 +545,11 @@ def plot_scatterplot_matrices(df_gcq_matrix=None, ):
 
             fig = sns_plot.fig
 
-            fig.savefig("{}/correlations_{}_{}.png".format(PLOTS_PATH, v.replace("/"," ").replace(" ","").replace("-",""), i), bbox_inches="tight", )
+            fig.savefig("{}/pdfs/correlations_{}_{}.pdf".format(PLOTS_PATH, v.replace("/"," ").replace(" ","")
+                                                                .replace("-",""), i),
+                        bbox_inches="tight",
+                        dpi=75,
+                        )
             fig.savefig(
                 "{}/pngs/correlations_{}_{}.png".format(PLOTS_PATH, v.replace("/", " ").replace(" ", "").replace("-", ""),
                                                    i), bbox_inches="tight", )
@@ -553,20 +557,39 @@ def plot_scatterplot_matrices(df_gcq_matrix=None, ):
 
             fig.clf()
 
-def create_latex():
+def create_latex(header=False):
+    if header:
+        print("\\documentclass{article}")
+        print("")
+        print("\\usepackage){graphicx}")
+        print("")
+        print("\\begin{document}")
+        print("")
+    even=0
     for variable in VARIABLES:
         variable_original=variable
         variable_original=variable_original.replace("/","")
         variable = variable.replace("/", " ").replace(" ", "").replace("-", "")
         for i in range(1,9):
-            print("\\begin{figure}[h]")
+            even += 1
+            even = even % 2
+
+            if even == 0:
+                print("\\begin{figure}[b]")
+            else:
+                print("\\begin{figure}[t]")
             print("\\centering")
-            print("\\includegraphics[width=15cm]{{Figures/Appendix_figures/correlations_{}_{}.pdf}}".format(variable,i))
+            print("\\includegraphics[width=10cm]{{Figures/Appendix_figures/correlations_{}_{}.pdf}}".format(variable,i))
             print("\\caption{{Correlations and KDE for variable {} matrix {}.}}".format(variable_original,i))
             print("\\label{{fig:Corr_and_KDE_{}_{}}}".format(variable,i))
             print("\\end{figure}")
             print("")
 
+            if even == 0:
+                print("\\clearpage")
+                print("")
+    if header:
+        print("\\end{document}")
 
 def plot_violinplot_matrix(df_gcq_matrix=None,):
 
@@ -598,6 +621,32 @@ def plot_violinplot_matrix(df_gcq_matrix=None,):
         fig.savefig("{}/violinplots_{}.png".format(PLOTS_PATH, name))
 
         fig.clf()
+
+    # ALLINONE
+
+    fig = plt.figure(figsize=(18, 18))
+    gs = fig.add_gridspec(6, 7)
+
+    j = 0
+    for scale in GCQ_SUBSCALES:
+        name=scale["scale"]
+        dimensions=scale["dimensions"]
+
+        i = 0
+        for dimension in dimensions:
+
+
+            ax = fig.add_subplot(gs[j, i])
+            sns.violinplot(data=df_gcq_matrix[dimension])
+            ax.set_xlabel(dimension)
+
+            i += 1
+        j += 1
+    fig.tight_layout()
+
+    fig.savefig("{}/violinplots_GCQ.png".format(PLOTS_PATH))
+
+    fig.clf()
 
 
 def plot_correlation_heatmap(df_gcq_matrix):
@@ -975,7 +1024,7 @@ class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
 
     def handle(self, *args, **kwargs):
-        plot_scatterplot_matrices()
+        plot_violinplot_matrix()
         sys.exit()
 
         create_latex()
@@ -984,8 +1033,15 @@ class Command(BaseCommand):
         plot_violinplot_matrix()
         sys.exit()
 
+        plot_scatterplot_matrices()
+        sys.exit()
+
         create_latex()
         sys.exit()
+
+
+
+
 
 
 
