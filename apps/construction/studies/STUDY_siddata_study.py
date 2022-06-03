@@ -203,7 +203,11 @@ class STUDY_siddata_study(STUDY_BASE):
             }
         )
 
-        gcq_items = Item.get_gcq_short_items()
+        gcq_items = Item.get_gcq(n_items=2,
+                                 language="de",
+                                 version="V3",
+                                 attention_checks=False,
+                                 exclude_dimensions=[])
         for i in range(len(gcq_items)):
             item = gcq_items[i]
             self.sequence.append("questionnaire/goal_characteristics_questionnaire_item_{}".format(str(i+1)))
@@ -217,7 +221,7 @@ class STUDY_siddata_study(STUDY_BASE):
                         "code": item.get("code", ""),                                   # overrides the item code of the goal item
                         "latent_variable": item.get("latent_variable", ""),             # overrides the item latent_variable of the goal item
                         "reverse_coded": item.get("reverse_coded", ""),      # overrides the item reverse_coded
-                        "answers": ["Stimme überhaupt nicht zu", "Stimme nicht zu", "Stimme weder zu noch lehne ab", "Simme zu", "Stimme voll und ganz zu"],
+                        "answers": Item.get_likert_scale(items=5, language="de"),
                         "type": "slider",
                         "slider_min": 0,                # minimum slider value
                         "slider_max": 1,                # maximum slider value

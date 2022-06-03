@@ -80,8 +80,7 @@ def example_tree(request):
     # root_goal = models.Goal.objects.get(tree_id=tree_id,parent_id__isnull=True)
     # tree = models.Goal.get_children(root_goal.id)
     condition = models.Participant.get_current_participant(request).condition
-    # print(tree)
-    # print("condition is {}".format(condition))
+
     context = {  # 'tree_id': tree_id,
         # 'tree': json.dumps(tree),
         'condition': models.Participant.get_current_participant(request).condition,
@@ -140,7 +139,7 @@ def tree_construction(request, condition=0, view="tree_construction"):
     if len(models.Goal.objects.filter(participant=participant, discarded=False)) == 0:
         models.Goal.create_new_tree(request)
 
-    tree_id = models.Goal.get_current_tree_id(request)
+    tree_id = models.Goal.objects.get(id=request.session["current_root"]).tree_id
     tree = models.Goal.get_tree(tree_id)
     number_of_trees = len(models.Goal.objects.filter(participant=participant, parent_id=0, discarded=False))
 
@@ -153,7 +152,7 @@ def tree_construction(request, condition=0, view="tree_construction"):
     context['tree_id'] = tree_id
     context['tree'] = json.dumps(tree)
     context["number_of_trees"] = number_of_trees
-    context["goals"] = models.Goal.get_tree_goals(tree_id).order_by("title")
+    context["goals"] = models.Goal.objects.filter(tree_id=tree_id, discarded=False).order_by("title")
     context["max_title_length"] = 20
     context["description_enabled"] = True
     context.update(study_context)
@@ -191,7 +190,7 @@ def explore_gcq(request, tree_id=None):
     study_context = models.StudyContext.get_context(study=study, view="explore_gcq")
 
     if tree_id is None:
-        tree_id = models.Goal.get_current_tree_id(request)
+        tree_id = models.Goal.objects.get(id=request.session["current_root"])
     tree = models.Goal.get_tree(tree_id)
 
     items = models.Item.get_gcq_short_items()
@@ -271,9 +270,11 @@ def open_questions(request, open_questions="open_questions"):
     study_context = models.StudyContext.get_context(study=study, view=open_questions)
 
     # tree ranking
-    tree_id = models.Goal.get_current_tree_id(request)
-    tree = models.Goal.get_tree(tree_id)
-
+    if "current_root" in request.session.keys():
+        tree_id = models.Goal.objects.get(id=request.session["current_root"])
+        tree = models.Goal.get_tree(tree_id)
+    else:
+        tree = {}
     # single view
     if study_context.get("single_view", False):
         if "remaining_questions_indices" not in request.session or len(
@@ -480,7 +481,7 @@ def index(request):
                             })
         study.init_contexts()
     context["studies"] = studies
-    print("view: {}".format(len(studies)))
+
     return render(request, 'construction/index.html', context)
 
 
