@@ -148,7 +148,9 @@ class Study(models.Model):
 
     @staticmethod
     def get_study_properties(study=None, include_sequence=False):
-        """Calculates descriptive statistics for study."""
+        """
+        Calculates descriptive statistics for study.
+        """
 
         study_properties = []
 
@@ -231,7 +233,6 @@ class Study(models.Model):
 
         study_properties.append({'name': 'nodes', "value": len(parents.keys()), "nodes": parents.values()})
         study_properties.append({'name': 'branches', "value": len(branch_depths), "branches": branch_depths})
-        #study_properties.append({'name': 'trees', "value": len(trees.keys()), "tree_sizes": trees.values()})
 
         study_properties[0]["nodes"] = parents.values()
         study_properties[0]["branches"] = branch_depths
@@ -291,7 +292,6 @@ class StudyContext(models.Model):
             return {}
 
 
-# Create your models here.
 class Participant(models.Model):
     id = models.AutoField(primary_key=True)
     age = models.IntegerField(null=True)
@@ -311,6 +311,8 @@ class Participant(models.Model):
     browser_language = models.CharField(max_length=128, null=True)
     siddata_user_id = models.CharField(max_length=256, null=True)
     exclude_from_analyses = models.BooleanField(default=False)
+    origin = models.CharField(default=settings.SERVERNAME, max_length=64)
+    origin_id = models.CharField(null=True, max_length=64)
 
     def __str__(self):
         return "{}".format(self.id)
@@ -520,7 +522,6 @@ class Goal(models.Model):
         parents = {}
         for goal in goals_in_tree:
             if goal.parent_id:
-                print(goal.parent_id)
                 if goal.parent_id in parents.keys():
                     parents[goal.parent_id] += 1
                 else:
@@ -534,10 +535,15 @@ class Goal(models.Model):
                     depth += 1
                 branch_depths.append(depth)
 
-        max_depth = max(branch_depths)
-        min_depth = min(branch_depths)
-        average_depth = statistics.mean(branch_depths)
-        average_depth = "%.2f" % average_depth
+        if len(branch_depths) > 0:
+            max_depth = max(branch_depths)
+            min_depth = min(branch_depths)
+            average_depth = statistics.mean(branch_depths)
+            average_depth = "%.2f" % average_depth
+        else:
+            max_depth = 0
+            min_depth = 0
+            average_depth = 0
 
         min_branching = min(parents.values())
         max_branching = max(parents.values())

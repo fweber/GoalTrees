@@ -8,6 +8,9 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 
 For the full list of settings antheir values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
+
+Quick-start development settings - unsuitable for production
+See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 """
 
 import os
@@ -16,8 +19,13 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+# Base URL used for instance for redirects
+ROOT_URL = "http://localhost:8000"
+
+# Name of instance used as data origin
+SERVERNAME = "sirdata"
+
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'somesecretkey'
