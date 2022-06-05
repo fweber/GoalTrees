@@ -1031,7 +1031,7 @@ def check_attention_checks(studyname="hgs_study"):
     participants = models.Participant.objects.filter(study__name=studyname,
                                                      )
     lst_failed = []
-    check_items = models.Item.CHECKITEMS["de"]
+    check_items = models.Item.get_check_items(language="de")
 
     items = models.Item.objects.filter(participant__in=participants,
                                latent_variable="check",)
