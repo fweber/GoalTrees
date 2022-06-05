@@ -659,14 +659,17 @@ class Item(models.Model):
     personal_goal = models.ForeignKey(PersonalGoal, null=True, on_delete=models.SET_NULL)
     goal = models.ForeignKey(Goal, null=True, on_delete=models.SET_NULL)
 
-    CHECKITEMS = {"en":["Choose the answering option in the middle for all items.",
-                       "Choose the answering option at the right for all items.",
-                       "Choose the answering option at the left for all items.",
-                        ],
-                  "de": ["Wähle immer die mittlere Antwortoption aus.",
-                       "Wähle immer die Anwortoption ganz rechts.",
-                       "Wähle immer die Antwortoption ganz links."],
-                  }
+    @staticmethod
+    def get_check_items(language="de"):
+        CHECKITEMS = {"en": ["Choose the answering option in the middle for all items.",
+                             "Choose the answering option at the right for all items.",
+                             "Choose the answering option at the left for all items.",
+                             ],
+                      "de": ["Wähle immer die mittlere Antwortoption aus.",
+                             "Wähle immer die Anwortoption ganz rechts.",
+                             "Wähle immer die Antwortoption ganz links."],
+                      }
+        return CHECKITEMS[language]
 
     @staticmethod
     def get_big_five_items():
@@ -694,7 +697,12 @@ class Item(models.Model):
         @param version: GCQ version, V2 or V3
         @param exclude_dimensions: list of gcq dimensions to be excluded
         """
-        check_items = Item.CHECKITEMS[language]
+        check_items = Item.get_check_items(language)
+
+        if language=="en":
+            language_name="english"
+        elif language=="de":
+            language_name="german"
 
         gcq_file = '{}/2022_GCQ_full_goaltrees.csv'.format(settings.QUESTIONNAIRE_DIR)
 
@@ -703,9 +711,9 @@ class Item(models.Model):
                                )
         gcq_items = []
 
-        item_label = "{}_item_{}".format(version, language)
-        dimension_label = "factor_{}".format(language)
-        description_label = "explanation_{}".format(language)
+        item_label = "{}_item_{}".format(version, language_name)
+        description_label = "explanation_{}".format(language_name)
+        dimension_label="factor_{}".format(language_name)
 
         for index, row in df_items.iterrows():
 

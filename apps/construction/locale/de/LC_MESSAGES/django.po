@@ -17,19 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 #: apps/construction/templates/construction/consent.html:11
 msgid "Ich bin einverstanden."
-msgstr "I hereby give my consent"
+msgstr ""
 
 #: apps/construction/templates/construction/example_tree.html:50
 #: apps/construction/templates/construction/instructions.html:24
 msgid "Weiter"
-msgstr "Continue"
+msgstr ""
 
 #: apps/construction/templates/construction/explore_gcq.html:130
 msgid "Zurück zur Baumerstellung"
-msgstr "Back to tree construction"
+msgstr ""
 
 #: apps/construction/templates/construction/goal_definition.html:18
 #: apps/construction/templates/construction/open_questions.html:119
@@ -39,80 +38,76 @@ msgstr "Back to tree construction"
 #: apps/construction/templates/construction/tree_construction.html:31
 #: apps/construction/templates/construction/userdata.html:150
 msgid "Speichern und fortfahren"
-msgstr "Save and continue"
+msgstr ""
 
 #: apps/construction/templates/construction/questionnaire.html:120
 msgid "Bitte beantworte alle Elemente"
-msgstr "Please answer all items"
+msgstr ""
 
 #: apps/construction/templates/construction/thankyou.html:32
 msgid "Speichern"
-msgstr "Save"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:46
 msgid "Wie alt bist Du?"
-msgstr "What is your age in years?"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:51
 msgid "Mit welchem Geschlecht identifizierst Du dich?"
-msgstr "How do you currently describe you gender identity?"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:53
 msgid "männlich"
-msgstr "male"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:54
 msgid "weiblich"
-msgstr "female"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:55
 msgid "divers/anders"
-msgstr "diverse/other"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:60
 msgid "Welches Fach studierst Du?"
-msgstr "What is your major?"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:61
 msgid ""
 "Die Eingabe muss mind. 5 Zeichen enthalten und mit einem Buchstaben beginnen"
-msgstr "The input must contain at least 5 characters and start with a letter"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:66
 msgid "In welchem Semester bist Du?"
-msgstr "Which semester are you in?"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:67
 msgid "(Bachelor- und Mastersemester aufaddiert)"
 msgstr ""
-"Please sum up semesters in your bachelor’s and master’s degree (1 up to e."
-"g., 10)"
 
 #: apps/construction/templates/construction/userdata.html:73
 msgid "Hast Du schon einmal Tools für die Studienplanungshilfe benutzt?"
-msgstr "Have you ever used tools that help you plan your studies?"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:77
 #: apps/construction/templates/construction/userdata.html:89
 msgid "Ja, und zwar"
-msgstr "yes, namely"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:80
 #: apps/construction/templates/construction/userdata.html:92
 msgid "Nein"
-msgstr "no"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:85
 msgid ""
 "Hast Du schon einmal eine Studienberatung für Deine Studienplanung in "
 "Anspruch genommen? Wenn ja - in welcher Form?"
 msgstr ""
-"Have you ever used a student advisory service to plan your studies? If so, "
-"in which form?"
 
 #: apps/construction/templates/construction/userdata.html:97
 msgid "Wie sicher fühlst Du Dich im Umgang mit Computern?"
-msgstr "How confident do you feel in using computers?"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:100
 #: apps/construction/templates/construction/userdata.html:101
@@ -120,8 +115,6 @@ msgid ""
 "Ich fühle mich im Umgang mit Computern sicher und finde mich in neuen "
 "Programmen intuitiv und schnell zurecht."
 msgstr ""
-"I feel confident in using computers and can quickly and intuitively find my "
-"way around new programs."
 
 #: apps/construction/templates/construction/userdata.html:104
 #: apps/construction/templates/construction/userdata.html:105
@@ -129,8 +122,6 @@ msgid ""
 "Ich fühle mich im Umgang mit Computern sicher, aber finde mich in neuen "
 "Programmen nicht intuitiv zurecht."
 msgstr ""
-"I feel confident in using computers but cannot intuitively find my way "
-"around new programs."
 
 #: apps/construction/templates/construction/userdata.html:108
 #: apps/construction/templates/construction/userdata.html:109
@@ -138,8 +129,6 @@ msgid ""
 "Ich fühle mich im Umgang mit Computern unsicher, aber finde mich in neuen "
 "Programmen intuitiv zurecht."
 msgstr ""
-"I feel unsure about using computers, but I find my way around new programs "
-"intuitively."
 
 #: apps/construction/templates/construction/userdata.html:112
 #: apps/construction/templates/construction/userdata.html:113
@@ -147,37 +136,33 @@ msgid ""
 "Ich fühle mich im Umgang mit Computern unsicher und finde mich in neuen "
 "Programmen nicht intuitiv zurecht."
 msgstr ""
-"I feel insecure when using computers and cannot intuitively find my way "
-"around new programs."
 
 #: apps/construction/templates/construction/userdata.html:121
 msgid ""
 "Wie würdest Du Deine Englisch-Kenntnisse beschreiben? (Voraussetzung für die "
 "Teilnahme an dieser Studie ist mindestens B2-Nivea)"
 msgstr ""
-"How do you describe your English proficiency? (Prerequisite for "
-"participating in this study is min. B2 level)"
 
 #: apps/construction/templates/construction/userdata.html:124
 #: apps/construction/templates/construction/userdata.html:125
 msgid "Überdurchschnittlich (B2)"
-msgstr "Upper intermediate (B2)"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:129
 #: apps/construction/templates/construction/userdata.html:130
 msgid "Fortgeschritten (C1)"
-msgstr "Advanced (C1)"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:134
 #: apps/construction/templates/construction/userdata.html:135
 msgid "Erfahren (C2)"
-msgstr "Proficient (C2)"
+msgstr ""
 
 #: apps/construction/templates/construction/userdata.html:139
 #: apps/construction/templates/construction/userdata.html:140
 msgid "Muttersprache oder Zweitsprache"
-msgstr "Native or bilingual"
+msgstr ""
 
 #: apps/construction/templates/construction/welcome.html:11
 msgid "Starten"
-msgstr "Start"
+msgstr ""
