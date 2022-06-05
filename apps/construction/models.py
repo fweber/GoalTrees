@@ -659,6 +659,15 @@ class Item(models.Model):
     personal_goal = models.ForeignKey(PersonalGoal, null=True, on_delete=models.SET_NULL)
     goal = models.ForeignKey(Goal, null=True, on_delete=models.SET_NULL)
 
+    CHECKITEMS = {"en":["Choose the answering option in the middle for all items.",
+                       "Choose the answering option at the right for all items.",
+                       "Choose the answering option at the left for all items.",
+                        ],
+                  "de": ["Wähle immer die mittlere Antwortoption aus.",
+                       "Wähle immer die Anwortoption ganz rechts.",
+                       "Wähle immer die Antwortoption ganz links."],
+                  }
+
     @staticmethod
     def get_big_five_items():
         with open(
@@ -685,16 +694,7 @@ class Item(models.Model):
         @param version: GCQ version, V2 or V3
         @param exclude_dimensions: list of gcq dimensions to be excluded
         """
-        if language == "en":
-            language = "english"
-            check_items = ["Choose the answering option in the middle for all items.",
-                           "Choose the answering option at the right for all items.",
-                           "Choose the answering option at the left for all items.", ]
-        elif language == "de":
-            language = "german"
-            check_items = ["Wähle immer die mittlere Antwortoption aus.",
-                           "Wähle immer die Anwortoption ganz rechts.",
-                           "Wähle immer die Antwortoption ganz links."]
+        check_items = Item.CHECKITEMS[language]
 
         gcq_file = '{}/2022_GCQ_full_goaltrees.csv'.format(settings.QUESTIONNAIRE_DIR)
 
