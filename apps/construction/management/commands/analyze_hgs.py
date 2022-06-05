@@ -14,6 +14,7 @@ import traceback
 import sys
 import scipy
 from django.db.models import Max
+import logging
 
 EXPORT_PATH = "{}/data/hgs_data".format(os.getcwd())
 PLOTS_PATH = "{}/plots".format(EXPORT_PATH)
@@ -1020,11 +1021,61 @@ def create_descriptive_plots():
     plt.clf()
 
 
+def check_attention_checks(studyname="hgs_study"):
+    """
+    Iterates over participants and checks if attention checks were answered correctly.
+    Set participant.exclude_from_analyses to True if checks were not passed.
+    @return: List of participants who did not pass.
+    """
+    print("Filtering out participants based on attention_check...")
+    participants = models.Participant.objects.filter(study__name=studyname,
+                                                     )
+    lst_failed = []
+    check_items = models.Item.CHECKITEMS["de"]
+
+    items = models.Item.objects.filter(participant__in=participants,
+                               latent_variable="check",)
+
+    for p in participants:
+        my_items=items.filter(participant=p)
+        if len(my_items)== 0:
+            continue
+        failed = 0
+        for i in my_items:
+            if check_items[0] in i.text:
+                if float(i.given_answer)< 0.4 or float(i.given_answer)> 0.6:
+                    failed += 1
+            elif check_items[1] in i.text:
+                if float(i.given_answer)< 0.9:
+                    failed += 1
+            elif check_items[2] in i.text:
+                if float(i.given_answer)> 0.1:
+                    failed += 1
+
+        score=(len(my_items)-failed)/len(my_items)
+        if score < 0.7:
+            lst_failed.append({"id":p.id,
+                              "score":score,
+                               "n_items":len(my_items),
+                              "p_object":p,
+                               })
+
+    print("{} participants failed".format(len(lst_failed)))
+    for p in lst_failed:
+        print("p {} score: {} of: {}".format(p["id"], p["score"], p["n_items"]))
+        participant = p["p_object"]
+        participant.exclude_from_analyses=True
+        participant.save()
+    print("Participants were excluded from further analyses!")
+    return lst_failed
+
 class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
 
     def handle(self, *args, **kwargs):
-        plot_violinplot_matrix()
+        #plot_violinplot_matrix()
+        failed=check_attention_checks()
+        #print(failed)
         sys.exit()
 
         create_latex()
