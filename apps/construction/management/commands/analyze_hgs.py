@@ -13,11 +13,13 @@ import datetime
 import traceback
 import sys
 import scipy
+from scipy.stats import pearsonr
 from django.db.models import Max
 import logging
 
 EXPORT_PATH = "{}/data/hgs_data".format(os.getcwd())
 PLOTS_PATH = "{}/plots".format(EXPORT_PATH)
+LOGFILE = "{}/hgs_analyses.log".format(EXPORT_PATH)
 
 VARIABLES = [
     'Depth',
@@ -111,14 +113,21 @@ GCQ_SUBSCALES = [{"scale":"Structural Subscale",
                 ]
             }
         ]
+
+def write_to_logfile(message):
+    print(message)
+    with open(LOGFILE, 'a') as logfile:
+        logfile.writelines(message + "\n")
+
+
 def extract_participants():
     """Extracts demographic data"""
 
-    print("Extracting participants from DB...")
+    write_to_logfile("Extracting participants from DB...")
     participants = models.Participant.objects.filter(study__name="hgs_study",
                                                      exclude_from_analyses=False,
                                                      ).exclude(finished=None)
-    print("Found {} complete participants.".format(len(participants)))
+    write_to_logfile("Found {} complete participants.".format(len(participants)))
     data = {}
     columns = ["age", "gender", "subject", "semester", "duration", "screen_size", "operating_system",
                "browser_language"]
@@ -146,14 +155,14 @@ def extract_participants():
 
 def extract_personal_goals():
     """Extracts personal goal data"""
-    print("Extracting personal goals from DB...")
+    write_to_logfile("Extracting personal goals from DB...")
     participants = models.Participant.objects.filter(study__name="hgs_study",
                                                      exclude_from_analyses=False,
                                                      ).exclude(finished=None)
 
     data = {}
     columns = ["participant_id", "goal_id", "goal"]
-    gcq = models.Item.get_gcq(n_items=2)
+    gcq = models.Item.get_gcq(n_items=1)
     for item in gcq:
         columns.append(item["code"])
     for p in participants:
@@ -168,11 +177,18 @@ def extract_personal_goals():
                                                    code=c,
                                                    personal_goal=pg, )
                 if len(items) == 1:
-                    data[pg.pk].append(items[0].given_answer)
+                    if items[0].reverse_coded==True:
+                        data[pg.pk].append(1-float(items[0].given_answer))
+                    else:
+                        data[pg.pk].append(items[0].given_answer)
                 elif len(items) == 0:
-                    data[pg.pk].append(None)
+                    raise Exception("Participant {}, personal goal {} without GCQ item {}.".format(p.id, pg.id, c))
                 elif len(items) == 2:
-                    data[pg.pk].append([items[0].given_answer, items[1].given_answer])
+                    if items[0].reverse_coded==True:
+                        data[pg.pk].append(1 - ((float(items[0].given_answer) + float(items[1].given_answer)) / 2))
+                    else:
+                        data[pg.pk].append((items[0].given_answer+ items[1].given_answer)/2)
+
                 else:
                     print("Found {} items for {}!".format(len(items), items[0].code))
 
@@ -180,14 +196,17 @@ def extract_personal_goals():
                                       orient="index",
                                       columns=columns)
 
-    df_goals.to_csv("{}/personal_goals.csv".format(EXPORT_PATH),
+    df_goals.to_csv("{}/personal_goals_normalized_reverse_gcq_coding.csv".format(EXPORT_PATH),
                     sep=";")
     return df_goals
 
 
 def extract_goals():
-    """Extracts goal data"""
-    print("Extracting goals from DB...")
+    """
+    Extracts goal data from DB, normalizes reverse coding of items, saves it as csv file.
+    @return: Returns dataframe with normalized gcq item scores.
+    """
+    write_to_logfile("Extracting goals from DB...")
     participants = models.Participant.objects.filter(study__name="hgs_study",
                                                      exclude_from_analyses=False,
                                                      ).exclude(finished=None)
@@ -198,7 +217,9 @@ def extract_goals():
     for item in gcq:
         columns.append(item["code"])
     for p in participants:
-        goals = models.Goal.objects.filter(participant=p)
+        goals = models.Goal.objects.filter(participant=p,
+                                           is_example=False,
+                                           discarded=False,)
         for g in goals:
 
             data[g.pk] = [p.id, "g_{}".format(g.pk), g.title, g.tree_id, g.get_depth()]
@@ -209,27 +230,37 @@ def extract_goals():
                                                    code=c,
                                                    goal=g, )
                 if len(items) == 1:
-                    data[g.pk].append(items[0].given_answer)
+                    if items[0].reverse_coded==True:
+                        data[g.pk].append(1-float(items[0].given_answer))
+                    else:
+                        data[g.pk].append(items[0].given_answer)
                 elif len(items) == 0:
-                    data[g.pk].append(None)
+                    raise Exception("Participant {}, goal {} without GCQ item {}.".format(p.id, g.id, c))
                 elif len(items) == 2:
-                    data[g.pk].append([items[0].given_answer, items[1].given_answer])
+                    new_answer=(float(items[0].given_answer)+ float(items[1].given_answer)/2)
+                    items[0].given_answer=new_answer
+                    items[0].save()
+                    items[1].delete()
+                    if items[0].reverse_coded==True:
+                        data[g.pk].append(1-float(items[0].given_answer))
+                    else:
+                        data[g.pk].append(items[0].given_answer)
                 else:
                     print("Found {} items for {}!".format(len(items), items[0].code))
 
     df_goals = pd.DataFrame.from_dict(data=data,
                                       orient="index",
                                       columns=columns)
-    print("Found {} valid goals.".format(len(df_goals)))
+    write_to_logfile("Found {} valid goals.".format(len(df_goals)))
 
-    df_goals.to_csv("{}/goals.csv".format(EXPORT_PATH),
+    df_goals.to_csv("{}/goals_normalized_reverse_coding.csv".format(EXPORT_PATH),
                     sep=";")
     return df_goals
 
 
 def analyze_pre_post():
     """Extracts demographic data"""
-    print("Calculating pre- post comparison...")
+    write_to_logfile("Calculating pre- post comparison...")
     participants = models.Participant.objects.filter(study__name="hgs_study",
                                                      exclude_from_analyses=False,
                                                      ).exclude(finished=None)
@@ -244,40 +275,65 @@ def analyze_pre_post():
         personal_goals = models.PersonalGoal.objects.filter(participant=p)
 
         for pg in personal_goals:
-            goals = models.Goal.objects.filter(participant=p,
-                                               title=pg.name, )
-            if len(goals) == 1:
-                g = goals[0]
+
+            print("Personal goal: {}".format(pg.name))
+            if models.Goal.objects.filter(participant=p,
+                                          title=pg.name,
+                                          parent_id=None).exists():
+                g = models.Goal.objects.get(participant=p,
+                                               title=pg.name,
+                                            parent_id=None)
             else:
-                print("N goals = {}".format(len(goals)))
                 continue
 
-            data[g.pk] = [p.pk, g.pk, pg.pk, g.title]
+            data[pg.pk] = [p.pk, g.pk, pg.pk, g.title]
             for c in gcq:
-
+                print("GCQ item: {}".format(c))
                 # append pre value(s)
                 pg_items = models.Item.objects.filter(participant=p,
-                                                      code=c,
+                                                      code=c["code"],
                                                       personal_goal=pg, )
                 if len(pg_items) == 1:
-                    data[g.pk].append(pg_items[0].given_answer)
+                    if pg_items[0].reverse_coded==True:
+                        data[pg.pk].append(1-float(pg_items[0].given_answer))
+                    else:
+                        data[pg.pk].append(pg_items[0].given_answer)
                 elif len(pg_items) == 0:
-                    data[g.pk].append(None)
+                    raise Exception("Participant {}, personal goal {} without GCQ item {}.".format(p.id, pg.id, c))
                 elif len(pg_items) == 2:
-                    data[g.pk].append([pg_items[0].given_answer, pg_items[1].given_answer])
+                    new_answer=(float(pg_items[0].given_answer)+ float(pg_items[1].given_answer)/2)
+                    pg_items[0].given_answer=new_answer
+                    pg_items[0].save()
+                    pg_items[1].delete()
+                    if pg_items[0].reverse_coded==True:
+                        data[g.pk].append(1-float(pg_items[0].given_answer))
+                    else:
+                        data[g.pk].append(pg_items[0].given_answer)
+                    data[pg.pk].append((float(pg_items[0].given_answer)+float(pg_items[1].given_answer))/2)
                 else:
                     print("Found {} items for personal goal {}!".format(len(pg_items), pg_items[0].code))
 
                 # append post value(s)
                 g_items = models.Item.objects.filter(participant=p,
-                                                     code=c,
-                                                     goal=g, )
+                                                      code=c["code"],
+                                                      goal=g, )
                 if len(g_items) == 1:
-                    data[g.pk].append(g_items[0].given_answer)
+                    if g_items[0].reverse_coded==True:
+                        data[pg.pk].append(1-float(g_items[0].given_answer))
+                    else:
+                        data[pg.pk].append(g_items[0].given_answer)
                 elif len(g_items) == 0:
-                    data[g.pk].append(None)
+                    raise Exception("Participant {}, personal goal {} without GCQ item {}.".format(p.id, pg.id, c))
                 elif len(g_items) == 2:
-                    data[g.pk].append([g_items[0].given_answer, g_items[1].given_answer])
+                    new_answer=(float(g_items[0].given_answer)+ float(g_items[1].given_answer)/2)
+                    g_items[0].given_answer=new_answer
+                    g_items[0].save()
+                    g_items[1].delete()
+                    if g_items[0].reverse_coded==True:
+                        data[g.pk].append(1-float(g_items[0].given_answer))
+                    else:
+                        data[g.pk].append(g_items[0].given_answer)
+                    data[pg.pk].append((float(g_items[0].given_answer)+float(g_items[1].given_answer))/2)
                 else:
                     print("Found {} items for personal goal {}!".format(len(g_items), g_items[0].code))
 
@@ -291,12 +347,42 @@ def analyze_pre_post():
 
     df_pre_post.to_csv("{}/pre_post.csv".format(EXPORT_PATH),
                        sep=";")
-    return df_pre_post
+
+    columns=["Dimension","statistic","p-value"]
+    data={}
+    for item in gcq:
+        write_to_logfile("T-Test for related samples for GCQ dimension:")
+        write_to_logfile(item["latent_variable"])
+        pre = df_pre_post["pre_{}".format(item["code"])]
+        post = df_pre_post["post_{}".format(item["code"])]
+        a=[]
+        b=[]
+        for i in pre:
+            a.append(float(i))
+        for i in post:
+            b.append(float(i))
+
+        statistic, pvalue = scipy.stats.ttest_rel(a,
+                                    b,
+                                    axis=0,
+                                    nan_policy='propagate',
+                                    #alternative='two-sided',
+                                    )
+        data[item["latent_variable"]] = [item["latent_variable"],statistic,pvalue]
+
+    df_pre_post_statistics = pd.DataFrame.from_dict(data=data,
+        orient = "index",
+        columns = columns)
+
+    df_pre_post_statistics.to_csv("{}/pre_post_statistics.csv".format(EXPORT_PATH),
+        sep = ";")
+
+
 
 
 def extract_items():
     """Extracts all items"""
-    print("Extracting items from DB...")
+    write_to_logfile("Extracting items from DB...")
     participants = models.Participant.objects.filter(study__name="hgs_study",
                                                      exclude_from_analyses=False,
                                                      ).exclude(finished=None)
@@ -319,6 +405,7 @@ def extract_items():
 
     for p in participants:
         items = models.Item.objects.filter(participant=p)
+        print("{} items".format(len(items)))
         for i in items:
             data[i.pk] = [i.id,
                           i.questionnaire,
@@ -334,6 +421,7 @@ def extract_items():
                           i.goal.pk if i.goal else None,
                           i.goal.title if i.goal else None,
                           ]
+    print("data: {}".format(len(data)))
 
     df_items = pd.DataFrame.from_dict(data=data,
                                       orient="index",
@@ -346,7 +434,7 @@ def extract_items():
 
 def create_gcq_matrix(df_goals):
     """evaluates gcq answers and calculates a score per gcq dimension"""
-    print("Calculating GCQ matrix...")
+    write_to_logfile("Calculating GCQ matrix...")
     gcq_data = models.Item.get_gcq(n_items=2)
 
     gcq_dictionary = {}
@@ -359,10 +447,6 @@ def create_gcq_matrix(df_goals):
         else:
             gcq_dictionary[gcq_item["latent_variable"]].append({"code": gcq_item["code"],
                                                                 "reverse_coded": gcq_item["reverse_coded"]})
-
-        gcq_items.append("{}_{}_reverse_corrected".format(gcq_item["latent_variable"], gcq_item["code"]))
-
-    print(gcq_dictionary.keys())
 
     data = {}
     columns = ["participant_id", "goal_id", "goal", "tree_id", "Depth"]
@@ -387,73 +471,18 @@ def create_gcq_matrix(df_goals):
             print("items for {}: {}".format(dimension, len(gcq_dictionary[dimension])))
 
             try:
-
-                if gcq_dictionary[dimension][0]["reverse_coded"] == True:
-                    print("dimension {} first item {} is reverse coded".format(dimension,
-                                                                               gcq_dictionary[dimension][0]["code"]))
-                    first = 1 - float(row[gcq_dictionary[dimension][0]["code"]])
-                elif gcq_dictionary[dimension][0]["reverse_coded"] == False:
-                    print("dimension {} first item {} is NOT reverse coded".format(dimension,
-                                                                                   gcq_dictionary[dimension][0][
-                                                                                       "code"]))
-                    first = float(row[gcq_dictionary[dimension][0]["code"]])
-                else:
-                    print("Unknown value for reverse_coded (boolean expected): {}".format(
-                        gcq_dictionary[dimension][0]["reverse_coded"]))
+                first = float(row[gcq_dictionary[dimension][0]["code"]])
             except Exception as e:
                 print("error for first")
-                if type(row[gcq_dictionary[dimension][0]["code"]]) == list:
-                    print("is list")
-                    if len(row[gcq_dictionary[dimension][0]["code"]]) == 2:
-                        print("length 2")
-                        if row[gcq_dictionary[dimension][0]["code"]][0] == row[gcq_dictionary[dimension][0]["code"]][1]:
-                            print("both equal")
-                            first = float(row[gcq_dictionary[dimension][0]["code"]][0])
-                            print("FIXED")
 
             try:
-                print("dimension: {}".format(dimension))
-                print("gcq_dictionary[dimension]: {}".format(gcq_dictionary[dimension]))
-                print("second item: {}".format(gcq_dictionary[dimension][1]["code"]))
-                print("type of row: {}".format(type(row)))
-                try:
-                    score = row[gcq_dictionary[dimension][1]["code"]]
-                    print("second score is: {}".format(score))
-                except:
-                    print("no score in row")
-
-                if gcq_dictionary[dimension][1]["reverse_coded"] == True:
-                    print("dimension {} second item {} is reverse coded".format(dimension,
-                                                                                gcq_dictionary[dimension][1]["code"]))
-                    second = 1 - float(row[gcq_dictionary[dimension][1]["code"]])
-                elif gcq_dictionary[dimension][1]["reverse_coded"] == False:
-                    print("dimension {} second item {} is NOT reverse coded".format(dimension,
-                                                                                    gcq_dictionary[dimension][1][
-                                                                                        "code"]))
-                    second = float(row[gcq_dictionary[dimension][1]["code"]])
-                else:
-                    print("Unknown value for reverse_coded (boolean expected): {}".format(
-                        gcq_dictionary[dimension][0]["reverse_coded"]))
+                second = float(row[gcq_dictionary[dimension][1]["code"]])
 
             except Exception as e:
                 print("error for second")
-                if type(row[gcq_dictionary[dimension][1]["code"]]) == list:
-                    print("is list")
-                    if len(row[gcq_dictionary[dimension][1]["code"]]) == 2:
-                        print("length 2")
-                        if row[gcq_dictionary[dimension][1]["code"]][0] == row[gcq_dictionary[dimension][1]["code"]][1]:
-                            print("both equal")
-                            second = float(row[gcq_dictionary[dimension][1]["code"]][0])
-                            print("FIXED")
 
             # write average score for factor
             data[row["goal_id"]][dimension] = (first + second) / 2
-
-            firstcode = gcq_dictionary[dimension][0]["code"]
-            secondcode = gcq_dictionary[dimension][1]["code"]
-
-            data[row["goal_id"]]["{}_{}_reverse_corrected".format(dimension, firstcode)] = first
-            data[row["goal_id"]]["{}_{}_reverse_corrected".format(dimension, secondcode)] = second
 
     df_gcq_matrix = pd.DataFrame.from_dict(data=data,
                                            orient="index",
@@ -466,7 +495,7 @@ def create_gcq_matrix(df_goals):
 
 
 def plot_correlations(df_gcq_matrix):
-    print("Creating correlation plots...")
+    write_to_logfile("Creating correlation plots...")
 
     df_gcq_matrix.describe()
 
@@ -520,7 +549,8 @@ def plot_correlations(df_gcq_matrix):
         fig.clf()
 
 
-def plot_scatterplot_matrices(df_gcq_matrix=None, ):
+def plot_scatterplot_matrices(df_gcq_matrix=None):
+    write_to_logfile("Create scatterplot matrices for GCQ...")
     if not df_gcq_matrix:
         df_gcq_matrix = pd.read_csv(filepath_or_buffer="{}/gcq_matrix.csv".format(EXPORT_PATH),
                                     sep=";")
@@ -559,42 +589,45 @@ def plot_scatterplot_matrices(df_gcq_matrix=None, ):
             fig.clf()
 
 def create_latex(header=False):
-    if header:
-        print("\\documentclass{article}")
-        print("")
-        print("\\usepackage){graphicx}")
-        print("")
-        print("\\begin{document}")
-        print("")
-    even=0
-    for variable in VARIABLES:
-        variable_original=variable
-        variable_original=variable_original.replace("/","")
-        variable = variable.replace("/", " ").replace(" ", "").replace("-", "")
-        for i in range(1,9):
-            even += 1
-            even = even % 2
+    write_to_logfile("Creating LaTex code for image imports...")
 
-            if even == 0:
-                print("\\begin{figure}[b]")
-            else:
-                print("\\begin{figure}[t]")
-            print("\\centering")
-            print("\\includegraphics[width=10cm]{{Figures/Appendix_figures/correlations_{}_{}.pdf}}".format(variable,i))
-            print("\\caption{{Correlations and KDE for variable {} matrix {}.}}".format(variable_original,i))
-            print("\\label{{fig:Corr_and_KDE_{}_{}}}".format(variable,i))
-            print("\\end{figure}")
-            print("")
+    with open("{}/appendix.tex".format(EXPORT_PATH),"w") as file:
+        if header:
+            file.write("\\documentclass{article}")
+            file.write("")
+            file.write("\\usepackage){graphicx}")
+            file.write("")
+            print("\\begin{document}")
+            file.write("")
+        even=0
+        for variable in VARIABLES:
+            variable_original=variable
+            variable_original=variable_original.replace("/","")
+            variable = variable.replace("/", " ").replace(" ", "").replace("-", "")
+            for i in range(1,9):
+                even += 1
+                even = even % 2
 
-            if even == 0:
-                print("\\clearpage")
-                print("")
-    if header:
-        print("\\end{document}")
+                if even == 0:
+                    file.write("\\begin{figure}[b]")
+                else:
+                    file.write("\\begin{figure}[t]")
+                file.write("\\centering")
+                file.write("\\includegraphics[width=10cm]{{Figures/Appendix_figures/correlations_{}_{}.pdf}}".format(variable,i))
+                file.write("\\caption{{Correlations and KDE for variable {} matrix {}.}}".format(variable_original,i))
+                file.write("\\label{{fig:Corr_and_KDE_{}_{}}}".format(variable,i))
+                file.write("\\end{figure}")
+                file.write("")
 
-def plot_violinplot_matrix(df_gcq_matrix=None,):
+                if even == 0:
+                    file.write("\\clearpage")
+                    file.write("")
+        if header:
+            file.write("\\end{document}")
 
-    if not df_gcq_matrix:
+def plot_violinplot_matrix(df_gcq_matrix=None):
+
+    if df_gcq_matrix is None:
         df_gcq_matrix = pd.read_csv(filepath_or_buffer="{}/gcq_matrix.csv".format(EXPORT_PATH),
                                     sep=";")
 
@@ -654,12 +687,11 @@ def plot_correlation_heatmap(df_gcq_matrix):
     """
     Creates a correlation matrix and saves it as png plot.
     """
-    print("Saving heatmap plots as .png files... ")
+    write_to_logfile("Saving heatmap plots as .png files... ")
 
     df_corr = df_gcq_matrix[VARIABLES].corr()
 
     df_corr.to_csv(path_or_buf="{}/correlation_matrix.csv".format(EXPORT_PATH), sep=";")
-    plot_correlation_heatmap(df_corr)
 
     plt.clf()
 
@@ -713,13 +745,14 @@ def extract_large_tree_data(size):
     """Extracts all trees with more than n goals and saves them in a csv file.
     @param size : Minimum size of trees to be included
     """
-    print("Extracting large tree data...")
+    write_to_logfile("Extracting large tree data...")
     max_tree_id = models.Goal.objects.all().aggregate(Max('tree_id'))['tree_id__max']
 
     data = {'tree_id': [], "size": []}
 
     for i in range(max_tree_id):
         goals = models.Goal.objects.filter(tree_id=i,
+                                           is_example=False,
                                            discarded=False, )
         if len(goals) > size:
             data["tree_id"].append(i)
@@ -729,12 +762,12 @@ def extract_large_tree_data(size):
                                   data=data)
     df_large_trees.set_index('tree_id')
     df_large_trees.to_csv(path_or_buf="{}/large_trees.csv".format(EXPORT_PATH), sep=";")
-    print("Large tree data was saved as csv.")
+    write_to_logfile("Large tree data was saved as csv.")
 
 
 def create_descriptive_plots_hgs_study():
     """Create plots for descriptive statistics."""
-    print("Create descriptive plots for HGS study...")
+    write_to_logfile("Create descriptive plots for HGS study...")
     max_tree_id = models.Goal.objects.all().aggregate(Max('tree_id'))['tree_id__max']
 
     hgs_trees = []
@@ -797,7 +830,8 @@ def create_descriptive_plots_hgs_study():
     counter = {}
     non_leaves = 0
     for g in goals:
-        descendants = models.Goal.objects.filter(parent_id=g.id)
+        descendants = models.Goal.objects.filter(parent_id=g.id,
+                                                 discarded=False,)
         branching = len(descendants)
         if branching > 0:
             non_leaves += 1
@@ -877,7 +911,7 @@ def create_descriptive_plots_hgs_study():
 
 def create_descriptive_plots():
     """Create plots for descriptive statistics."""
-    print("Create descriptive plots...")
+    write_to_logfile("Create descriptive plots...")
     max_tree_id = models.Goal.objects.all().aggregate(Max('tree_id'))['tree_id__max']
 
     hgs_trees = []
@@ -943,7 +977,9 @@ def create_descriptive_plots():
     counter = {}
     nodes = 0
     for g in goals:
-        descendants = models.Goal.objects.filter(parent_id=g.id)
+        descendants = models.Goal.objects.filter(parent_id=g.id,
+                                                 discarded=False,
+                                                 )
         branching = len(descendants)
         if branching > 0:
             nodes += 1
@@ -1027,7 +1063,7 @@ def check_attention_checks(studyname="hgs_study"):
     Set participant.exclude_from_analyses to True if checks were not passed.
     @return: List of participants who did not pass.
     """
-    print("Filtering out participants based on attention_check...")
+    write_to_logfile("Filtering out participants based on attention_check...")
     participants = models.Participant.objects.filter(study__name=studyname,
                                                      )
     lst_failed = []
@@ -1055,65 +1091,335 @@ def check_attention_checks(studyname="hgs_study"):
         score=(len(my_items)-failed)/len(my_items)
         if score < 0.7:
             lst_failed.append({"id":p.id,
-                              "score":score,
+                              "score":"%.2f" % score,
                                "n_items":len(my_items),
                               "p_object":p,
                                })
 
-    print("{} participants failed".format(len(lst_failed)))
+    write_to_logfile("{} participants failed attention checks".format(len(lst_failed)))
     for p in lst_failed:
-        print("p {} score: {} of: {}".format(p["id"], p["score"], p["n_items"]))
+        write_to_logfile("p {} score: {}, of: {}".format(p["id"], p["score"], p["n_items"]))
         participant = p["p_object"]
         participant.exclude_from_analyses=True
         participant.save()
-    print("Participants were excluded from further analyses!")
+    write_to_logfile("Participants were excluded from further analyses!")
     return lst_failed
+
+
+def check_completeness(studyname="hgs_study"):
+    """
+    Iterates over participants and checks if all GCQ-items were answered.
+    @return: List of participants who did not pass.
+    """
+
+    write_to_logfile("DATA COMPLETENESS CHECK...")
+    participants = models.Participant.objects.filter(study__name=studyname,
+                                                     )
+
+    personal_goal_gcq = models.Item.get_gcq(language="de",
+                                            n_items=1)
+
+    goal_gcq = models.Item.get_gcq(language="de",
+                                            n_items=2)
+
+    print("Check presence of the following {} GCQ items:".format(len(goal_gcq)))
+    for gcq in goal_gcq:
+        print(gcq["code"])
+
+    lst_failed=[]
+    pg_incorrect=[]
+    g_incorrect=[]
+
+
+    for p in participants:
+        print("Checking participant {}".format(p.id))
+        missing_data=[]
+
+        ### PERSONAL GOAL COUNT CHECK ###
+
+        personal_goals=models.PersonalGoal.objects.filter(participant=p)
+
+        personal_goal_items=models.Item.objects.filter(participant=p,).exclude(personal_goal=None)
+        print("PERSONAL GOAL CHECK")
+        print("P {} pgs: {} items: {}".format(p.id, len(personal_goals), len(personal_goal_items)))
+
+        if len(personal_goals) == 0:
+            missing_data.append({"pg":"None",})
+            print("MISSING_DATA: No personal goals")
+            lst_failed.append({"id":p.id,
+                        "missing":len(missing_data),
+                        "missing_data":copy.deepcopy(missing_data),
+                        "problem":"NO PG"
+                        })
+            if p not in pg_incorrect:
+                pg_incorrect.append(p)
+            continue
+
+        elif len(personal_goals) == 3 and len(personal_goal_items) == 105:
+                print("Personal goals correct: 3 personal goals and 105 items.")
+        else:
+                print("ERROR: Personal goals incorrect: {} personal goals and {} items.".format(len(personal_goals),
+                                                                                                len(personal_goal_items)))
+                missing_data.append({"pg":"{} personal goals and {} items.".format(len(personal_goals),
+                                                                                                len(personal_goal_items)),})
+                lst_failed.append({"id": p.id,
+                                   "missing": len(missing_data),
+                                   "missing_data": copy.deepcopy(missing_data),
+                                   "problem": "Personal Goal number mismatch"
+                                   })
+                if p not in pg_incorrect:
+                    pg_incorrect.append(p)
+                continue
+
+        ### GOAL COUNT CHECK ###
+
+        goals = models.Goal.objects.filter(participant=p,
+                                           discarded=False,
+                                           is_example=False,)
+
+        goal_items = models.Item.objects.filter(participant=p,)\
+            .exclude(goal=None)\
+            .exclude(goal__discarded=True)
+
+        print("GOAL CHECK")
+        print("P {} gs: {} items: {}".format(p.id, len(goals), len(goal_items)))
+
+        if len(goals) == 0:
+            missing_data.append({"g": "None", })
+            print("MISSING_DATA: No goals")
+            lst_failed.append({"id": p.id,
+                               "missing": len(missing_data),
+                               "missing_data": copy.deepcopy(missing_data),
+                               "problem": "NO Goals"
+                               })
+            if p not in g_incorrect:
+                g_incorrect.append(p)
+            continue
+
+        elif len(goals)*len(goal_gcq) < len(goal_items):
+            print("Goals and item count consistent: {} goals and {} items.".format(len(goals), len(goal_items)))
+        else:
+            print("ERROR: Goals and item count inconsistent: {} goals and {} items.".format(len(goals),
+                                                                                            len(goal_items)))
+
+            missing_data.append({"g": "inconsistent: {} goals and {} items.".format(len(goals),
+                                                                                len(goal_items)), })
+            lst_failed.append({"id": p.id,
+                               "missing": len(missing_data),
+                               "missing_data": copy.deepcopy(missing_data),
+                               "problem": "Goals and item count inconsistent: {} goals and {} items.".format(len(goals),
+                                                                                            len(goal_items))
+                               })
+            if p not in g_incorrect:
+                g_incorrect.append(p)
+            continue
+
+        ### DETAILED PERSONAL GOAL CHECK ###
+
+        for pg in personal_goals:
+            for gcq_item in personal_goal_gcq:
+                item = models.Item.objects.filter(participant=p,
+                                                  code=gcq_item["code"],
+                                                  personal_goal=pg,
+                                                  )
+                if len(item) == 0:
+                    print("ITEM MISSING")
+
+                    missing_data.append({"pg": pg.id,
+                                         "gcq_item": gcq_item["code"],
+                                         "problem": "ITEM MISSING"
+                                         })
+                    if p not in g_incorrect:
+                        g_incorrect.append(p)
+                elif len(item) == 1:
+                    given_answer = item[0].given_answer
+                    if given_answer == None:
+                        missing_data.append({"pg": pg.id,
+                                         "gcq_item": gcq_item["code"],
+                                         "problem": "NO ANSWER",
+                                         })
+                else:
+                    print("{} ITEMS".format(len(item)))
+
+                    missing_data.append({"pg": pg.id,
+                                         "gcq_item": gcq_item["code"],
+                                         "problem":"{} ITEMS".format(len(item)),
+                                         })
+                    if p not in g_incorrect:
+                        g_incorrect.append(p)
+
+
+        ### DETAILED GOAL CHECK ###
+
+        for g in goals:
+            print("{} {}".format(len(models.Item.objects.filter(goal=g)),g.title))
+
+        for g in goals:
+            for gcq_item in goal_gcq:
+                items = models.Item.objects.filter(participant=p,
+                                                       code=gcq_item["code"],
+                                                       goal=g,
+                                                       )
+                if len(items)==0:
+                    print("ITEM MISSING")
+                    missing_data.append({"g": g.id,
+                                         "gcq_item": gcq_item["code"],
+                                         "problem": "ITEM MISSING"
+                                         })
+                    if p not in g_incorrect:
+                        g_incorrect.append(p)
+                elif len(items)==1:
+                    given_answer = items[0].given_answer
+                    if given_answer == None:
+                        missing_data.append({"g": g.id,
+                                             "gcq_item": gcq_item["code"],
+                                             "problem": "NO ANSWER"
+                                             })
+                        if p not in g_incorrect:
+                            g_incorrect.append(p)
+                        print("NO ANSWER")
+                    else:
+                        print("ITEM CORRECT")
+                else:
+                    print("{} ITEMS".format(len(items)))
+
+                    with open('{}/double_GCQ.txt'.format(EXPORT_PATH), 'w') as data:
+                        for i in items:
+                            data.write("Participant {} item {} score {}".format(p.pk,i.code,i.given_answer))
+
+                    new_score = (float(items[0].given_answer) + float(items[1].given_answer))/2
+                    items[0].given_answer=new_score
+                    items[0].save()
+                    items[1].delete()
+                    print("SET AVERAGE ANSWER")
+                    print("DELETED ONE INSTANCE")
+
+
+
+        if len(missing_data) > 0:
+            lst_failed.append({"id":p.id,
+                        "missing":len(missing_data),
+                        "missing_data":copy.deepcopy(missing_data),
+                        "problem":missing_data[0]["problem"],
+                        })
+
+    failed_ids=[]
+    for p in lst_failed:
+        participant = models.Participant.objects.get(pk=p["id"])
+        participant.exclude_from_analyses=True
+        participant.save()
+        if p["id"] not in failed_ids:
+            failed_ids.append(p["id"])
+    with open('{}/check_output.json'.format(EXPORT_PATH), 'w') as data:
+        data.write(json.dumps(lst_failed))
+    write_to_logfile("{} participants passed".format((len(participants)-len(lst_failed))))
+    write_to_logfile("{} participants failed".format(len(lst_failed)))
+    write_to_logfile("{} participants failed due to personal goal data missing".format(len(pg_incorrect)))
+    write_to_logfile("{} participants failed due to goal data missing".format(len(g_incorrect)))
+    i=1
+    for p in participants:
+        if p.id not in failed_ids:
+            write_to_logfile("Participant {} passed {}".format(p.id,i))
+            i+=1
+    print("Participants were excluded from further analyses!")
+
+    return lst_failed
+
+def gcq_item_correlations_within_factor(df_goals=None):
+    """
+    Calculates correlation for two GCQ items of the same factor
+    @param df_goals: Dataframe with goals and their scores for gcq items
+    @return:
+    @rtype:
+    """
+    if df_goals is None:
+        df_goals = pd.read_csv(filepath_or_buffer="{}/goals_normalized_reverse_coding.csv".format(EXPORT_PATH),
+                                    sep=";")
+
+    gcq=models.Item.get_gcq(n_items=2)
+
+    dimensions={}
+
+    for gc in gcq:
+        dimension=gc["latent_variable"]
+        code=gc["code"]
+        if dimension in dimensions.keys():
+            dimensions[dimension].append(code)
+        else:
+            dimensions[dimension]=[code]
+
+    columns=["dimension","pearson","p-value"]
+    data={}
+    for dimension in dimensions.keys():
+        a=[]
+        b=[]
+        for i in df_goals[dimensions[dimension][0]]:
+            a.append(i)
+        for i in df_goals[dimensions[dimension][1]]:
+            b.append(i)
+        print("Pearson Correlation")
+        print(dimension)
+        statistic, p_value = pearsonr(a,b)
+        data[dimension]=[dimension,statistic,p_value]
+
+    df_correlations = pd.DataFrame.from_dict(data=data,
+                                                        orient="index",
+                                                        columns=columns)
+
+    df_correlations.to_csv("{}/gcq_item_correlations.csv".format(EXPORT_PATH),
+                                      sep=";")
+
+
+def check_reverse_coded():
+    """
+    Iterates over all Item instances and checks if reverse_coded attribute is set correctly.
+    @return:
+    @rtype:
+    """
+    write_to_logfile("CHECK IF REVERSE_CODED ATTRIBUTE IS SET CORRECTLY")
+    gcq_items=models.Item.get_gcq(n_items=7)
+    for gc in gcq_items:
+        items=models.Item.objects.filter(code=gc["code"])
+        for i in items:
+            if i.reverse_coded != gc["reverse_coded"]:
+                write_to_logfile("WRONG VALUE FOR REVERSE_CODED: Item: {} code: {} has reverse_coded: {}".format(i.id, i.code, i.reverse_coded))
+                write_to_logfile("WORDING WAS CORRECTED")
+                i.reverse_coded=gc["reverse_coded"]
+                i.save()
+            else:
+                print("REVERSE_CODING CORRECT")
+
 
 class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
 
     def handle(self, *args, **kwargs):
-        #plot_violinplot_matrix()
-        failed=check_attention_checks()
-        #print(failed)
-        sys.exit()
+        try:
+            os.remove("{}".format(LOGFILE))
+        except:
+            pass
 
-        create_latex()
-        sys.exit()
+        check_attention_checks()
+        check_completeness()
+        check_reverse_coded()
 
-        plot_violinplot_matrix()
-        sys.exit()
+        extract_items()
+        df_goals=extract_goals()
+        extract_personal_goals()
+        extract_participants()
 
+        gcq_item_correlations_within_factor()
+        analyze_pre_post()
+
+        gcq_matrix=create_gcq_matrix(df_goals)
+
+        plot_violinplot_matrix(gcq_matrix)
+        plot_correlation_heatmap(gcq_matrix)
         plot_scatterplot_matrices()
-        sys.exit()
+        create_descriptive_plots()
+        create_descriptive_plots_hgs_study()
 
         create_latex()
-        sys.exit()
 
 
-
-
-
-
-
-        df_goals = extract_goals()
-        df_gcq_matrix = create_gcq_matrix(df_goals)
-
-        plot_correlations(df_gcq_matrix)
-        plot_correlation_heatmap(df_gcq_matrix)
-
-        create_descriptive_plots_hgs_study()
-        create_descriptive_plots()
-
-        extract_large_tree_data(12)
-
-        df_participants = extract_participants()
-        df_goals = extract_goals()
-        df_items = extract_items()
-        df_personal_goals = extract_personal_goals()
-
-        # analyze_pre_post()
-
-
-
-        print("Analyses completed!")
+        write_to_logfile("Analyses completed!")
