@@ -146,12 +146,16 @@ def tree_construction(request, condition=0, view="tree_construction"):
         tree_id = models.Goal.get_current_tree_id(request)
         tree = models.Goal.get_tree(tree_id)
 
+    current_root = models.Goal.objects.get(parent_id=None,
+                                           tree_id=tree_id).id
+
     number_of_trees = len(models.Goal.objects.filter(participant=participant, parent_id=0, discarded=False))
 
     if not condition:
         condition = models.Participant.get_current_participant(request).condition
 
     context = {}
+    context['current_root'] = current_root
     context['condition'] = str(condition)
     context['view'] = view
     context['tree_id'] = tree_id
