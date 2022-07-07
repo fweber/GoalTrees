@@ -544,7 +544,37 @@ def condition4(request):
     return render(request, 'construction/condition4.html', context)
 
 
+def participants(request):
+    """
+    Renders all participants
+    @param request:
+    @type request:
+    @return:
+    @rtype:
+    """
+    participants=models.Participant.objects.all()
+    plist=[]
+    for p in participants:
+        plist.append({"id":p.id,
+                      "exclude_from_analyses": p.exclude_from_analyses,
+                      "study": p.study.name,
+                      "age": p.age,
+                      "gender": p.gender,
+                      "semester": p.semester,
+                      "subject": p.subject,
+                      "degree": p.degree,
+                      "created": p.created,
+                      "finished": p.finished,
+                      "condition": p.condition,
+                      "goals": len(models.Goal.objects.filter(participant=p,discarded=False,is_example=False)),
+                      "personal_goals": len(models.PersonalGoal.objects.filter(participant=p,)),
+                      "items": len(models.Item.objects.filter(participant=p)),
+                      "questions": len(models.Question.objects.filter(participant=p)),
+                      })
 
+    context = {'participants': plist,
+               }
 
+    return render(request, 'construction/participants.html', context)
 
 
