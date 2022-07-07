@@ -1,31 +1,49 @@
 ;age;gender;subject;semester;duration;screen_size;operating_system;browser_language
-1164;24;female;Psychologie;3;139.75;1280x720;Win32;de
-1190;24;female;Gesundheitswissenschaften, Biologie;2;87.22;1280x854;Win32;de
-1187;19;female;Psychologie ;1;37.47;1280x720;Win32;de
-1278;22;female;Cognitive Science;4;126.21;1536x864;Win32;de
-1294;20;female;Psychologie ;2;112.88;1536x864;Win32;de
-1292;19;female;Psychologie;1;316.16;1440x900;MacIntel;de-de
-1328;24;male;Systems Engineering;9;44.23;1280x800;Win32;de
-1317;21;female;Biologie;1;7253.92;1280x720;Win32;de
-1320;24;male;Systems Engineering;9;123.79;1600x900;Win32;de
-1324;23;male;Systems Engineering;8;61.74;1920x1080;Win32;de
-1331;22;female;Public Health;1;43.77;1440x900;MacIntel;de-de
-1302;24;female;Geowissenschaften;9;1599.70;1280x720;Win32;de
-1342;21;female;Psychologie;6;64.39;1536x864;Win32;de-DE
-1359;23;female;Inklusive Pädagogik;1;39.01;1440x900;MacIntel;de-DE
-1382;23;female;Germanistik und Anglistik;7;39.12;1280x720;Win32;de
-1380;25;female;Psychologie;7;82.96;1280x720;Win32;de
-1393;25;others;Soziologie;9;76.06;1366x768;Win32;de
-1435;24;female;Psychologie;2;31.94;1440x900;MacIntel;de-de
-1495;26;female;Psychologie;1;49.34;820x1180;MacIntel;de-DE
-1604;20;female;Psychologie;1;43.84;1366x768;Win32;de
-1588;21;male;Cognitive Science;4;154.46;1920x1080;Win32;de-DE
-1616;20;female;Psychologie;2;97.33;1536x864;Win32;de
-1615;21;female;Psychologie;4;100.94;810x1080;MacIntel;de-de
-1619;18;female;Cognitive Science;2;115.02;1368x768;Linux x86_64;en-GB
-1662;19;female;Psychologie;2;83.40;1440x960;Win32;de
-1665;20;female;Psychologie;2;5134.48;1536x864;Win32;de-DE
-1211;26;female;Psychologie;8;40.56;1280x800;MacIntel;de-DE
-1227;25;male;Cognitive Science;8;163.21;1920x1080;Linux x86_64;de
-1594;20;male;Psychologie;4;45.69;1600x900;Win32;de-DE
-1634;20;female;Psychologie;2;66.75;1680x1050;MacIntel;de-DE
+1125;21.0;male;Cognitive Science;5.0;46.83;1920x1080;Win32;de-DE
+1163;36.0;female;Erziehungswissenschaft;8.0;69.68;1366x768;Win32;de-DE
+1187;19.0;female;Psychologie ;1.0;37.47;1280x720;Win32;de
+1227;25.0;male;Cognitive Science;8.0;163.21;1920x1080;Linux x86_64;de
+1226;21.0;female;Psychologie;3.0;61.22;1600x900;Win32;de
+1274;25.0;female;Politik;5.0;64.47;1280x720;Win32;en-GB
+1278;22.0;female;Cognitive Science;4.0;126.21;1536x864;Win32;de
+1294;20.0;female;Psychologie ;2.0;112.88;1536x864;Win32;de
+1305;27.0;female;Sozialpolitik;7.0;51.54;1440x900;MacIntel;de-DE
+1328;24.0;male;Systems Engineering;9.0;44.23;1280x800;Win32;de
+1317;21.0;female;Biologie;1.0;7253.92;1280x720;Win32;de
+1320;24.0;male;Systems Engineering;9.0;123.79;1600x900;Win32;de
+1324;23.0;male;Systems Engineering;8.0;61.74;1920x1080;Win32;de
+1331;22.0;female;Public Health;1.0;43.77;1440x900;MacIntel;de-de
+1342;21.0;female;Psychologie;6.0;64.39;1536x864;Win32;de-DE
+1361;28.0;male;Cognitive Science;12.0;89.18;1536x864;Win32;de
+1382;23.0;female;Germanistik und Anglistik;7.0;39.12;1280x720;Win32;de
+1341;22.0;male;Cognitive Science;6.0;1662.85;1920x1080;Linux x86_64;de-DE
+1380;25.0;female;Psychologie;7.0;82.96;1280x720;Win32;de
+1495;26.0;female;Psychologie;1.0;49.34;820x1180;MacIntel;de-DE
+1496;;;;;909.61;;;
+1594;20.0;male;Psychologie;4.0;45.69;1600x900;Win32;de-DE
+1584;22.0;male;Cognitive Science;8.0;110.09;1600x900;Linux x86_64;de
+1588;21.0;male;Cognitive Science;4.0;154.46;1920x1080;Win32;de-DE
+1597;21.0;female;Psychologie;2.0;38.12;1280x720;Win32;de-DE
+1616;20.0;female;Psychologie;2.0;97.33;1536x864;Win32;de
+1617;29.0;female;Psychologie;6.0;53.00;1536x864;Win32;de
+1648;19.0;female;Psychologie;2.0;74.72;1600x900;Win32;de
+1662;19.0;female;Psychologie;2.0;83.40;1440x960;Win32;de
+1844;20.0;female;Cognitve Science;4.0;77.08;1920x1080;Linux x86_64;en-US
+1127;18.0;female;Cognitive Science;2.0;35.16;1920x1080;Win32;de-DE
+1359;23.0;female;Inklusive Pädagogik;1.0;39.01;1440x900;MacIntel;de-DE
+1435;24.0;female;Psychologie;2.0;31.94;1440x900;MacIntel;de-de
+1482;21.0;male;Cognitive Science;5.0;87.76;1440x900;MacIntel;en
+1604;20.0;female;Psychologie;1.0;43.84;1366x768;Win32;de
+1634;20.0;female;Psychologie;2.0;66.75;1680x1050;MacIntel;de-DE
+1731;19.0;male;Psychologie;2.0;66.98;834x1194;iPad;de-de
+1164;24.0;female;Psychologie;3.0;139.75;1280x720;Win32;de
+1141;20.0;female;Psychologie;3.0;36.68;1440x900;MacIntel;de-DE
+1190;24.0;female;Gesundheitswissenschaften, Biologie;2.0;87.22;1280x854;Win32;de
+1211;26.0;female;Psychologie;8.0;40.56;1280x800;MacIntel;de-DE
+1292;19.0;female;Psychologie;1.0;316.16;1440x900;MacIntel;de-de
+1302;24.0;female;Geowissenschaften;9.0;1599.70;1280x720;Win32;de
+1393;25.0;others;Soziologie;9.0;76.06;1366x768;Win32;de
+1615;21.0;female;Psychologie;4.0;100.94;810x1080;MacIntel;de-de
+1619;18.0;female;Cognitive Science;2.0;115.02;1368x768;Linux x86_64;en-GB
+1665;20.0;female;Psychologie;2.0;5134.48;1536x864;Win32;de-DE
+1854;22.0;female;Cognitive Science;8.0;36.93;1920x1080;Win32;de-DE

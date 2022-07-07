@@ -139,14 +139,23 @@ def tree_construction(request, condition=0, view="tree_construction"):
     if len(models.Goal.objects.filter(participant=participant, discarded=False)) == 0:
         models.Goal.create_new_tree(request)
 
-    tree_id = models.Goal.objects.get(id=request.session["current_root"]).tree_id
-    tree = models.Goal.get_tree(tree_id)
+    if "current_root" in request.session.keys():
+        tree_id = models.Goal.objects.get(id=request.session["current_root"]).tree_id
+        tree = models.Goal.get_tree(tree_id)
+    else:
+        tree_id = models.Goal.get_current_tree_id(request)
+        tree = models.Goal.get_tree(tree_id)
+
+    current_root = models.Goal.objects.get(parent_id=None,
+                                           tree_id=tree_id).id
+
     number_of_trees = len(models.Goal.objects.filter(participant=participant, parent_id=0, discarded=False))
 
     if not condition:
         condition = models.Participant.get_current_participant(request).condition
 
     context = {}
+    context['current_root'] = current_root
     context['condition'] = str(condition)
     context['view'] = view
     context['tree_id'] = tree_id
@@ -544,7 +553,37 @@ def condition4(request):
     return render(request, 'construction/condition4.html', context)
 
 
+def participants(request):
+    """
+    Renders all participants
+    @param request:
+    @type request:
+    @return:
+    @rtype:
+    """
+    participants=models.Participant.objects.all()
+    plist=[]
+    for p in participants:
+        plist.append({"id":p.id,
+                      "exclude_from_analyses": p.exclude_from_analyses,
+                      "study": p.study.name,
+                      "age": p.age,
+                      "gender": p.gender,
+                      "semester": p.semester,
+                      "subject": p.subject,
+                      "degree": p.degree,
+                      "created": p.created,
+                      "finished": p.finished,
+                      "condition": p.condition,
+                      "goals": len(models.Goal.objects.filter(participant=p,discarded=False,is_example=False)),
+                      "personal_goals": len(models.PersonalGoal.objects.filter(participant=p,)),
+                      "items": len(models.Item.objects.filter(participant=p)),
+                      "questions": len(models.Question.objects.filter(participant=p)),
+                      })
 
+    context = {'participants': plist,
+               }
 
+    return render(request, 'construction/participants.html', context)
 
 

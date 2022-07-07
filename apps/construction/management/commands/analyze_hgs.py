@@ -1,5 +1,6 @@
 import copy
 
+import numpy
 from django.core.management.base import BaseCommand
 from apps.construction import models
 import matplotlib.pyplot as plt
@@ -182,12 +183,12 @@ def extract_personal_goals():
                     else:
                         data[pg.pk].append(items[0].given_answer)
                 elif len(items) == 0:
-                    raise Exception("Participant {}, personal goal {} without GCQ item {}.".format(p.id, pg.id, c))
+                    print("Participant {}, personal goal {} without GCQ item {}.".format(p.id, pg.id, c))
                 elif len(items) == 2:
                     if items[0].reverse_coded==True:
                         data[pg.pk].append(1 - ((float(items[0].given_answer) + float(items[1].given_answer)) / 2))
                     else:
-                        data[pg.pk].append((items[0].given_answer+ items[1].given_answer)/2)
+                        data[pg.pk].append((float(items[0].given_answer)+float(items[1].given_answer))/2)
 
                 else:
                     print("Found {} items for {}!".format(len(items), items[0].code))
@@ -221,7 +222,10 @@ def extract_goals():
                                            is_example=False,
                                            discarded=False,)
         for g in goals:
-
+            items = models.Item.objects.filter(participant=p,
+                                               goal=g, )
+            if len(items)==0:
+                continue
             data[g.pk] = [p.id, "g_{}".format(g.pk), g.title, g.tree_id, g.get_depth()]
             for c in columns:
                 if c in ["participant_id", "goal_id", "goal", "tree_id", "depth"]:
@@ -235,7 +239,7 @@ def extract_goals():
                     else:
                         data[g.pk].append(items[0].given_answer)
                 elif len(items) == 0:
-                    raise Exception("Participant {}, goal {} without GCQ item {}.".format(p.id, g.id, c))
+                    print("Participant {}, goal {} without GCQ item {}.".format(p.id, g.id, c))
                 elif len(items) == 2:
                     new_answer=(float(items[0].given_answer)+ float(items[1].given_answer)/2)
                     items[0].given_answer=new_answer
@@ -1122,9 +1126,7 @@ def check_completeness(studyname="hgs_study"):
     goal_gcq = models.Item.get_gcq(language="de",
                                             n_items=2)
 
-    print("Check presence of the following {} GCQ items:".format(len(goal_gcq)))
-    for gcq in goal_gcq:
-        print(gcq["code"])
+
 
     lst_failed=[]
     pg_incorrect=[]
@@ -1132,7 +1134,7 @@ def check_completeness(studyname="hgs_study"):
 
 
     for p in participants:
-        print("Checking participant {}".format(p.id))
+
         missing_data=[]
 
         ### PERSONAL GOAL COUNT CHECK ###
@@ -1140,12 +1142,9 @@ def check_completeness(studyname="hgs_study"):
         personal_goals=models.PersonalGoal.objects.filter(participant=p)
 
         personal_goal_items=models.Item.objects.filter(participant=p,).exclude(personal_goal=None)
-        print("PERSONAL GOAL CHECK")
-        print("P {} pgs: {} items: {}".format(p.id, len(personal_goals), len(personal_goal_items)))
 
         if len(personal_goals) == 0:
             missing_data.append({"pg":"None",})
-            print("MISSING_DATA: No personal goals")
             lst_failed.append({"id":p.id,
                         "missing":len(missing_data),
                         "missing_data":copy.deepcopy(missing_data),
@@ -1155,7 +1154,7 @@ def check_completeness(studyname="hgs_study"):
                 pg_incorrect.append(p)
             continue
 
-        elif len(personal_goals) == 3 and len(personal_goal_items) == 105:
+        elif len(personal_goals) == 3 and len(personal_goal_items) >= 105:
                 print("Personal goals correct: 3 personal goals and 105 items.")
         else:
                 print("ERROR: Personal goals incorrect: {} personal goals and {} items.".format(len(personal_goals),
@@ -1177,16 +1176,11 @@ def check_completeness(studyname="hgs_study"):
                                            discarded=False,
                                            is_example=False,)
 
-        goal_items = models.Item.objects.filter(participant=p,)\
-            .exclude(goal=None)\
-            .exclude(goal__discarded=True)
-
-        print("GOAL CHECK")
-        print("P {} gs: {} items: {}".format(p.id, len(goals), len(goal_items)))
+        goal_items = models.Item.objects.filter(participant=p,
+                                                goal__in=goals)
 
         if len(goals) == 0:
             missing_data.append({"g": "None", })
-            print("MISSING_DATA: No goals")
             lst_failed.append({"id": p.id,
                                "missing": len(missing_data),
                                "missing_data": copy.deepcopy(missing_data),
@@ -1196,9 +1190,11 @@ def check_completeness(studyname="hgs_study"):
                 g_incorrect.append(p)
             continue
 
-        elif len(goals)*len(goal_gcq) < len(goal_items):
+        elif len(goals)*len(goal_gcq) < len(goal_items)+1:
+            print("{} goals * {} gcq = {}".format(len(goals),len(goal_gcq),(len(goals)*len(goal_gcq))))
             print("Goals and item count consistent: {} goals and {} items.".format(len(goals), len(goal_items)))
         else:
+            print("{} goals * {} gcq = {}".format(len(goals), len(goal_gcq), (len(goals) * len(goal_gcq))))
             print("ERROR: Goals and item count inconsistent: {} goals and {} items.".format(len(goals),
                                                                                             len(goal_items)))
 
@@ -1332,6 +1328,7 @@ def gcq_item_correlations_within_factor(df_goals=None):
     @return:
     @rtype:
     """
+    write_to_logfile("Checking correlation between items of same dimension...")
     if df_goals is None:
         df_goals = pd.read_csv(filepath_or_buffer="{}/goals_normalized_reverse_coding.csv".format(EXPORT_PATH),
                                     sep=";")
@@ -1354,9 +1351,15 @@ def gcq_item_correlations_within_factor(df_goals=None):
         a=[]
         b=[]
         for i in df_goals[dimensions[dimension][0]]:
-            a.append(i)
+            if i.isna:
+                a.append(0)
+            else:
+                a.append(float(i))
         for i in df_goals[dimensions[dimension][1]]:
-            b.append(i)
+            b.append(float(i))
+        a = numpy.array(a)
+        b = numpy.array(b)
+        print("len a {} len b{}".format(len(a),len(b)))
         print("Pearson Correlation")
         print(dimension)
         statistic, p_value = pearsonr(a,b)
@@ -1386,9 +1389,25 @@ def check_reverse_coded():
                 write_to_logfile("WORDING WAS CORRECTED")
                 i.reverse_coded=gc["reverse_coded"]
                 i.save()
-            else:
-                print("REVERSE_CODING CORRECT")
 
+
+def simple_check_participants():
+    """
+    Simple check for finished experiment and test in study name.
+    Sets exclude_from_analyses attribute for Participants
+    @return:
+    @rtype:
+    """
+    for p in models.Participant.objects.filter(study__name="hgs_study"):
+        if p.finished==None:
+            p.exclude_from_analyses=True
+            p.save()
+        elif "test" in p.study.name:
+            p.exclude_from_analyses = True
+            p.save()
+        else:
+            p.exclude_from_analyses=False
+            p.save()
 
 class Command(BaseCommand):
     help = 'Exports relations of construction app as csv files'
@@ -1398,9 +1417,9 @@ class Command(BaseCommand):
             os.remove("{}".format(LOGFILE))
         except:
             pass
-
+        simple_check_participants()
         check_attention_checks()
-        check_completeness()
+        #check_completeness()
         check_reverse_coded()
 
         extract_items()
