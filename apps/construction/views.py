@@ -139,8 +139,13 @@ def tree_construction(request, condition=0, view="tree_construction"):
     if len(models.Goal.objects.filter(participant=participant, discarded=False)) == 0:
         models.Goal.create_new_tree(request)
 
-    tree_id = models.Goal.objects.get(id=request.session["current_root"]).tree_id
-    tree = models.Goal.get_tree(tree_id)
+    if "current_root" in request.session.keys():
+        tree_id = models.Goal.objects.get(id=request.session["current_root"]).tree_id
+        tree = models.Goal.get_tree(tree_id)
+    else:
+        tree_id = models.Goal.get_current_tree_id(request)
+        tree = models.Goal.get_tree(tree_id)
+
     number_of_trees = len(models.Goal.objects.filter(participant=participant, parent_id=0, discarded=False))
 
     if not condition:
