@@ -159,7 +159,7 @@ class Study(models.Model):
             study_properties.append({"name": "Name", "value": study.name})
         else:
             goals = Goal.get_goals_from_valid_trees()
-            study_properties.append({"name": "Name", "value": "all"})
+            #study_properties.append({"name": "Name", "value": "all"})
         participants = len(goals.order_by().values('participant').distinct())
 
         if include_sequence:
@@ -206,33 +206,48 @@ class Study(models.Model):
             max_depth = 0
             min_depth = 0
             average_depth = 0
+            sd_depth = 0
         else:
             max_depth = max(branch_depths)
             min_depth = min(branch_depths)
             average_depth = "%.2f" % statistics.mean(branch_depths)
+            sd_depth = "%.2f" % statistics.stdev(branch_depths)
 
 
         if len(parents.values()) == 0:
             min_branching = 0
             max_branching = 0
             average_branching = 0
+            sd_branching = 0
         else:
             min_branching = min(parents.values())
             max_branching = max(parents.values())
             average_branching = "%.2f" % statistics.mean(parents.values())
+            sd_branching = "%.2f" % statistics.stdev(parents.values())
 
+        min_size = min(trees.values())
+        max_size = max(trees.values())
+        average_size = "%.2f" % statistics.mean(trees.values())
+        sd_size = "%.2f" % statistics.stdev(trees.values())
+
+        study_properties.append({'name': 'min. size', "value": min_size, })
+        study_properties.append({'name': 'max. size', "value": max_size, })
+        study_properties.append({'name': 'av. size', "value": average_size, })
+        study_properties.append({'name': 'SD size', "value": sd_size, })
         study_properties.append({'name': 'min. depth', "value": min_depth, })
         study_properties.append({'name': 'max. depth', "value": max_depth, })
         study_properties.append({'name': 'av. depth', "value": average_depth, })
+        study_properties.append({'name': 'SD depth', "value": sd_depth, })
         study_properties.append({'name': 'min. branching', "value": min_branching, })
         study_properties.append({'name': 'max. branching', "value": max_branching, })
         study_properties.append({'name': 'av. branching', "value": average_branching, })
+        study_properties.append({'name': 'SD branching', "value": sd_branching, })
         study_properties.append({'name': 'leaf goals', "value": actions, })
         study_properties.append({'name': 'intermediate goals', "value": len(goals) - roots - actions, })
         study_properties.append({'name': 'root goals', "value": roots, })
 
-        study_properties.append({'name': 'nodes', "value": len(parents.keys()), "nodes": parents.values()})
-        study_properties.append({'name': 'branches', "value": len(branch_depths), "branches": branch_depths})
+        #study_properties.append({'name': 'nodes', "value": len(parents.keys()), "nodes": parents.values()})
+        #study_properties.append({'name': 'branches', "value": len(branch_depths), "branches": branch_depths})
 
         study_properties[0]["nodes"] = parents.values()
         study_properties[0]["branches"] = branch_depths
@@ -423,6 +438,7 @@ class Goal(models.Model):
 
         if study:
             goals = Goal.objects.filter(participant__study=study,
+                                        participant__exclude_from_analyses=False,
                                         discarded=False,
                                         is_example=False, )
             to_exclude = []
@@ -434,6 +450,7 @@ class Goal(models.Model):
 
         else:
             goals = Goal.objects.filter(discarded=False,
+                                        participant__exclude_from_analyses=False,
                                         is_example=False,
                                         )
             to_exclude = []
